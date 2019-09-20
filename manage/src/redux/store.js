@@ -4,10 +4,13 @@ import createSagaMiddleware from 'redux-saga';
 
 import rootSaga from "./route/rootsaga.js";
 
+import common from "./route/common.js";
+
 // 路由
 let allReducer = combineReducers({
     // 例子
     // cart: redux_cart
+    common
 })
 
 // 创建中间件
