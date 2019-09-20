@@ -25,7 +25,11 @@ Router.all('*', function (req, res, next) {
 // Router.use("/crx",loadingData2);
 const manage_login = require("./crx/login");
 Router.use("/crx",manage_login);
+
+
 //苏沛龙引入的
+const New =require("./spl/New.js")
+Router.use("/spl",New)
 
 //黄日隆引入的
 

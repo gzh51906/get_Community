@@ -5,7 +5,7 @@ import { Layout,Drawer, Button,Menu, Icon } from 'antd';
 
 
 //黄日隆
-import Login from './route/hrl/login';
+import Login from './route/hrl/reg-login';
 import './App.css';
 const { Header, Footer, Sider, Content } = Layout;
 const { SubMenu } = Menu;
@@ -62,7 +62,7 @@ class App extends React.Component{
                         visible={this.state.visible}
                         >
                         <Layout>
-                            <Header style={{height:'3.6rem',backgroundColor:'#ccc',padding:0}}>
+                            <Header style={{height:'3.6rem',backgroundColor:'rgba(96,96,96)',padding:0}}>
                                 <Button style={{float:'left',marginTop:'1.6rem',marginLeft:'0.8rem'}}>注册</Button>
                                 <Button type="primary" style={{float:'right',marginTop:'1.6rem',marginRight:'0.8rem'}}>登录</Button>
                             </Header>
@@ -125,12 +125,11 @@ class App extends React.Component{
                         </Layout>
                     </Drawer>
                 </Header>
-                <Content>
+                <Content style={{backgroundColor:'#fff',borderTop:'1px #ccc solid'}}>
                     <Switch>
                         {/* 使用路由-黄日隆 */}
                         <Route path="/login" component={Login}></Route>
                     </Switch>
-                    
                 </Content>
             </Layout>
 
