@@ -10,6 +10,9 @@ import './App.css';
 const { Header, Footer, Sider, Content } = Layout;
 const { SubMenu } = Menu;
 
+//苏沛龙
+import Home from "./route/spl/Home"
+
 class App extends React.Component{
     rootSubmenuKeys = ['sub1', 'sub2','sub3', 'sub4'];
 
@@ -30,6 +33,10 @@ class App extends React.Component{
              visible: false,
          });
      };
+     onTitleClick=()=>{
+       this.prop.history.push("/home")
+        
+     }
 
      //菜单的方法
      onOpenChange = openKeys => {
@@ -66,7 +73,7 @@ class App extends React.Component{
                                 <Button style={{float:'left',marginTop:'1.6rem',marginLeft:'0.8rem'}}>注册</Button>
                                 <Button type="primary" style={{float:'right',marginTop:'1.6rem',marginRight:'0.8rem'}}>登录</Button>
                             </Header>
-                            <Content>
+                            <Content >
                                  <Menu
                                 mode="inline"
                                 openKeys={this.state.openKeys}
@@ -75,6 +82,7 @@ class App extends React.Component{
                             >
                                 <SubMenu
                                 key="sub1"
+                                onTitleClick={this.onTitleClick}
                                 title={
                                     <span>
                                     <Icon type="home" theme='filled'/>
@@ -125,10 +133,13 @@ class App extends React.Component{
                         </Layout>
                     </Drawer>
                 </Header>
-                <Content>
+                <Content style={{background:"#fff"}}>
                     <Switch>
                         {/* 使用路由-黄日隆 */}
                         <Route path="/login" component={Login}></Route>
+                        {/* {Home路由-苏沛龙} */}
+                        <Route path="/home" component={Home}></Route>
+                        <Route path="/" component={Home}></Route>
                     </Switch>
                     
                 </Content>
