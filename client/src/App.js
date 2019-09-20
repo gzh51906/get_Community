@@ -49,11 +49,12 @@ class App extends React.Component{
     render(){
         return <div style={{height:"100%"}}>
             <Layout>
-                <Header style={{backgroundColor:"#fff",height:'1.08rem'}}>
-                    
-                    <Button onClick={this.showDrawer}>
-                        <Icon type="menu"></Icon>
-                        </Button>
+                <Header style={{backgroundColor:"#fff",height:'1.08rem',padding:0}}>
+                        <Icon onClick={this.showDrawer} type="menu" style={{fontSize:'24px',marginLeft:'20px'}}></Icon>
+                        <img src="./route/hrl/img/logo.png" width="50px" style={{marginLeft:'32%',marginBottom:'10px'}}/>
+                        <NavLink to="/login">
+                        <Icon type="user" style={{fontSize:'24px',float:'right',marginRight:'20px',lineHeight:'54px'}}></Icon>
+                        </NavLink>
                         <Drawer
                         placement="left"
                         closable={false}
@@ -118,14 +119,17 @@ class App extends React.Component{
                                 </SubMenu>
                             </Menu>
                             </Content>
-                            <Footer style={{textAlign:"center"}}>退出账号</Footer>
+                            <Footer style={{textAlign:"center"}}>
+                                <span> 退出账号</span>
+                            </Footer>
                         </Layout>
                     </Drawer>
                 </Header>
-                <Content>Content
-                    
-                    {/* 使用路由-黄日隆 */}
-                    <Route path="/login" component={Login}></Route>
+                <Content>
+                    <Switch>
+                        {/* 使用路由-黄日隆 */}
+                        <Route path="/login" component={Login}></Route>
+                    </Switch>
                     
                 </Content>
             </Layout>
