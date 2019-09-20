@@ -20,42 +20,42 @@ let data6 = require("../../json/data6.json");
 
 // 爬取数据
 Router.post("/loadingData", async (req, res, next) => {
-    let dataArr = [];
-    for(let i=0;i<data6.length;i++){
-        let obj = {};
-        // 类型
-        obj.type1 = "热门";
-        let html = await getHtml(data6[i]);
-        let $ = cheerio.load(html);
-        // 标题
-        let title1 = $(".column-left .ns-main>h3").text().trim();
-        obj.title1 = title1;
-        // 时间
-        obj.addTime = Date.now();
-        // 观看的次数
-        obj.seeNum = 0;
-        // 评论次数
-        obj.commentNum = 0;
-        // 作者
-        obj.author = "";
-        // 描述
-        obj.desc = [];
-        $(".column-left .ns-main .content>p").each((i,item)=>{
-            let desc = $(item).text().trim();
-            obj.desc.push(desc);
-        })
-        // 图片路径
-        obj.imgUrl = [];
-        $(".column-left .ns-main .content>p img").each((i,item)=>{
-            let imgUrl = $(item).attr($(item).attr("data-src") ? "data-src" : "src").trim();
-            let filename = "./img/" + "ziXun" + path.basename(imgUrl);
-            request(imgUrl).pipe(fs.createWriteStream(filename));
-            obj.imgUrl.push(filename);
-        })
-        dataArr.push(obj);
-        console.log(i);
-    }
-    await insert("news",dataArr,true);
+    // let dataArr = [];
+    // for(let i=0;i<data6.length;i++){
+    //     let obj = {};
+    //     // 类型
+    //     obj.type1 = "热门";
+    //     let html = await getHtml(data6[i]);
+    //     let $ = cheerio.load(html);
+    //     // 标题
+    //     let title1 = $(".column-left .ns-main>h3").text().trim();
+    //     obj.title1 = title1;
+    //     // 时间
+    //     obj.addTime = Date.now();
+    //     // 观看的次数
+    //     obj.seeNum = 0;
+    //     // 评论次数
+    //     obj.commentNum = 0;
+    //     // 作者
+    //     obj.author = "";
+    //     // 描述
+    //     obj.desc = [];
+    //     $(".column-left .ns-main .content>p").each((i,item)=>{
+    //         let desc = $(item).text().trim();
+    //         obj.desc.push(desc);
+    //     })
+    //     // 图片路径
+    //     obj.imgUrl = [];
+    //     $(".column-left .ns-main .content>p img").each((i,item)=>{
+    //         let imgUrl = $(item).attr($(item).attr("data-src") ? "data-src" : "src").trim();
+    //         let filename = "./img/" + "ziXun" + path.basename(imgUrl);
+    //         request(imgUrl).pipe(fs.createWriteStream(filename));
+    //         obj.imgUrl.push(filename);
+    //     })
+    //     dataArr.push(obj);
+    //     console.log(i);
+    // }
+    // await insert("news",dataArr,true);
 })
 
 function getHtml(url) {
