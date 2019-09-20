@@ -19,10 +19,12 @@ Router.all('*', function (req, res, next) {
 });
 
 //陈日兴引入的
-const loadingData = require("./crx/loadingData");
-Router.use("/crx",loadingData);
-const loadingData2 = require("./crx/loadingData2");
-Router.use("/crx",loadingData2);
+// const loadingData = require("./crx/loadingData");
+// Router.use("/crx",loadingData);
+// const loadingData2 = require("./crx/loadingData2");
+// Router.use("/crx",loadingData2);
+const manage_login = require("./crx/login");
+Router.use("/crx",manage_login);
 //苏沛龙引入的
 
 //黄日隆引入的
