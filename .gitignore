@@ -8,7 +8,6 @@ node_modules
 /manage/node_modules
 /server/node_modules
 /server/img
-/server/json
 
 # local env files
 .env.local
