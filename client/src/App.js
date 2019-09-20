@@ -10,8 +10,6 @@ import './App.css';
 const { Header, Footer, Sider, Content } = Layout;
 const { SubMenu } = Menu;
 
-//苏沛龙
-import Home from "./route/spl/Home"
 class App extends React.Component{
     rootSubmenuKeys = ['sub1', 'sub2','sub3', 'sub4'];
 
@@ -127,13 +125,10 @@ class App extends React.Component{
                         </Layout>
                     </Drawer>
                 </Header>
-                <Content style={{background:"#fff"}}>
+                <Content>
                     <Switch>
                         {/* 使用路由-黄日隆 */}
                         <Route path="/login" component={Login}></Route>
-                        {/* {Home-路由-苏沛龙} */}
-                        <Route path="/home" component={Home}></Route>
-                        <Route path="/" component={Home}></Route>
                     </Switch>
                     
                 </Content>
