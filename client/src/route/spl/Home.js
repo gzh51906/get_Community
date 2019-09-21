@@ -1,7 +1,7 @@
 import React,{Component} from "react";
 import { Carousel, List, Avatar, Icon } from 'antd';
 import axios from "axios";
-import {withRouter} from "react-dom"
+
 
 class Home extends Component{
     constructor(){
@@ -21,6 +21,7 @@ class Home extends Component{
           
         }
         this.gotoNew=this.gotoNew.bind(this)
+        this.gotoDetail=this.gotoDetail.bind(this)
     }
    async componentDidMount(){
     let {data}= await axios({
@@ -45,13 +46,18 @@ class Home extends Component{
    })
     
     }
-    gotoNew(id){
+     gotoNew(id){
       this.props.history.push(`/newPage${id}`)
-        
+     
+    }
+    gotoDetail(id){
+      this.props.history.push(`/detail${id}`)
     }
     render(){
      
         let {navImg,New,goodslist,goodscheck}=this.state
+       
+        
         const listData = [];
       
             New.map(item=>{
@@ -79,7 +85,7 @@ class Home extends Component{
              {
                  navImg.map((item,index)=>{
                   return <div key={index}>
-                         <img src={item} style={{width:"100%"}}/>
+                         <img src={item} style={{width:"100%"}} />
                         </div>
                  })
              }
@@ -120,7 +126,7 @@ class Home extends Component{
             grid={{ gutter: 16, column: 2 }}
             dataSource={goodslist}
             renderItem={(item => (
-            <List.Item style={{padding:"0rem 0.2rem"}}>
+            <List.Item style={{padding:"0rem 0.2rem"}} onClick={this.gotoDetail.bind(this,item._id)}>
              <img src={item.select.data[0].image}/>
              <p style={{overflow:"hidden",width:"100%",whiteSpace:"nowrap",textOverflow:"ellipsis"}}>{item.title}</p>
              <p>
