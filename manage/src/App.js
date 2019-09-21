@@ -1,15 +1,17 @@
 import React from "react";
-import {Route,Redirect,NavLink,Switch} from "react-router-dom";
 import {connect} from "react-redux";
 import Login from "./route/login";
 import Home from "./route/home";
 
 class App extends React.Component{
     componentDidMount(){
-        console.log(this.props);
+        let localAuthor = localStorage.getItem("author");
+        if (localAuthor){
+            this.props.authorShow();
+        }
     }
     render(){
-        return <div>
+        return <div style={{height:"100%"}}>
             {
                 this.props.authorType ? <Home></Home> : <Login></Login>
             }
@@ -26,7 +28,9 @@ let mapStateToProps = function (state) {
 
 let mapDispatchToProps = function (dispatch) {
     return {
-
+        authorShow(){
+            dispatch({type:"authorShow"});
+        }
     }
 }
 

@@ -10,6 +10,9 @@ import './App.css';
 const { Header, Footer, Sider, Content } = Layout;
 const { SubMenu } = Menu;
 
+//苏沛龙
+import Home from "./route/spl/Home"
+
 class App extends React.Component{
     rootSubmenuKeys = ['sub1', 'sub2','sub3', 'sub4'];
 
@@ -30,6 +33,10 @@ class App extends React.Component{
              visible: false,
          });
      };
+     onTitleClick=()=>{
+       this.prop.history.push("/home")
+        
+     }
 
      //菜单的方法
      onOpenChange = openKeys => {
@@ -70,7 +77,7 @@ class App extends React.Component{
                                     pathname:'/login',
                                 }}><Button type="primary" style={{float:'right',marginTop:'1.6rem',marginRight:'0.8rem'}}>登录</Button></NavLink>
                             </Header>
-                            <Content>
+                            <Content >
                                  <Menu
                                 mode="inline"
                                 openKeys={this.state.openKeys}
@@ -79,6 +86,7 @@ class App extends React.Component{
                             >
                                 <SubMenu
                                 key="sub1"
+                                onTitleClick={this.onTitleClick}
                                 title={
                                     <span>
                                     <Icon type="home" theme='filled'/>
@@ -129,10 +137,14 @@ class App extends React.Component{
                         </Layout>
                     </Drawer>
                 </Header>
+
                 <Content style={{backgroundColor:'#fff',borderTop:'1px #ccc solid'}}>
                     <Switch>
                         {/* 使用路由-黄日隆 */}
                         <Route path="/login" component={Login}></Route>
+                        {/* {Home路由-苏沛龙} */}
+                        <Route path="/home" component={Home}></Route>
+                        <Route path="/" component={Home}></Route>
                     </Switch>
                 </Content>
             </Layout>
