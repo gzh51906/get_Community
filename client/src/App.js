@@ -71,8 +71,12 @@ class App extends React.Component{
                         >
                         <Layout>
                             <Header style={{height:'3.6rem',backgroundColor:'rgba(96,96,96)',padding:0}}>
-                                <Button style={{float:'left',marginTop:'1.6rem',marginLeft:'0.8rem'}}>注册</Button>
-                                <Button type="primary" style={{float:'right',marginTop:'1.6rem',marginRight:'0.8rem'}}>登录</Button>
+                                <NavLink to={{
+                                    pathname:'/login',
+                                }}><Button style={{float:'left',marginTop:'1.6rem',marginLeft:'0.8rem'}}>注册</Button></NavLink>
+                                <NavLink to={{
+                                    pathname:'/login',
+                                }}><Button type="primary" style={{float:'right',marginTop:'1.6rem',marginRight:'0.8rem'}}>登录</Button></NavLink>
                             </Header>
                             <Content >
                                  <Menu
