@@ -1,6 +1,7 @@
 import React,{Component} from "react";
 import { Carousel, List, Avatar, Icon } from 'antd';
-import axios from "axios"
+import axios from "axios";
+import {withRouter} from "react-dom"
 
 class Home extends Component{
     constructor(){
@@ -19,6 +20,7 @@ class Home extends Component{
             goodscheck:[]
           
         }
+        this.gotoNew=this.gotoNew.bind(this)
     }
    async componentDidMount(){
     let {data}= await axios({
@@ -43,18 +45,23 @@ class Home extends Component{
    })
     
     }
+    gotoNew(id){
+      this.props.history.push(`/newPage${id}`)
+        
+    }
     render(){
      
         let {navImg,New,goodslist,goodscheck}=this.state
         const listData = [];
-       
+      
             New.map(item=>{
                 listData.push({
                     Url: "http://127.0.0.1:1902/"+item.imgUrl[0],
                     title: item.title1,
                     content:item.desc[1],
                     seeNum:item.seeNum,
-                    commentNum:item.commentNum
+                    commentNum:item.commentNum,
+                    _id:item._id
                     
                 });
             })
@@ -82,7 +89,7 @@ class Home extends Component{
             </div>
             <List dataSource={listData}
             renderItem={item => (
-            <List.Item key={item.title}>
+            <List.Item key={item.title} onClick={this.gotoNew.bind(this,item._id)}>
                 <List.Item.Meta 
                 title={
                 <>
@@ -166,4 +173,6 @@ class Home extends Component{
         </div>
     }
 }
+
+
 export default Home

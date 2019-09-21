@@ -9,7 +9,7 @@ import {
 } from 'antd';
 
 import {Route,NavLink,Switch} from 'react-router-dom';
-
+import withAjax from '../../heightRouter/withAjax';
 //引入样式
 import './style/login.css'
 
@@ -25,6 +25,11 @@ class Login extends Component{
              }
          });
     };
+    componentDidMount(){
+        console.log(withAjax)
+        
+    }
+
 
     render(){
         const { getFieldDecorator } = this.props.form;
