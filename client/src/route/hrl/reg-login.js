@@ -14,6 +14,7 @@ class RegLogin extends Component{
     //数据
     state = {
         isForm:true,
+        buer: ''
     }
     //方法
     changTure=()=>{
@@ -25,6 +26,16 @@ class RegLogin extends Component{
         this.setState({
             isForm:false,
         })
+    }
+    componentDidMount(){
+        this.state.buer = this.props.location.search.slice(1);
+        console.log(this.state.buer)
+        if(this.state.buer === 'false'){
+            this.setState({
+            isForm:false
+        })
+        }
+        
     }
     render(){
         let {isForm,lightColor} = this.state
