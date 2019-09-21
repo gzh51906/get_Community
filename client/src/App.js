@@ -11,7 +11,8 @@ const { Header, Footer, Sider, Content } = Layout;
 const { SubMenu } = Menu;
 
 //苏沛龙
-import Home from "./route/spl/Home"
+import Home from "./route/spl/Home";
+import NewPage from "./route/spl/NewPage"
 
 class App extends React.Component{
     rootSubmenuKeys = ['sub1', 'sub2','sub3', 'sub4'];
@@ -66,7 +67,7 @@ class App extends React.Component{
                         placement="left"
                         closable={false}
                         onClose={this.onClose}
-                        visible={this.state.visible}
+                        visible={this.state.visible} 
                         >
                         <Layout>
                             <Header style={{height:'3.6rem',backgroundColor:'rgba(96,96,96)',padding:0}}>
@@ -140,6 +141,7 @@ class App extends React.Component{
                         <Route path="/login" component={Login}></Route>
                         {/* {Home路由-苏沛龙} */}
                         <Route path="/home" component={Home}></Route>
+                        <Route path="/newPage:_id" component={NewPage}></Route>
                         <Route path="/" component={Home}></Route>
                     </Switch>
                 </Content>
@@ -155,4 +157,4 @@ class App extends React.Component{
     }
 }
 
-export default App;
+export default withRouter(App);
