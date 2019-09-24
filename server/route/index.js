@@ -35,6 +35,12 @@ Router.use("/spl",New)
 
 
 //黄日隆引入的
+const Login = require('./hrl/huser.js');
+const Reg = require('./hrl/hRes.js');
+const Saogoods = require('./hrl/hsaogoods.js')
+Router.use('/hrl',Saogoods);
+Router.use('/hrl',Reg);
+Router.use('/hrl',Login);
 
 // 崔宇灏引入的
 

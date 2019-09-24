@@ -1,0 +1,33 @@
+*{list-style: none;}
+.slick-slide {
+    text-align: center;
+    background: #364d79;
+    overflow: hidden;
+}
+
+.slick-slide h3 {
+    color: #fff;
+}
+.menuBox{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding:20px 20px;
+}
+.goodsTitle{
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 12px;
+}
+.listBox{
+    display: flex;
+    overflow: auto;
+    justify-content: space-between;
+    padding-left: 10px;
+}
+.listBox li{
+    padding: 5px 0px;
+    margin-right: 16px;
+}

@@ -8,8 +8,8 @@ import {
     Col,
     Button,
 } from 'antd';
-//引入路由
-import {Route,NavLink,Switch} from 'react-router-dom';
+import {withRouter} from 'react-router';
+import withAjax from '../../heightRouter/withAjax';
 
 class Reg extends Component{
     //数据
@@ -21,12 +21,34 @@ class Reg extends Component{
      //方法
      handleSubmit = e => {
          e.preventDefault();
-         this.props.form.validateFields((err, values) => {
+        let {post,form,get} = this.props;
+        form.validateFields(async (err, values) => {
              if (!err) {
-                 console.log(values);
+                //先进行判断是否已经存在该用户
+                let userlist = await get('http://127.0.0.1:1902/hrl/reg', {
+                    phoneNum: values.phone
+                })
+                if(userlist.data.length === 1){
+                    alert('已经存在该用户')
+                }else{
+                    let {
+                    data
+                    } = await post("http://127.0.0.1:1902/hrl/login", {
+                        usename:values.nickname,
+                        password:values.psw,
+                        phoneNum:values.phone,
+                    });
+                    this.goto('/home')
+                }
+                
              }
          });
      };
+     //跳转
+     goto = (path) => {
+         this.props.history.push(path)
+     };
+     
      handleConfirmBlur = e => {
          const {
              value
@@ -151,4 +173,4 @@ class Reg extends Component{
      }
 }
 const UserReg = Form.create({ name: 'normal_login' ,name:'register'})(Reg);
-export default UserReg;
+export default withRouter(withAjax(UserReg));
