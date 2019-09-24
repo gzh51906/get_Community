@@ -34,6 +34,8 @@ Router.use("/crx",manage_goods);
 
 const New =require("./spl/New.js")
 Router.use("/spl",New)
+const Cart = require("./spl/Cart.js")
+Router.use("/spl",Cart)
 
 
 //黄日隆引入的

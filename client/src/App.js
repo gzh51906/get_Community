@@ -7,6 +7,9 @@ import { Layout,Drawer, Button,Menu, Icon } from 'antd';
 //黄日隆
 import Login from './route/hrl/reg-login';
 import SaoGoods from './route/hrl/saogoods';
+import APP from './route/hrl/app';
+import Allgoods from './route/hrl/allgoods';
+import LoginType from './route/hrl/loginType';
 import './App.css';
 const { Header, Footer, Sider, Content } = Layout;
 const { SubMenu } = Menu;
@@ -90,12 +93,7 @@ class App extends React.Component{
                         >
                         <Layout>
                             <Header style={{height:'3.6rem',backgroundColor:'rgba(96,96,96)',padding:0}}>
-                                <NavLink to={{
-                                    pathname:'/login',
-                                }}><Button style={{float:'left',marginTop:'1.6rem',marginLeft:'0.8rem'}}>注册</Button></NavLink>
-                                <NavLink to={{
-                                    pathname:'/login',
-                                }}><Button type="primary" style={{float:'right',marginTop:'1.6rem',marginRight:'0.8rem'}}>登录</Button></NavLink>
+                               <LoginType></LoginType>
                             </Header>
                             <Content >
                                  <Menu
@@ -165,6 +163,8 @@ class App extends React.Component{
                         {/* 使用路由-黄日隆 */}
                         <Route path="/login" component={Login}></Route>
                         <Route path="/saogoods" component={SaoGoods}></Route>
+                        <Route path='/app' component={APP}></Route>
+                        <Route path='/allgoods' component={Allgoods}></Route>
                         {/* {Home路由-苏沛龙} */}
                         <Route path="/home" component={Home}></Route>
                         <Route path="/newPage:_id" component={NewPage}></Route>

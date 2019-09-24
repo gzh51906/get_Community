@@ -4,15 +4,13 @@ import { Carousel,Icon } from 'antd';
 import {withRouter} from 'react-router';
 import withAjax from '../../heightRouter/withAjax';
 
-//引入组件
-import APP from './app';
-import Allgoods from './allgoods';
 
 //引入路由
-import {Route,Redirect,NavLink,Switch} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 
 //引入外部样式
 import './style/saogoods.css'
+
 class SaoGoods extends Component{
     //数据
     state={
@@ -29,7 +27,7 @@ class SaoGoods extends Component{
         muendata:[{
             text:'App签到',
             icon:'schedule',
-            path:'/APP'
+            path:'/app'
         },{
             text:'全部商品',
             icon:'shop',
@@ -37,11 +35,11 @@ class SaoGoods extends Component{
         },{
             text:'App下载',
             icon:'gift',
-            path:'/APP'
+            path:'/app'
         },{
             text:'网页首站',
             icon:'appstore',
-            path:'/'
+            path:'/home'
         }],
         goodsBox1:[],
         goodsBox2:[],
@@ -86,8 +84,10 @@ class SaoGoods extends Component{
                 <div className="menuBox">
                     {
                         this.state.muendata.map(item=>{
-                            return <div key={item.icon} className="menuList" style={{textAlign:"center"}} onClick={this.goto(item.path)}>
-                                <div><Icon type={item.icon} theme="twoTone" twoToneColor="#eb2f96" style={{fontSize:30}}></Icon></div>
+                            return  <div key={item.icon} className="menuList" style={{textAlign:"center"}}>
+                                <NavLink to={item.path}>
+                                    <div><Icon type={item.icon} theme="twoTone" twoToneColor="#eb2f96" style={{fontSize:30}}></Icon></div>
+                                </NavLink>
                                 <span>{item.text}</span>
                             </div>
                         })
