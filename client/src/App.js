@@ -9,6 +9,7 @@ import Login from './route/hrl/reg-login';
 import SaoGoods from './route/hrl/saogoods';
 import APP from './route/hrl/app';
 import Allgoods from './route/hrl/allgoods';
+import LoginType from './route/hrl/loginType';
 import './App.css';
 const { Header, Footer, Sider, Content } = Layout;
 const { SubMenu } = Menu;
@@ -92,12 +93,7 @@ class App extends React.Component{
                         >
                         <Layout>
                             <Header style={{height:'3.6rem',backgroundColor:'rgba(96,96,96)',padding:0}}>
-                                <NavLink to={{
-                                    pathname:'/login',
-                                }}><Button style={{float:'left',marginTop:'1.6rem',marginLeft:'0.8rem'}}>注册</Button></NavLink>
-                                <NavLink to={{
-                                    pathname:'/login',
-                                }}><Button type="primary" style={{float:'right',marginTop:'1.6rem',marginRight:'0.8rem'}}>登录</Button></NavLink>
+                               <LoginType></LoginType>
                             </Header>
                             <Content >
                                  <Menu
