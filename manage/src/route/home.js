@@ -2,10 +2,13 @@ import React from "react";
 import {connect} from "react-redux";
 import {Route,Redirect,NavLink,Switch} from "react-router-dom";
 import { Layout,Collapse, Icon } from 'antd';
+import {withRouter} from "react-router";
 const { Sider, Content,Header } = Layout;
 const { Panel } = Collapse;
 
 import ZiXunMore from "../component/zixunMore";
+import ZiXunType from "../component/zixuntype";
+import ZiXunTypeAdd from "../component/zixuntypeadd";
 
 class Home extends React.Component{
     constructor(){
@@ -29,6 +32,7 @@ class Home extends React.Component{
         localStorage.removeItem("listTitle");
         localStorage.removeItem("author");
         this.props.removeUser();
+        this.props.history.push("/zixunmore");
     }
     changeListTitle(value){
         localStorage.setItem("listTitle",value);
@@ -53,7 +57,7 @@ class Home extends React.Component{
                             <NavLink onClick={this.changeListTitle.bind(this,"首页/资讯管理/资讯信息")} to="/zixunmore" style={{color:"rgb(89, 89, 89)"}} activeStyle={{color:"blue",fontWeight:"600"}}>资讯信息</NavLink>
                         </p>
                         <p style={{marginLeft:23,cursor:"pointer"}}>
-                            <NavLink onClick={this.changeListTitle.bind(this,"首页/资讯管理/资讯分类")} to="" style={{color:"rgb(89, 89, 89)"}} activeStyle={{color:"blue",fontWeight:"600"}}>资讯分类</NavLink>
+                            <NavLink onClick={this.changeListTitle.bind(this,"首页/资讯管理/资讯分类")} to="/zixuntype" style={{color:"rgb(89, 89, 89)"}} activeStyle={{color:"blue",fontWeight:"600"}}>资讯分类</NavLink>
                         </p>
                     </Panel>
                     <Panel header="商品管理" key="2">
@@ -85,7 +89,7 @@ class Home extends React.Component{
             <Content>
                 <Layout>
                     <Header style={{height:"50px",background:"rgb(240, 242, 245)",marginBottom:"10px"}}>
-                        <span style={{float:"left",height:"100%"}}>{this.props.listTitle}</span>
+                        <span style={{float:"left",height:"100%",fontWeight:"600"}}>{this.props.listTitle}</span>
                         <div style={{overflow:"hidden",float:"right",height:"100%"}}>
                             <p style={{color:"blue",height:"30px",lineHeight:"30px",margin:"0"}}>管理员: {this.state.user}</p>
                             <p onClick={this.removeUser} style={{color:"blue",float:"right",height:"20px",lineHeight:"20px",margin:"0",cursor:"pointer"}}>退出</p>
@@ -94,6 +98,9 @@ class Home extends React.Component{
                     <Content>
                         <Switch>
                             <Route path="/zixunmore" component={ZiXunMore}/>
+                            <Route path="/zixuntype" component={ZiXunType} exact>
+                            </Route>
+                            <Route path="/zixuntype/add" component={ZiXunTypeAdd}/>
                             <Redirect from="/" to="/zixunmore" exact />
                         </Switch>
                     </Content>
@@ -121,4 +128,5 @@ let mapDispatchToProps = function (dispatch) {
 }
 
 Home = connect(mapStateToProps, mapDispatchToProps)(Home);
+Home = withRouter(Home);
 export default Home;

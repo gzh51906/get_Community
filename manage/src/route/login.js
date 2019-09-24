@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import { Row, Col,Form, Icon, Input, Button} from 'antd';
+import { Row, Col,Form, Icon, Input, Button,message } from 'antd';
 import withAjax from "../heightRouter/withAjax.js";
 
 class Login extends React.Component{
@@ -16,6 +16,8 @@ class Login extends React.Component{
                 let {manage,insert,update,remove} = data.data[0];
                 localStorage.setItem("author", values.username);
                 this.props.changeType({author:values.username,manage,insert,update,remove});
+            }else{
+                message.warning('用户名或密码错误');
             }
         });
     }

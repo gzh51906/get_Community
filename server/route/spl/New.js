@@ -4,7 +4,7 @@ let Router = express.Router();
 
 let {formatData} = require("../common/formatData")
 
-let {find} = require("../common/mongo.js")
+let {find,update} = require("../common/mongo.js")
 
 Router.get("/news",async(req,res,next)=>{
 
@@ -44,7 +44,20 @@ Router.get("/check",async(req,res,next)=>{
 Router.get("/newpage",async(req,res,next)=>{
     let {_id}=req.query
     let result = await find("news",{_id})
+   
     
+    if(result){
+        res.send(formatData({data:result}))
+    }
+    else{
+        res.send(formatData({code:0}))
+    }
+    await update("news",{_id},{$set:{seeNum:result[0].seeNum+1}})
+})
+Router.get("/goodmsg",async(req,res,next)=>{
+    let {_id}=req.query
+    let result = await find("goods",{_id})
+   
     if(result){
         res.send(formatData({data:result}))
     }

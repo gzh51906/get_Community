@@ -14,6 +14,12 @@ Router.get("/login",async (req,res,next)=>{
     next();
 })
 
+Router.get("/userMore",async (req,res,next)=>{
+    let {username} = req.query;
+    let result = await find("manageUser",{username});
+    res.send(formatData({data:result}));
+})
+
 
 
 module.exports = Router;

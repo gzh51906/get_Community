@@ -13,7 +13,8 @@ const { SubMenu } = Menu;
 
 //苏沛龙
 import Home from "./route/spl/Home";
-import NewPage from "./route/spl/NewPage"
+import NewPage from "./route/spl/NewPage";
+import Detail from "./route/spl/detail"
 
 class App extends React.Component{
     rootSubmenuKeys = ['sub1', 'sub2','sub3', 'sub4'];
@@ -37,7 +38,7 @@ class App extends React.Component{
          });
      };
      onTitleClick=()=>{
-       this.prop.history.push("/home")
+       this.props.history.push("/home")
         
      }
 
@@ -167,6 +168,7 @@ class App extends React.Component{
                         {/* {Home路由-苏沛龙} */}
                         <Route path="/home" component={Home}></Route>
                         <Route path="/newPage:_id" component={NewPage}></Route>
+                        <Route path="/detail:_id" component={Detail}></Route>
                         <Route path="/" component={Home}></Route>
                     </Switch>
                 </Content>
