@@ -29,7 +29,6 @@ class RegLogin extends Component{
     }
     componentDidMount(){
         this.state.buer = this.props.location.search.slice(1);
-        console.log(this.state.buer)
         if(this.state.buer === 'false'){
             this.setState({
             isForm:false
