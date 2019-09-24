@@ -1,5 +1,6 @@
 
 
+
 let defaultState={
     goodslist:[]
 }
@@ -11,12 +12,9 @@ function reducer(state=defaultState,action){
                 totalPrice:action.price
             }
         case "add_to_cart":
-            return{
+            return {
                 ...state,
-                goodslist:[
-                    action.payload,
-                    ...goodslist
-                ]
+                goodslist:action.payload
             }
         case "remove_goods":
             return{

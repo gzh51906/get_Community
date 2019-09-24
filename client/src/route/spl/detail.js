@@ -2,7 +2,6 @@ import React,{Component} from "react";
 import $ from "jquery"
 import axios from "axios"
 import css from "./css/Drawer.css"
-import {connect} from "react-redux"
 import { Carousel,Layout,Icon,Button, Drawer, InputNumber,Badge} from 'antd';
 class Detail extends Component{
     constructor(){
@@ -15,19 +14,22 @@ class Detail extends Component{
             type2:[],
             imgUrl:[],
             text:[],
-            select:[],
+            select:false,
             sizes:[],
             visible: false, 
             placement: 'bottom',
             color:"",
             goods_price:"",
             goods_num:1,
-            goods_id:"",
             goods_size:"",
             goods_picture:"",
             goods_color:"",
             goods_name:"",
-            buymsg:{}
+            size_id:"",
+            username:"",
+            buymsg:{},
+            cartlength:""
+           
 
         }
         this.showDrawer=this.showDrawer.bind(this)
@@ -36,14 +38,23 @@ class Detail extends Component{
         this.selectSize=this.selectSize.bind(this)
         this.onChange=this.onChange.bind(this)
         this.add2Cart=this.add2Cart.bind(this)
+        this.gotoCart=this.gotoCart.bind(this)
+
     }
    async componentDidMount(){
+       //获取商品信息渲染
         let {_id} = this.props.match.params
         let {data} = await axios({
             method:"get",
             url:"http://127.0.0.1:1902/spl/goodmsg",
             params:{_id:_id}
         })
+        let username=localStorage.getItem("usename")
+            let result=await axios({
+                method:"get",
+                url:"http://127.0.0.1:1902/spl/cartlength",
+                params:{username}
+            })
         this.setState({
             goodmsg:data.data[0],
             picture:data.data[0].picture,
@@ -55,8 +66,14 @@ class Detail extends Component{
             select:data.data[0].select,
             sizes:data.data[0].select.data[0].sizes,
             color:data.data[0].select.data[0].color,
-            goods_id:_id
+            cartlength:result.data.data.length
+           
         })
+       
+       
+        
+       
+       
      
         
     }
@@ -75,24 +92,37 @@ class Detail extends Component{
       };
     
      onChange(value){
-        let {goods_size,goods_price,goods_color,goods_id,goods_num,goods_picture}=this.state
+        let {goods_size,goods_price,goods_color,size_id,goods_picture}=this.state
+        let data= {
+            qty:value,
+            price:goods_price,
+            color:goods_color,
+            size:goods_size,
+            picture:goods_picture,
+            size_id:size_id,
+            username:localStorage.getItem("usename")
+        }
         this.setState({
-            // goods_num:value,
-            buymsg:{
-                _id:goods_id,
-                qty:value,
-                price:goods_price,
-                color:goods_color,
-                size:goods_size,
-                picture:goods_picture
-            }
+            buymsg:data,
+            goods_num:value
+           
         })
     
      
      }
-      selectSize(price,size,pic,color,name,e){
+    selectSize(price,size,pic,color,name,size_id,e){
        $(e.target).css("background","#00AAEA").css("color","#fff").siblings().css("background","#fff").css("color","#000")
        
+       let data={
+        qty:this.state.goods_num,
+        price:price,
+        color:color,
+        size:size,
+        size_id:size_id,
+        picture:pic,
+        name:name,
+        username:localStorage.getItem("usename")
+    }
         this.setState({
             newPrice:price,
             goods_color:color,
@@ -100,38 +130,63 @@ class Detail extends Component{
             goods_price:price,
             goods_size:size,
             goods_name:name,
-            buymsg:{
-                _id:this.state.goods_id,
-                qty:this.state.goods_num,
-                price:price,
-                color:color,
-                size:size,
-                picture:pic,
-                name:name
-            }
+            size_id:size_id,
+            buymsg:data
+            
         })
     
       }
     async add2Cart(){
-       
-   
-       
-         let {data}=await axios({
-             method:"get",
-             url:"http://127.0.0.1:1902/spl/cart",
-             params:this.state.buymsg
-         })
-        
+      
+        if(typeof(this.state.newPrice)=="number"){
+            let {data}=await axios({
+                method:"get",
+                url:"http://127.0.0.1:1902/spl/cart",
+                params:this.state.buymsg
+            })
+            //获取购物车长度
+            let username=localStorage.getItem("usename")
+            let result=await axios({
+                method:"get",
+                url:"http://127.0.0.1:1902/spl/cartlength",
+                params:{username}
+            })
+            this.setState({
+                cartlength:result.data.data.length
+            })
+            this.onClose()
+            if(this.state.select==true){
+                this.props.history.push("/cart")
+            }
+           
+            console.log(this.props);
+            
+           
+        }
+        else{
+            alert("此商品暂时不能购买")
+        }
+      
         
       }
-     
+     gotoCart(){
+         this.showDrawer()
+         this.setState({
+             select:true
+         })
+     }
+     //防止内存泄漏
+     componentWillUnmount() {
+        this.setState = (state, callback) => {
+          return;
+        };
+    }
     render(){
      
        
         let {title}=this.state.goodmsg
-        let {picture,oldPrice,newPrice,type2,imgUrl,text,sizes,color}=this.state
+        let {picture,oldPrice,newPrice,type2,imgUrl,text,sizes,color,cartlength}=this.state
         const {Footer} =Layout
-        let {cartlength}=this.props
        
         
         var idx =-1
@@ -203,7 +258,7 @@ class Detail extends Component{
                         <p style={{display:"flex",flexWrap:"wrap",paddingLeft:"0.3rem"}}>
                             {
                                 sizes.map((item,index)=>{
-                                   return <span style={{display:"flex",justifyContent:"center",alignItems:"center",border:"0.02rem solid #ccc",width:"1.34rem",height:"0.56rem",flexShrink:0,margin:"0px 0px 0.2rem 0.3rem",color:"#000"}} key={index} onClick={this.selectSize.bind(this,item.price,item.size,picture[0],color,title)}>{item.size}</span>
+                                   return <span style={{display:"flex",justifyContent:"center",alignItems:"center",border:"0.02rem solid #ccc",width:"1.34rem",height:"0.56rem",flexShrink:0,margin:"0px 0px 0.2rem 0.3rem",color:"#000"}} key={index} onClick={this.selectSize.bind(this,item.price,item.size,picture[0],color,title,item.size_id)}>{item.size}</span>
                                 })
                             }
                         </p>
@@ -230,23 +285,13 @@ class Detail extends Component{
                     </div>
                     <div style={{display:"flex",flex:"60%",justifyContent:"flex-end",alignItems:"center"}}>
                         <span style={{color:"#00AAEA"}} onClick={this.showDrawer}>加入购物车</span>
-                        <Button type="primary" size="large" style={{marginLeft:"0.4rem"}}>立即购买</Button>
+                        <Button type="primary" size="large" style={{marginLeft:"0.4rem"}} onClick={this.gotoCart}>立即购买</Button>
                     </div>
                     </Footer>
         </div>
     }
 }
-let mapStateToProps = function(state){
-    return{
-        goodslist:state.cart.goodslist,
-        cartlength:state.cart.goodslist.length
-    }
-}
-let mapDispatchToProps=function(dispatch){
-    return{
-        dispatch
-    }
-}
 
-Detail=connect(mapStateToProps,mapDispatchToProps)(Detail)
+
+
 export default Detail
