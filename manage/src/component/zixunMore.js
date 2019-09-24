@@ -14,6 +14,8 @@ class ZiXunMore extends React.Component{
         this.removeOne = this.removeOne.bind(this);
         this.removeMany = this.removeMany.bind(this);
         this.searchData = this.searchData.bind(this);
+        this.dataEdit = this.dataEdit.bind(this);
+        this.dataAdd = this.dataAdd.bind(this);
     }
     async componentDidMount(){
         let {get} = this.props;
@@ -63,6 +65,25 @@ class ZiXunMore extends React.Component{
         })
         this.setState({data});
     }
+    async dataEdit(id){
+        if(this.props.update){
+            this.props.history.push({
+                pathname:this.props.match.path+"/edit",
+                search:"?id="+id
+            }) 
+        }else{
+            message.warning("权限不足");
+        }
+    }
+    dataAdd(){
+        if(this.props.insert){
+            this.props.history.push({
+                pathname:this.props.match.path+"/add"
+            }) 
+        }else{
+            message.warning("权限不足");
+        }
+    }
     render(){
         const columns = [
             {
@@ -96,7 +117,7 @@ class ZiXunMore extends React.Component{
                 dataIndex:"_id",
                 render:id=>{
                     return <div>
-                        <Button type="primary" shape="circle" icon="edit" />
+                        <Button onClick={this.dataEdit.bind(this,id)} type="primary" shape="circle" icon="edit" />
                         <Popconfirm
                             title="您确定要删除此条数据？"
                             onConfirm={this.removeOne.bind(this,id)}
@@ -120,7 +141,7 @@ class ZiXunMore extends React.Component{
         };
         return <div>
             <div style={{height:"50px",background:"white",padding:"10px 30px"}}>
-                <Button type="primary" icon="file-add">
+                <Button type="primary" icon="file-add" onClick={this.dataAdd}>
                     添加
                 </Button>
                 <Popconfirm

@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import withAjax from "../heightRouter/withAjax.js";
-import { Table } from 'antd';
+import { Table, message } from 'antd';
 
 
 class ZiXunType extends React.Component{
@@ -31,7 +31,11 @@ class ZiXunType extends React.Component{
         this.setState({data});
     }
     gotoAdd(){
-        this.props.history.push(this.props.match.path+"/add");
+        if(this.props.insert){
+            this.props.history.push(this.props.match.path+"/add");
+        }else{
+            message.warning("权限不足");
+        }
     }
     render(){
         const columns = [{
