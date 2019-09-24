@@ -11,7 +11,9 @@ import ZiXunType from "../component/zixuntype";
 import ZiXunTypeAdd from "../component/zixuntypeadd";
 import ZiXunMoreAdd from "../component/zixunMoreAdd";
 import ZiXunMoreEdit from "../component/ziXunMoreEdit";
-
+import GoodsMore from "../component/goodsMore";
+import GoodsEdit from "../component/goodsEdit";
+import GoodsType from "../component/goodsType";
 class Home extends React.Component{
     constructor(){
         super();
@@ -64,10 +66,10 @@ class Home extends React.Component{
                     </Panel>
                     <Panel header="商品管理" key="2">
                         <p style={{marginLeft:23,cursor:"pointer"}}>
-                            <NavLink onClick={this.changeListTitle.bind(this,"首页/商品管理/商品信息")} to="" style={{color:"rgb(89, 89, 89)"}} activeStyle={{color:"blue",fontWeight:"600"}}>商品信息</NavLink>
+                            <NavLink onClick={this.changeListTitle.bind(this,"首页/商品管理/商品信息")} to="/goodsmore" style={{color:"rgb(89, 89, 89)"}} activeStyle={{color:"blue",fontWeight:"600"}}>商品信息</NavLink>
                         </p>
                         <p style={{marginLeft:23,cursor:"pointer"}}>
-                            <NavLink onClick={this.changeListTitle.bind(this,"首页/商品管理/商品分类")} to="" style={{color:"rgb(89, 89, 89)"}} activeStyle={{color:"blue",fontWeight:"600"}}>商品分类</NavLink>
+                            <NavLink onClick={this.changeListTitle.bind(this,"首页/商品管理/商品分类")} to="/goodstype" style={{color:"rgb(89, 89, 89)"}} activeStyle={{color:"blue",fontWeight:"600"}}>商品分类</NavLink>
                         </p>
                     </Panel>
                     <Panel header="用户管理" key="3">
@@ -104,6 +106,9 @@ class Home extends React.Component{
                             <Route path="/zixunmore/add" component={ZiXunMoreAdd} />
                             <Route path="/zixuntype" component={ZiXunType} exact/>
                             <Route path="/zixuntype/add" component={ZiXunTypeAdd}/>
+                            <Route path="/goodsmore" component={GoodsMore} exact/>
+                            <Route path="/goodsmore/edit" component={GoodsEdit} exact/>
+                            <Route path="/goodstype" component={GoodsType} exact/>
                             <Redirect from="/" to="/zixunmore" exact />
                         </Switch>
                     </Content>
