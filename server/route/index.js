@@ -32,6 +32,8 @@ Router.use("/crx", manage_zixun);
 
 const New =require("./spl/New.js")
 Router.use("/spl",New)
+const Cart = require("./spl/Cart.js")
+Router.use("/spl",Cart)
 
 
 //黄日隆引入的
