@@ -9,6 +9,8 @@ const { Panel } = Collapse;
 import ZiXunMore from "../component/zixunMore";
 import ZiXunType from "../component/zixuntype";
 import ZiXunTypeAdd from "../component/zixuntypeadd";
+import ZiXunMoreAdd from "../component/zixunMoreAdd";
+import ZiXunMoreEdit from "../component/ziXunMoreEdit";
 
 class Home extends React.Component{
     constructor(){
@@ -97,9 +99,10 @@ class Home extends React.Component{
                     </Header>
                     <Content>
                         <Switch>
-                            <Route path="/zixunmore" component={ZiXunMore}/>
-                            <Route path="/zixuntype" component={ZiXunType} exact>
-                            </Route>
+                            <Route path="/zixunmore" component={ZiXunMore} exact/>
+                            <Route path="/zixunmore/edit" component={ZiXunMoreEdit} />
+                            <Route path="/zixunmore/add" component={ZiXunMoreAdd} />
+                            <Route path="/zixuntype" component={ZiXunType} exact/>
                             <Route path="/zixuntype/add" component={ZiXunTypeAdd}/>
                             <Redirect from="/" to="/zixunmore" exact />
                         </Switch>
