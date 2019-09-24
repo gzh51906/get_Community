@@ -39,7 +39,9 @@ Router.use("/spl",Cart)
 //黄日隆引入的
 const Login = require('./hrl/huser.js');
 const Reg = require('./hrl/hRes.js');
-const Saogoods = require('./hrl/hsaogoods.js')
+const Saogoods = require('./hrl/hsaogoods.js');
+const Allgoods = require('./hrl/hallgoods.js');
+Router.use('/hrl',Allgoods);
 Router.use('/hrl',Saogoods);
 Router.use('/hrl',Reg);
 Router.use('/hrl',Login);
