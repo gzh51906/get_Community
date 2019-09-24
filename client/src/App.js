@@ -17,6 +17,7 @@ const { SubMenu } = Menu;
 import Home from "./route/spl/Home";
 import NewPage from "./route/spl/NewPage";
 import Detail from "./route/spl/detail"
+import Cart from "./route/spl/cart"
 
 class App extends React.Component{
     rootSubmenuKeys = ['sub1', 'sub2','sub3', 'sub4'];
@@ -173,6 +174,7 @@ class App extends React.Component{
                         <Route path="/home" component={Home}></Route>
                         <Route path="/newPage:_id" component={NewPage}></Route>
                         <Route path="/detail:_id" component={Detail}></Route>
+                        <Route path="/cart" component={Cart}></Route>
                         <Route path="/" component={Home}></Route>
                     </Switch>
                 </Content>
