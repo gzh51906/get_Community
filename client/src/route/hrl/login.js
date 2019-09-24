@@ -53,6 +53,7 @@ class Login extends Component{
             pathname:path,
             search:'?'+usename
         })
+        localStorage.setItem('usename',usename);
         // console.log(path,usename);
     }
     render(){

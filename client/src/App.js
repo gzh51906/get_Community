@@ -7,6 +7,8 @@ import { Layout,Drawer, Button,Menu, Icon } from 'antd';
 //黄日隆
 import Login from './route/hrl/reg-login';
 import SaoGoods from './route/hrl/saogoods';
+import APP from './route/hrl/app';
+import Allgoods from './route/hrl/allgoods';
 import './App.css';
 const { Header, Footer, Sider, Content } = Layout;
 const { SubMenu } = Menu;
@@ -165,6 +167,8 @@ class App extends React.Component{
                         {/* 使用路由-黄日隆 */}
                         <Route path="/login" component={Login}></Route>
                         <Route path="/saogoods" component={SaoGoods}></Route>
+                        <Route path='/app' component={APP}></Route>
+                        <Route path='/allgoods' component={Allgoods}></Route>
                         {/* {Home路由-苏沛龙} */}
                         <Route path="/home" component={Home}></Route>
                         <Route path="/newPage:_id" component={NewPage}></Route>
