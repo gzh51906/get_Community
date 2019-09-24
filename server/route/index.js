@@ -27,6 +27,8 @@ const manage_login = require("./crx/login");
 Router.use("/crx",manage_login);
 const manage_zixun = require("./crx/manageZiXun");
 Router.use("/crx", manage_zixun);
+const manage_goods = require("./crx/manageGoods");
+Router.use("/crx",manage_goods);
 
 //苏沛龙引入的
 
@@ -39,7 +41,9 @@ Router.use("/spl",Cart)
 //黄日隆引入的
 const Login = require('./hrl/huser.js');
 const Reg = require('./hrl/hRes.js');
-const Saogoods = require('./hrl/hsaogoods.js')
+const Saogoods = require('./hrl/hsaogoods.js');
+const Allgoods = require('./hrl/hallgoods.js');
+Router.use('/hrl',Allgoods);
 Router.use('/hrl',Saogoods);
 Router.use('/hrl',Reg);
 Router.use('/hrl',Login);

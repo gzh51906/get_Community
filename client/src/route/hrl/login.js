@@ -51,11 +51,11 @@ class Login extends Component{
     goto=(path,usename)=>{
         this.props.history.push({
             pathname:path,
-            search:'?'+usename
         })
-        localStorage.setItem('usename',usename);
+        localStorage.setItem('username',usename);
         // console.log(path,usename);
     }
+
     render(){
         const { getFieldDecorator } = this.props.form;
 

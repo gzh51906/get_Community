@@ -47,6 +47,7 @@ class Reg extends Component{
      //跳转
      goto = (path) => {
          this.props.history.push(path)
+         localStorage.setItem('username', usename);
      };
      
      handleConfirmBlur = e => {

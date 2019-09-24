@@ -10,6 +10,7 @@ import SaoGoods from './route/hrl/saogoods';
 import APP from './route/hrl/app';
 import Allgoods from './route/hrl/allgoods';
 import LoginType from './route/hrl/loginType';
+import LoginType2 from './route/hrl/loginType2';
 import './App.css';
 const { Header, Footer, Sider, Content } = Layout;
 const { SubMenu } = Menu;
@@ -21,13 +22,14 @@ import Detail from "./route/spl/detail"
 import Cart from "./route/spl/cart"
 
 class App extends React.Component{
-    rootSubmenuKeys = ['sub1', 'sub2','sub3', 'sub4'];
+    rootSubmenuKeys = ['/home', '/new','/saogoods', 'sub4'];
 
     //数据
     state = {
      visible: false,
      openKeys: ['sub4'],
-     isUse:false
+     isUse:false,
+     usename:''
     }
     //方法
      showDrawer = () => {
@@ -35,17 +37,22 @@ class App extends React.Component{
              visible: true,
          });
      };
-
      onClose = () => {
          this.setState({
              visible: false,
          });
      };
-     onTitleClick=()=>{
-       this.props.history.push("/home")
-        
+     onTitleClick=(e)=>{
+        this.props.history.push(e.key)
+        this.onClose();
      }
-
+     loginout=()=>{
+         localStorage.removeItem('username');
+         this.setState({
+             usename:'',
+         })
+         this.onClose();
+     }
      //菜单的方法
      onOpenChange = openKeys => {
          const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1);
@@ -61,8 +68,8 @@ class App extends React.Component{
      };
      //进行判断是否有用户登入状态
      componentDidMount(){
-         let usename = decodeURI(this.props.location.search.slice(1));
-         if(usename){
+         this.state.usename = localStorage.getItem('username');
+         if(this.state.usename){
              this.setState({
                  isUse:true
              })
@@ -90,11 +97,18 @@ class App extends React.Component{
                         placement="left"
                         closable={false}
                         onClose={this.onClose}
-                        visible={this.state.visible} 
+                        visible={this.state.visible}
+                        keyboard={true}
                         >
                         <Layout>
                             <Header style={{height:'3.6rem',backgroundColor:'rgba(96,96,96)',padding:0}}>
-                               <LoginType></LoginType>
+                                {
+                                    isUse
+                                    ?
+                                    <LoginType2></LoginType2>
+                                    :
+                                    <LoginType></LoginType>
+                                }                             
                             </Header>
                             <Content >
                                  <Menu
@@ -104,7 +118,7 @@ class App extends React.Component{
                                 style={{ width: '5.12rem'}}
                             >
                                 <SubMenu
-                                key="sub1"
+                                key="/home"
                                 onTitleClick={this.onTitleClick}
                                 title={
                                     <span>
@@ -115,7 +129,7 @@ class App extends React.Component{
                                 >
                                 </SubMenu>
                                 <SubMenu
-                                key="sub2"
+                                key="/new"
                                 title={
                                     <span>
                                     <Icon type="profile"/>
@@ -125,13 +139,12 @@ class App extends React.Component{
                                 >
                                 </SubMenu>
                                  <SubMenu
-                                key="sub3"
+                                key="/saogoods"
+                                onTitleClick={this.onTitleClick}
                                 title={
                                     <span>
                                     <Icon type="shopping" theme="filled"/>
-                                    <NavLink to="/saogoods">
                                         <span>扫货</span>
-                                    </NavLink>
                                     </span>
                                 }
                                 >
@@ -153,7 +166,7 @@ class App extends React.Component{
                             </Menu>
                             </Content>
                             <Footer style={{textAlign:"center"}}>
-                                <span> 退出账号</span>
+                                <span onClick={this.loginout}> 退出账号</span>
                             </Footer>
                         </Layout>
                     </Drawer>
@@ -174,13 +187,7 @@ class App extends React.Component{
                         <Route path="/" component={Home}></Route>
                     </Switch>
                 </Content>
-            </Layout>
-
-
-
-
-
-                
+            </Layout> 
                 
         </div>
     }
