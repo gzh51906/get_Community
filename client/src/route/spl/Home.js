@@ -10,7 +10,7 @@ class Home extends Component{
             navImg:[
                 "http://images.dunkhome.com/pc-banner/image/611/medium______20190918162857.jpg",
                 "http://images.dunkhome.com/pc-banner/image/610/medium______20190910104330.jpg",
-                "http://images.dunkhome.com/pc-banner/image/609/medium______20190910103201.jpg",
+                "http://images.dunkhome.com/pc-banner/image/612/medium___1600_560.jpg",
                 "http://images.dunkhome.com/pc-banner/image/605/medium______20190815151659.jpg",
                 "http://images.dunkhome.com/pc-banner/image/604/medium______20190815151259.jpg",
                 "http://images.dunkhome.com/pc-banner/image/603/medium______20190815151026.jpg"
