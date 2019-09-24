@@ -6,6 +6,9 @@ import { Layout,Drawer, Button,Menu, Icon } from 'antd';
 
 //黄日隆
 import Login from './route/hrl/reg-login';
+import SaoGoods from './route/hrl/saogoods';
+import APP from './route/hrl/app';
+import Allgoods from './route/hrl/allgoods';
 import './App.css';
 const { Header, Footer, Sider, Content } = Layout;
 const { SubMenu } = Menu;
@@ -22,6 +25,7 @@ class App extends React.Component{
     state = {
      visible: false,
      openKeys: ['sub4'],
+     isUse:false
     }
     //方法
      showDrawer = () => {
@@ -53,16 +57,32 @@ class App extends React.Component{
              });
          }
      };
-
+     //进行判断是否有用户登入状态
+     componentDidMount(){
+         let usename = decodeURI(this.props.location.search.slice(1));
+         if(usename){
+             this.setState({
+                 isUse:true
+             })
+         }
+     }
 
     render(){
+        let {isUse} = this.state;
+        // console.log(decodeURI(this.props.location.search.slice(1)))
         return <div style={{height:"100%"}}>
             <Layout>
                 <Header style={{backgroundColor:"#fff",height:'1.08rem',padding:0}}>
                         <Icon onClick={this.showDrawer} type="menu" style={{fontSize:'24px',marginLeft:'20px'}}></Icon>
                         <img src="./route/hrl/img/logo.png" width="50px" style={{marginLeft:'32%',marginBottom:'10px'}}/>
                         <NavLink to="/login">
-                        <Icon type="user" style={{fontSize:'24px',float:'right',marginRight:'20px',lineHeight:'54px'}}></Icon>
+                        {   
+                            isUse
+                            ? 
+                            <Icon type="shopping-cart" style={{fontSize:'24px',float:'right',marginRight:'20px',lineHeight:'54px'}}></Icon>
+                            :
+                            <Icon type="user" style={{fontSize:'24px',float:'right',marginRight:'20px',lineHeight:'54px'}}></Icon>
+                        }
                         </NavLink>
                         <Drawer
                         placement="left"
@@ -112,7 +132,9 @@ class App extends React.Component{
                                 title={
                                     <span>
                                     <Icon type="shopping" theme="filled"/>
-                                    <span>扫货</span>
+                                    <NavLink to="/saogoods">
+                                        <span>扫货</span>
+                                    </NavLink>
                                     </span>
                                 }
                                 >
@@ -144,6 +166,9 @@ class App extends React.Component{
                     <Switch>
                         {/* 使用路由-黄日隆 */}
                         <Route path="/login" component={Login}></Route>
+                        <Route path="/saogoods" component={SaoGoods}></Route>
+                        <Route path='/app' component={APP}></Route>
+                        <Route path='/allgoods' component={Allgoods}></Route>
                         {/* {Home路由-苏沛龙} */}
                         <Route path="/home" component={Home}></Route>
                         <Route path="/newPage:_id" component={NewPage}></Route>

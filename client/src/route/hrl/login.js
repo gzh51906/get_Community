@@ -8,29 +8,54 @@ import {
     Button,
 } from 'antd';
 
-import {Route,NavLink,Switch} from 'react-router-dom';
+import {withRouter} from 'react-router';
 import withAjax from '../../heightRouter/withAjax';
 //引入样式
 import './style/login.css'
 
 class Login extends Component{
     //数据
-
+    state={
+        comusename:'',
+        compsw:''
+    }
     //方法
     handleSubmit = e => {
          e.preventDefault();
-         this.props.form.validateFields((err, values) => {
+         let {get,form} = this.props;
+         form.validateFields(async (err, values) => {
              if (!err) {
-                 console.log('Received values of form: ', values);
+                 let userlist = await get('http://127.0.0.1:1902/hrl/login', {
+                     usename: values.Username
+                 })
+                if(userlist.data.length === 1){
+                    this.state.comusename = userlist.data[0].usename;
+                    this.state.compsw = userlist.data[0].password;
+                }else{
+                    this.state.comusename = '';
+                    this.state.compsw = '';
+                    alert('不存在该账户')
+                }
+                  //判断是否存在该用户
+                if(this.state.comusename === values.Username && this.state.compsw !== values.password){
+                    alert('存在该用户，但是密码不对')
+                }else if(this.state.comusename === values.Username && this.state.compsw === values.password){
+                   this.goto('/home',values.Username)
+                }
              }
+            
          });
     };
-    componentDidMount(){
-        console.log(withAjax)
-        
+
+    //跳转
+    goto=(path,usename)=>{
+        this.props.history.push({
+            pathname:path,
+            search:'?'+usename
+        })
+        localStorage.setItem('usename',usename);
+        // console.log(path,usename);
     }
-
-
     render(){
         const { getFieldDecorator } = this.props.form;
 
@@ -76,5 +101,6 @@ class Login extends Component{
     }
 }
 
+
 const UserLogin = Form.create({ name: 'normal_login' ,name:'register'})(Login);
-export default UserLogin;
+export default withRouter(withAjax(UserLogin));
