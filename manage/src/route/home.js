@@ -14,6 +14,9 @@ import ZiXunMoreEdit from "../component/ziXunMoreEdit";
 import GoodsMore from "../component/goodsMore";
 import GoodsEdit from "../component/goodsEdit";
 import GoodsType from "../component/goodsType";
+import GoodsAdd from "../component/goodsAdd";
+import ManageUser from "../component/manageUser";
+import ManageUserEdit from "../component/manageUserEdit";
 class Home extends React.Component{
     constructor(){
         super();
@@ -77,7 +80,7 @@ class Home extends React.Component{
                             <NavLink onClick={this.changeListTitle.bind(this,"首页/用户管理/用户信息")} to="" style={{color:"rgb(89, 89, 89)"}} activeStyle={{color:"blue",fontWeight:"600"}}>用户信息</NavLink>
                         </p>
                         <p style={{marginLeft:23,cursor:"pointer"}}>
-                            <NavLink onClick={this.changeListTitle.bind(this,"首页/用户管理/权限管理")} to="" style={{color:"rgb(89, 89, 89)"}} activeStyle={{color:"blue",fontWeight:"600"}}>权限管理</NavLink>
+                            <NavLink onClick={this.changeListTitle.bind(this,"首页/用户管理/权限管理")} to="/manageuser" style={{color:"rgb(89, 89, 89)"}} activeStyle={{color:"blue",fontWeight:"600"}}>权限管理</NavLink>
                         </p>
                     </Panel>
                     <Panel header="订单管理" key="4">
@@ -108,7 +111,10 @@ class Home extends React.Component{
                             <Route path="/zixuntype/add" component={ZiXunTypeAdd}/>
                             <Route path="/goodsmore" component={GoodsMore} exact/>
                             <Route path="/goodsmore/edit" component={GoodsEdit} exact/>
+                            <Route path="/goodsmore/add" component={GoodsAdd} exact/>
                             <Route path="/goodstype" component={GoodsType} exact/>
+                            <Route path="/manageuser" component={ManageUser} exact/>
+                            <Route path="/manageuser/edit" component={ManageUserEdit}/>
                             <Redirect from="/" to="/zixunmore" exact />
                         </Switch>
                     </Content>

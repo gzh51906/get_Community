@@ -29,6 +29,8 @@ const manage_zixun = require("./crx/manageZiXun");
 Router.use("/crx", manage_zixun);
 const manage_goods = require("./crx/manageGoods");
 Router.use("/crx",manage_goods);
+const manage_user = require("./crx/manageUser");
+Router.use("/crx",manage_user);
 
 //苏沛龙引入的
 

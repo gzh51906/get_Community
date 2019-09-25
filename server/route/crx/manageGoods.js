@@ -73,5 +73,31 @@ Router.post("/goodsUpdate",async (req,res,next)=>{
     next();
 })
 
+// 商品添加
+let storage = multer.diskStorage({
+    destination: "./img",
+    filename: (req, file, cb) => {
+        let ext = path.extname(file.originalname);
+        cb(null, file.fieldname + '-' + Date.now() + ext)
+    }
+})
+
+var upload = multer({
+    storage
+})
+
+Router.post("/goodsadd", upload.single("goods_picture"), async (req, res,next) => {
+    res.send(formatData({data:req.file.path}));
+    next();
+})
+
+Router.post("/goodsadd2",async (req,res,next)=>{
+    let {data} = req.body;
+    await insert("goods",data);
+    await update("manageGoodsType",{type:data.type1},{$set:{date:Date.now()}});
+    res.send(formatData());
+    next();
+})
+
 
 module.exports = Router;

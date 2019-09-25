@@ -15,6 +15,16 @@ class GoodsMore extends React.Component{
         this.removeOne = this.removeOne.bind(this);
         this.removeMany = this.removeMany.bind(this);
         this.gotoEdit = this.gotoEdit.bind(this);
+        this.dataAdd = this.dataAdd.bind(this);
+    }
+    dataAdd(){
+        if(this.props.insert){
+            this.props.history.push({
+                pathname:this.props.match.path+"/add"
+            }) 
+        }else{
+            message.warning("权限不足");
+        }
     }
     gotoEdit(id){
         if(this.props.update){
