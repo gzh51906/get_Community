@@ -13,14 +13,21 @@ class Allgoods extends Component{
         type:[],
         goodslist:[],
         allgoods:[],
+        dataNum:[],
     };
     async componentDidMount(){
+        let {dataNum} = this.state;
         let {get} = this.props;
         let somelist = await get('http://127.0.0.1:1902/hrl/allgoods',{
             type:'折'
+        });
+        let datalist = await get('http://127.0.0.1:1902/hrl/goodsprice', {
+            type: '鞋',
+            asc: true
         })
         this.setState({
             goodslist:somelist.data,
+            dataNum:datalist.data,
         })
     }
     //方法
@@ -30,11 +37,9 @@ class Allgoods extends Component{
         let somelist = await get('http://127.0.0.1:1902/hrl/allgoods', {
             type: key
         });
-        // console.log(somelist);
         this.setState({
             goodslist:somelist.data,
         })
-        // console.log(this.state.goodslist);
     }
     //价格升序
     async UpPrice(){
@@ -43,9 +48,8 @@ class Allgoods extends Component{
             type: '鞋',
             asc: true
         })
-        console.log(somelist.data)
         this.setState({
-            goodslist: somelist.data,
+            goodslist:somelist.data,
         })
     }
     async DownPrice(){
@@ -54,21 +58,19 @@ class Allgoods extends Component{
             type: '鞋',
             asc: false
         })
-        console.log(somelist.data)
-        this.setState({
-            goodslist: somelist.data,
-        })
     }
     //页码控制数据
     onChange=(value)=>{
-        let dataNum = this.state.goodslist.slice(10,20)
-        console.log(this.state.goodslist)
+        let {dataNum} = this.state;
+        let num1 = (value-1) * 10;
+        let num2 = value * 10;
+        let datapage = dataNum.slice(num1,num2)
         this.setState({
-            allgoods: dataNum,
+            goodslist: datapage,
         })
     }
     render(){
-        let {goodslist} = this.state;
+        let {goodslist,allgoods} = this.state;
         return(
             <div>
                 <Tabs defaultActiveKey="折" onChange={this.callback.bind(this)}>
@@ -130,7 +132,7 @@ class Allgoods extends Component{
                         }
                         
                         </div>
-                        <Pagination simple defaultCurrent={1} total={goodslist.length} onChange={this.onChange}/>
+                        <Pagination simple defaultCurrent={1} total={90} onChange={this.onChange}/>
                     </TabPane>
                 </Tabs>,
             </div>

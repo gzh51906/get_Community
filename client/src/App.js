@@ -46,8 +46,6 @@ class App extends React.Component{
      onTitleClick=(e)=>{
         this.props.history.push(e.key)
         this.onClose();
-      
-        
      }
      loginout=()=>{
          localStorage.removeItem('username');
@@ -69,6 +67,10 @@ class App extends React.Component{
              });
          }
      };
+     hgoto=(path)=>{
+         this.props.history.push(path);
+         this.onClose();
+     }
      //进行判断是否有用户登入状态
      componentDidMount(){
          this.state.usename = localStorage.getItem('username');
@@ -81,6 +83,7 @@ class App extends React.Component{
 
     render(){
         let {isUse} = this.state;
+        let {hgoto,onClose} = this;
         // console.log(decodeURI(this.props.location.search.slice(1)))
         return <div style={{height:"100%"}}>
             <Layout>
@@ -91,13 +94,10 @@ class App extends React.Component{
                         {   
                             isUse
                             ? 
-                            <NavLink to="/login">
-                            <Icon type="shopping-cart" style={{fontSize:'24px',float:'right',marginRight:'20px',lineHeight:'54px'}}></Icon>
-                            </NavLink>
+                            <Icon onClick={this.hgoto.bind(this,'/cart')} type="shopping-cart" style={{fontSize:'24px',float:'right',marginRight:'20px',lineHeight:'54px'}}></Icon>
                             :
-                            <NavLink to="/cart">
-                            <Icon type="user" style={{fontSize:'24px',float:'right',marginRight:'20px',lineHeight:'54px'}}></Icon>
-                            </NavLink>
+                            <Icon onClick={this.hgoto.bind(this,'/login')} type="user" style={{fontSize:'24px',float:'right',marginRight:'20px',lineHeight:'54px'}}></Icon>
+                            
                         }
                         <Drawer
                         placement="left"
@@ -107,15 +107,17 @@ class App extends React.Component{
                         keyboard={true}
                         >
                         <Layout>
+                            
                             <Header style={{height:'3.6rem',backgroundColor:'rgba(96,96,96)',padding:0}}>
                                 {
                                     isUse
                                     ?
-                                    <LoginType2></LoginType2>
+                                    <LoginType2 onClose={onClose}></LoginType2>
                                     :
                                     <LoginType></LoginType>
                                 }                             
                             </Header>
+                           
                             <Content >
                                  <Menu
                                 mode="inline"
@@ -196,7 +198,6 @@ class App extends React.Component{
                     </Switch>
                 </Content>
             </Layout> 
-                
         </div>
     }
 }
