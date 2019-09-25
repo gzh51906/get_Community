@@ -43,6 +43,8 @@ const Login = require('./hrl/huser.js');
 const Reg = require('./hrl/hRes.js');
 const Saogoods = require('./hrl/hsaogoods.js');
 const Allgoods = require('./hrl/hallgoods.js');
+const Goodsprice = require('./hrl/hgoodsprice.js');
+Router.use('/hrl',Goodsprice);
 Router.use('/hrl',Allgoods);
 Router.use('/hrl',Saogoods);
 Router.use('/hrl',Reg);
