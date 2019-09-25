@@ -49,7 +49,7 @@ class Detail extends Component{
             url:"http://127.0.0.1:1902/spl/goodmsg",
             params:{_id:_id}
         })
-        let username=localStorage.getItem("usename")
+        let username=localStorage.getItem("username")
             let result=await axios({
                 method:"get",
                 url:"http://127.0.0.1:1902/spl/cartlength",
@@ -100,7 +100,7 @@ class Detail extends Component{
             size:goods_size,
             picture:goods_picture,
             size_id:size_id,
-            username:localStorage.getItem("usename")
+            username:localStorage.getItem("username")
         }
         this.setState({
             buymsg:data,
@@ -121,7 +121,7 @@ class Detail extends Component{
         size_id:size_id,
         picture:pic,
         name:name,
-        username:localStorage.getItem("usename")
+        username:localStorage.getItem("username")
     }
         this.setState({
             newPrice:price,
@@ -145,7 +145,7 @@ class Detail extends Component{
                 params:this.state.buymsg
             })
             //获取购物车长度
-            let username=localStorage.getItem("usename")
+            let username=localStorage.getItem("username")
             let result=await axios({
                 method:"get",
                 url:"http://127.0.0.1:1902/spl/cartlength",
@@ -159,7 +159,7 @@ class Detail extends Component{
                 this.props.history.push("/cart")
             }
            
-            console.log(this.props);
+           
             
            
         }
