@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import { Row, Col,Icon, Tooltip } from 'antd';
-import {NavLink} from 'react-router-dom';
+import {withRouter} from 'react-router';
 class LoginType2 extends Component{
     //数据
     state={
         username:'',
     }
     componentDidMount(){
-        console.log(localStorage.getItem('username'))
         this.setState({
             username:localStorage.getItem('username'),
         })
+    }
+    hgoto=(path)=>{
+        this.props.history.push(path);
+        this.props.onClose();
     }
     render(){
         let {username} = this.state
@@ -35,9 +38,7 @@ class LoginType2 extends Component{
                         <div style={{backgroundColor:'#fff',height:'26px',lineHeight:'26px'}}>个人中心</div>
                     </Col>
                     <Col span={8} style={{textAlign:'center'}}>
-                        <NavLink to="/cart">
-                        <Icon type="shopping-cart" style={{fontSize:'24px',color:'#fff'}}></Icon>
-                        </NavLink>
+                        <Icon onClick={this.hgoto.bind(this,'/cart')} type="shopping-cart" style={{fontSize:'24px',color:'#fff'}}></Icon>
                     </Col>
                 </Row>
             </div>
@@ -45,4 +46,4 @@ class LoginType2 extends Component{
     }
 }
 
-export default LoginType2;
+export default withRouter(LoginType2);
