@@ -20,6 +20,7 @@ import Home from "./route/spl/Home";
 import NewPage from "./route/spl/NewPage";
 import Detail from "./route/spl/detail"
 import Cart from "./route/spl/cart"
+import New from "./route/spl/New"
 
 class App extends React.Component{
     rootSubmenuKeys = ['/home', '/new','/saogoods', 'sub4'];
@@ -45,6 +46,8 @@ class App extends React.Component{
      onTitleClick=(e)=>{
         this.props.history.push(e.key)
         this.onClose();
+      
+        
      }
      loginout=()=>{
          localStorage.removeItem('username');
@@ -133,6 +136,7 @@ class App extends React.Component{
                                 </SubMenu>
                                 <SubMenu
                                 key="/new"
+                                onTitleClick={this.onTitleClick}
                                 title={
                                     <span>
                                     <Icon type="profile"/>
@@ -187,6 +191,7 @@ class App extends React.Component{
                         <Route path="/newPage:_id" component={NewPage}></Route>
                         <Route path="/detail:_id" component={Detail}></Route>
                         <Route path="/cart" component={Cart}></Route>
+                        <Route path="/new" component={New}></Route>
                         <Route path="/" component={Home}></Route>
                     </Switch>
                 </Content>

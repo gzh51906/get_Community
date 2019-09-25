@@ -33,6 +33,26 @@ Router.get("/cartlength",async(req,res,next)=>{
    
     res.send(formatData({data:result}))
 })
-
+Router.get("/allnew",async(req,res,next)=>{
+    let result = await find("manageType",{})
+    
+    if(result){
+        res.send(formatData({data:result}))
+    }
+})
+Router.get("/new",async(req,res,next)=>{
+    let result =await find("news")
+    let data=result.slice(150,165)
+    res.send(formatData({data}))
+})
+Router.get("/type",async(req,res,next)=>{
+    let{type} = req.query
+    
+    let result = await find("news",{type1:type})
+    let data=result.slice(0,15)
+    
+    
+    res.send(formatData({data}))
+})
 
 module.exports=Router
