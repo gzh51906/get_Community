@@ -20,6 +20,7 @@ class Reg extends Component{
 
      //方法
      handleSubmit = e => {
+        let time = Date.now();
          e.preventDefault();
         let {post,form,get} = this.props;
         form.validateFields(async (err, values) => {
@@ -37,15 +38,16 @@ class Reg extends Component{
                         usename:values.nickname,
                         password:values.psw,
                         phoneNum:values.phone,
+                        date:time,
                     });
-                    this.goto('/home')
+                    this.goto('/home',values.nickname)
                 }
                 
              }
          });
      };
      //跳转
-     goto = (path) => {
+     goto = (path,usename) => {
          this.props.history.push(path)
          localStorage.setItem('username', usename);
      };
