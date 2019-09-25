@@ -69,13 +69,7 @@ class Detail extends Component{
             cartlength:result.data.data.length
            
         })
-       
-       
-        
-       
-       
-     
-        
+    
     }
     showDrawer() {
         this.setState({
@@ -92,7 +86,7 @@ class Detail extends Component{
       };
     
      onChange(value){
-        let {goods_size,goods_price,goods_color,size_id,goods_picture}=this.state
+        let {goods_size,goods_price,goods_color,size_id,goods_picture,goods_name}=this.state
         let data= {
             qty:value,
             price:goods_price,
@@ -100,6 +94,7 @@ class Detail extends Component{
             size:goods_size,
             picture:goods_picture,
             size_id:size_id,
+            name:goods_name,
             username:localStorage.getItem("username")
         }
         this.setState({
