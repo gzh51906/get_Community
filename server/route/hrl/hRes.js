@@ -13,7 +13,6 @@ Router.get('/reg', async (req, res, next) => {
     let {
         phoneNum
     } = req.query;
-    console.log(phoneNum)
     let data = await find("customer", {
         'phoneNum': phoneNum
     });

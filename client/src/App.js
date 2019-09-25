@@ -84,15 +84,18 @@ class App extends React.Component{
                 <Header style={{backgroundColor:"#fff",height:'1.08rem',padding:0}}>
                         <Icon onClick={this.showDrawer} type="menu" style={{fontSize:'24px',marginLeft:'20px'}}></Icon>
                         <img src="./route/hrl/img/logo.png" width="50px" style={{marginLeft:'32%',marginBottom:'10px'}}/>
-                        <NavLink to="/login">
+                        
                         {   
                             isUse
                             ? 
+                            <NavLink to="/login">
                             <Icon type="shopping-cart" style={{fontSize:'24px',float:'right',marginRight:'20px',lineHeight:'54px'}}></Icon>
+                            </NavLink>
                             :
+                            <NavLink to="/cart">
                             <Icon type="user" style={{fontSize:'24px',float:'right',marginRight:'20px',lineHeight:'54px'}}></Icon>
+                            </NavLink>
                         }
-                        </NavLink>
                         <Drawer
                         placement="left"
                         closable={false}

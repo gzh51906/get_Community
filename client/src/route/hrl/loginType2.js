@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Row, Col,Icon, Tooltip } from 'antd';
-
+import {NavLink} from 'react-router-dom';
 class LoginType2 extends Component{
     //数据
     state={
@@ -35,7 +35,9 @@ class LoginType2 extends Component{
                         <div style={{backgroundColor:'#fff',height:'26px',lineHeight:'26px'}}>个人中心</div>
                     </Col>
                     <Col span={8} style={{textAlign:'center'}}>
+                        <NavLink to="/cart">
                         <Icon type="shopping-cart" style={{fontSize:'24px',color:'#fff'}}></Icon>
+                        </NavLink>
                     </Col>
                 </Row>
             </div>
