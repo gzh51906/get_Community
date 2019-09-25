@@ -9,12 +9,13 @@ let {
     insert
 } = require('../common/mongo');
 
-Router.get('/reg', async (req, res, next) => {
+Router.get('/allgoods', async (req, res, next) => {
     let {
-        phoneNum
+        type
     } = req.query;
-    let data = await find("customer", {
-        'phoneNum': phoneNum
+    let typecode = `/${type}/`
+    let data = await find("goods", {
+        'type2': eval(typecode),
     });
     res.send(formatData({
         data: data

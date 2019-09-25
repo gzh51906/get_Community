@@ -27,12 +27,14 @@ Router.post('/login',async(req,res,next)=>{
     let{
         usename,
         password,
-        phoneNum
+        phoneNum,
+        date,
     } = req.body;
     let data = await insert('customer',{
          usename,
          password,
-         phoneNum
+         phoneNum,
+         tiem:date,
     });
     res.send(formatData({
         data: data
