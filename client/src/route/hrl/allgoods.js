@@ -26,22 +26,38 @@ class Allgoods extends Component{
     //方法
     async callback(key){
         let {get} = this.props;
-        console.log(key);
+        // console.log(key);
         let somelist = await get('http://127.0.0.1:1902/hrl/allgoods', {
             type: key
         });
-        console.log(somelist);
+        // console.log(somelist);
         this.setState({
             goodslist:somelist.data,
         })
-        console.log(this.state.goodslist);
+        // console.log(this.state.goodslist);
     }
     //价格升序
-    UpPrice=()=>{
-        console.log('升')
+    async UpPrice(){
+        let {get} = this.props;
+        let somelist = await get('http://127.0.0.1:1902/hrl/goodsprice', {
+            type: '鞋',
+            asc: true
+        })
+        console.log(somelist.data)
+        this.setState({
+            goodslist: somelist.data,
+        })
     }
-    DownPrice=()=>{
-        console.log('降');
+    async DownPrice(){
+        let {get} = this.props;
+        let somelist = await get('http://127.0.0.1:1902/hrl/goodsprice', {
+            type: '鞋',
+            asc: false
+        })
+        console.log(somelist.data)
+        this.setState({
+            goodslist: somelist.data,
+        })
     }
     //页码控制数据
     onChange=(value)=>{
@@ -98,8 +114,8 @@ class Allgoods extends Component{
                     <TabPane tab={
                         <span>
                              价格排序
-                            <Icon type = "arrow-up" onClick={this.UpPrice}/>
-                            <Icon type="arrow-down" onClick={this.DownPrice}/>
+                            <Icon type = "arrow-up" onClick={this.UpPrice.bind(this)}/>
+                            <Icon type="arrow-down" onClick={this.DownPrice.bind(this)}/>
                         </span>
                     } key="鞋">
                          <div className="hgoodsBox">
