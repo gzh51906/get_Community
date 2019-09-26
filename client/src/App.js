@@ -11,6 +11,7 @@ import APP from './route/hrl/app';
 import Allgoods from './route/hrl/allgoods';
 import LoginType from './route/hrl/loginType';
 import LoginType2 from './route/hrl/loginType2';
+import Personer from './route/hrl/personer';
 import './App.css';
 const { Header, Footer, Sider, Content } = Layout;
 const { SubMenu } = Menu;
@@ -188,6 +189,7 @@ class App extends React.Component{
                         <Route path="/saogoods" component={SaoGoods}></Route>
                         <Route path='/app' component={APP}></Route>
                         <Route path='/allgoods' component={Allgoods}></Route>
+                        <Route path="/personer" component={Personer}></Route>
                         {/* {Home路由-苏沛龙} */}
                         <Route path="/home" component={Home}></Route>
                         <Route path="/newPage:_id" component={NewPage}></Route>

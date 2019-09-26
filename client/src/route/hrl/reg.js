@@ -39,6 +39,7 @@ class Reg extends Component{
                         password:values.psw,
                         phoneNum:values.phone,
                         date:time,
+                        coin:100
                     });
                     this.goto('/home',values.nickname)
                 }

@@ -6,14 +6,22 @@ let {
 } = require('../common/formatData');
 let {
     find,
+    insert,
+    update
 } = require('../common/mongo');
 
-Router.get('/reg', async (req, res, next) => {
+Router.patch('/sgin', async (req, res, next) => {
     let {
-        phoneNum
-    } = req.query;
-    let data = await find("customer", {
-        'phoneNum': phoneNum
+        usename,
+        sginTime
+    } = req.body;
+    console.log(sginTime)
+    let data = await update("customer", {
+        'usename': usename,
+    }, {
+        $set: {
+            sginTime
+        }
     });
     res.send(formatData({
         data: data

@@ -35,7 +35,7 @@ class LoginType2 extends Component{
                         <Icon  type="search" style={{fontSize:'24px',color:'#fff'}}></Icon>
                     </Col>
                     <Col span={8} style={{marginTop:'20px',textAlign:'center'}}>
-                        <div style={{backgroundColor:'#fff',height:'26px',lineHeight:'26px'}}>个人中心</div>
+                        <div onClick={this.hgoto.bind(this,'/personer')} style={{backgroundColor:'#fff',height:'26px',lineHeight:'26px'}}>个人中心</div>
                     </Col>
                     <Col span={8} style={{textAlign:'center'}}>
                         <Icon onClick={this.hgoto.bind(this,'/cart')} type="shopping-cart" style={{fontSize:'24px',color:'#fff'}}></Icon>
