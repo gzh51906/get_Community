@@ -128,7 +128,6 @@ class ZiXunMoreAdd extends React.Component{
                     let data = this.state.data;
                     data.desc = desc;
                     this.setState({data});
-                    setTimeout(()=>{console.log(this.state.data)},1000)
                 }} rows={4} style={{width:"500px"}} />
             </div>
             <div style={{marginBottom:"15px"}}>
