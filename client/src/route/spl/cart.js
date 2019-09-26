@@ -7,7 +7,7 @@ import $ from "jquery"
 
 
 
-
+var  allgoods=[]
 class Cart extends Component{
     constructor(){
         super()
@@ -16,7 +16,7 @@ class Cart extends Component{
             totalPrice:0.00,
             allPrice:"",
             price:"",
-            goodmsg:[]
+           
            
         }
         
@@ -44,25 +44,30 @@ class Cart extends Component{
        this.setState({
            goodslist:data.data,
            allPrice:totalPrice,
+          
        })
-
         
     }
    
       checkAll (e) {
           let{allPrice,goodslist}=this.state
           let price=0
-          let goods=goodslist
+         
          if($(e.target).prop("checked")==true){
-
+           
             $("li input").map((index,item)=>{
                 $(item).prop("checked",true)
             })
+            goodslist.forEach((item,index)=>{
+                allgoods[index]=item
+            })
+
             this.setState({
                 totalPrice:allPrice,
-                goodmsg:goods
             })
+           
           }else{
+              allgoods=[]
             $("li input").map((index,item)=>{
                 $(item).prop("checked",false)
             })
@@ -76,28 +81,27 @@ class Cart extends Component{
       checkOne (msg,e)  {
           
           let{price}=msg
-          let {totalPrice,goodmsg} = this.state
+          let {totalPrice} = this.state
           let allPrice=totalPrice
-          var goods=goodmsg
          if( $(e.target).prop("checked")==true){
             allPrice+=price*1
-            goods.push(msg)
+            allgoods.push(msg)
             
             this.setState({
                 totalPrice:allPrice,
-                goodmsg:goods
+                
             })
             
          }else{   
              allPrice-=price
-            goods = goods.filter(item=>{
+             allgoods = allgoods.filter(item=>{
                  return item._id != msg._id
              })
              
              $(".checkall").prop("checked",false)
              this.setState({
                  totalPrice:allPrice,
-                 goodmsg:goods
+                 
              })
              
          }
@@ -108,15 +112,14 @@ class Cart extends Component{
         
       };
    async  gotoOrder(){
-         let{goodmsg}=this.state
          
          if($("li input:checked").length!=0){
              this.props.history.push("/order")
-             let {data} = await axios({
-                 method:"get",
-                 url:"http://127.0.0.1:1902/spl/order/insertgoods",
-                 params:{goodmsg}
-             })
+            //  let {data} = await axios({
+            //      method:"get",
+            //      url:"http://127.0.0.1:1902/spl/order/insertgoods",
+                 
+            //  })
          }
         
          else{
@@ -128,6 +131,7 @@ class Cart extends Component{
     
     render(){
        
+       console.log(allgoods);
        
         let {goodslist,totalPrice} = this.state
         return <div>
