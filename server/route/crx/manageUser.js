@@ -25,6 +25,30 @@ Router.patch("/manageUser_update",async (req,res,next)=>{
 	next();
 })
 
+// 添加管理人员
+Router.post("/manageUser_Add",async (req,res,next)=>{
+	let {data} = req.body;
+	await insert("manageUser",data);
+	res.send(formatData());
+	next();
+})
+
+// 删除管理人员
+Router.delete("/manageUser_Remove",async (req,res,next)=>{
+	let {_id} = req.query;
+	await remove("manageUser",{_id});
+	res.send(formatData());
+	next();
+})
+
+
+// app注册用户信息部分
+Router.get("/appUser_get",async (req,res,next)=>{
+	let result = await find("customer",{});
+	res.send(formatData({data:result}));
+	next();
+})
+
 
 
 
