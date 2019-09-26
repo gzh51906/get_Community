@@ -132,7 +132,8 @@ class Detail extends Component{
     
       }
     async add2Cart(){
-      
+        
+        
         if(typeof(this.state.newPrice)=="number"){
             let {data}=await axios({
                 method:"get",
@@ -150,7 +151,7 @@ class Detail extends Component{
                 cartlength:result.data.data.length
             })
             this.onClose()
-            if(this.state.select==true&&username){
+            if(username){
                 this.props.history.push("/cart")
             }
             else{
