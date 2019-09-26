@@ -54,5 +54,10 @@ Router.get("/type",async(req,res,next)=>{
     
     res.send(formatData({data}))
 })
+Router.get("/insertgoods",async(req,res,next)=>{
+    let {goodmsg} = req.query
+    res.send(formatData({code:1}))
+    
+})
 
 module.exports=Router

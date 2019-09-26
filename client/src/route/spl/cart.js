@@ -4,6 +4,10 @@ import { Checkbox,Empty  } from 'antd'
 
 import $ from "jquery"
 
+
+
+
+
 class Cart extends Component{
     constructor(){
         super()
@@ -11,22 +15,25 @@ class Cart extends Component{
             goodslist:[],
             totalPrice:0.00,
             allPrice:"",
-            price:""
-
+            price:"",
+            goodmsg:[]
            
-          
         }
+        
       this.checkOne=this.checkOne.bind(this)
       this.checkAll=this.checkAll.bind(this)
+      this.gotoOrder=this.gotoOrder.bind(this)
     }
     
   async  componentDidMount(){
-        let username=localStorage.getItem("usename")
+        let username=localStorage.getItem("username")
         let {data} = await axios({
             method:"get",
             url:"http://127.0.0.1:1902/spl/cartlength",
             params:{username}
         })
+      
+        
       let total=  data.data.map((item)=>{
             return Number(item.price)*Number(item.qty)
         })
@@ -36,22 +43,24 @@ class Cart extends Component{
       }
        this.setState({
            goodslist:data.data,
-           allPrice:totalPrice
+           allPrice:totalPrice,
        })
 
         
     }
+   
       checkAll (e) {
-          let{allPrice}=this.state
+          let{allPrice,goodslist}=this.state
           let price=0
+          let goods=goodslist
          if($(e.target).prop("checked")==true){
-
 
             $("li input").map((index,item)=>{
                 $(item).prop("checked",true)
             })
             this.setState({
-                totalPrice:allPrice
+                totalPrice:allPrice,
+                goodmsg:goods
             })
           }else{
             $("li input").map((index,item)=>{
@@ -64,26 +73,58 @@ class Cart extends Component{
         
       
       };
-      checkOne (msg)  {
+      checkOne (msg,e)  {
+          
           let{price}=msg
-          let allPrice=0
-       $("li input").map((index,item)=>{
-         if( $(item).prop("checked")==true){
+          let {totalPrice,goodmsg} = this.state
+          let allPrice=totalPrice
+          var goods=goodmsg
+         if( $(e.target).prop("checked")==true){
             allPrice+=price*1
-            this.setState({
-                totalPrice:allPrice
-            })
-         }else{
+            goods.push(msg)
             
+            this.setState({
+                totalPrice:allPrice,
+                goodmsg:goods
+            })
+            
+         }else{   
+             allPrice-=price
+            goods = goods.filter(item=>{
+                 return item._id != msg._id
+             })
+             
              $(".checkall").prop("checked",false)
              this.setState({
-                 totalPrice:allPrice
+                 totalPrice:allPrice,
+                 goodmsg:goods
+             })
+             
+         }
+         if($("li input:checked").length===$("li input").length){
+             $(".checkall").prop("checked",true)    
+         }
+        
+        
+      };
+   async  gotoOrder(){
+         let{goodmsg}=this.state
+         
+         if($("li input:checked").length!=0){
+             this.props.history.push("/order")
+             let {data} = await axios({
+                 method:"get",
+                 url:"http://127.0.0.1:1902/spl/order/insertgoods",
+                 params:{goodmsg}
              })
          }
-         
-         
-       })
-      };
+        
+         else{
+             
+             alert("请选择商品")
+         }
+
+     }
     
     render(){
        
@@ -94,9 +135,9 @@ class Cart extends Component{
                 <ul style={{padding:"0px",display:"flex",justifyContent:"center",flexDirection:"column"}}>
                 {
                     goodslist.map((item,index)=>{
-                        return <li key={index} style={{borderTop:"0.02rem solid #ccc",paddingLeft:"0.3rem",marginBottom:"0.2rem",display:"flex",justifyContent:"center",alignItems:"center",width:"100%",height:"2rem"}}>
+                        return <li key={index} style={{borderTop:"0.02rem solid #ccc",paddingLeft:"0.3rem",marginBottom:"0.2rem",display:"flex",justifyContent:"center",alignItems:"center",width:"100%",height:"2rem"}} >
                           <input type="checkbox" style={{width:"0.5rem",height:"0.5rem"}} onClick={this.checkOne.bind(this,item)}/>
-                              
+                         
                             <img src={"http://127.0.0.1:1902/"+item.picture} style={{width:"1.36rem",height:"1.36rem",marginLeft:"0.2rem",marginRight:"0.2rem"}}/>
                             <div  style={{display:"flex",flexDirection:"column",justifyContent:"center"}}>
                             <h6 style={{width: "4.6rem",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{item.name}</h6>
@@ -117,8 +158,9 @@ class Cart extends Component{
                 <span style={{fontSize:"0.3rem",color:"#000"}}>
                 <input type="checkbox" style={{width:"0.5rem",height:"0.5rem",verticalAlign:"middle"}} onClick={this.checkAll} className="checkall"/>全选
                 </span>
+                 
                     <span style={{color:"#000"}}>合计:<b style={{color:"#00AAEA"}}>￥{totalPrice.toFixed(2)}</b></span>
-                    <span style={{width:"2rem",height:"100%",background:"#00AAEA",textAlign:"center",lineHeight:"1rem",color:"#fff"}}>结算</span>
+                    <span style={{width:"2rem",height:"100%",background:"#00AAEA",textAlign:"center",lineHeight:"1rem",color:"#fff"}} onClick={this.gotoOrder}>结算</span>
                 </div>
 
 
