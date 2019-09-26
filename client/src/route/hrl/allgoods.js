@@ -19,7 +19,7 @@ class Allgoods extends Component{
         let {dataNum} = this.state;
         let {get} = this.props;
         let somelist = await get('http://127.0.0.1:1902/hrl/allgoods',{
-            type:'折'
+            type:'衣'
         });
         let datalist = await get('http://127.0.0.1:1902/hrl/goodsprice', {
             type: '鞋',
@@ -78,7 +78,7 @@ class Allgoods extends Component{
         let {goodslist,allgoods} = this.state;
         return(
             <div>
-                <Tabs defaultActiveKey="折" onChange={this.callback.bind(this)}>
+                <Tabs defaultActiveKey="衣" onChange={this.callback.bind(this)}>
                     <TabPane tab="综合排序" key='衣'>
                          <div className="hgoodsBox">
                         {
