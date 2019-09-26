@@ -52,12 +52,17 @@ class Allgoods extends Component{
             goodslist:somelist.data,
         })
     }
+    //价格降序
     async DownPrice(){
         let {get} = this.props;
         let somelist = await get('http://127.0.0.1:1902/hrl/goodsprice', {
             type: '鞋',
             asc: false
         })
+    }
+    //跳转
+    goto(path){
+        this.props.history.push(path);
     }
     //页码控制数据
     onChange=(value)=>{
@@ -78,7 +83,7 @@ class Allgoods extends Component{
                          <div className="hgoodsBox">
                         {
                             goodslist.map(item=>{
-                                return <div key={item._id} style={{marginRight:'10px',width:'165px'}}>
+                                return <div onClick={this.goto.bind(this,`/details:${item._id}`)} key={item._id} style={{marginRight:'10px',width:'165px'}}>
                                     <img src={item.select.data[0].image} style={{width:'100%'}}/>
                                     <p className='hgoodsTitle'>{item.title}</p>
                                     <span style={{float:'left'}}>{'￥'+item.newPrice}</span><span style={{float:'right'}}>自营</span>
