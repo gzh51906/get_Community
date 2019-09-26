@@ -11,9 +11,34 @@ class ManageUser extends React.Component{
 		}
 		this.remove = this.remove.bind(this);
 		this.gotoEdit = this.gotoEdit.bind(this);
+		this.gotoAdd = this.gotoAdd.bind(this);
 	}
 	async remove(id){
-		console.log(id);
+		if(this.props.manage){
+			let author = localStorage.getItem("author");
+			let {data} = await this.props.get("http://127.0.0.1:1902/crx/manageUser_byId",{_id:id});
+			if(author === data[0].username){
+				message.error("删除失败");
+			}else{
+				let data = this.state.data;
+				data = data.filter(item=>item._id!==id);
+				this.setState({data});
+				await this.props.delete("http://127.0.0.1:1902/crx/manageUser_Remove",{_id:id});
+				message.success("删除成功");
+			}
+			
+		}else{
+			message.warning("只有拥有管理权限的管理员才能做此操作");
+		}
+	}
+	gotoAdd(){
+		if(this.props.manage){
+			this.props.history.push({
+				pathname:this.props.match.path+"/add"
+			})
+		}else{
+			message.warning("只有拥有管理权限的管理员才能做此操作");
+		}
 	}
 	gotoEdit(id){
 		if(this.props.manage){
@@ -87,7 +112,7 @@ class ManageUser extends React.Component{
 				}
 		 }];
 		return <div>
-			<Button style={{margin:"25px 0 10px 50px"}} type="danger">添加管理人员</Button>,
+			<Button onClick={this.gotoAdd} style={{margin:"25px 0 10px 50px"}} type="danger">添加管理人员</Button>,
 			<Table columns={columns} dataSource={this.state.data} size="middle" />
 		</div>
 	}

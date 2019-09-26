@@ -17,6 +17,8 @@ import GoodsType from "../component/goodsType";
 import GoodsAdd from "../component/goodsAdd";
 import ManageUser from "../component/manageUser";
 import ManageUserEdit from "../component/manageUserEdit";
+import ManageUserAdd from "../component/manageUserAdd";
+import ClientUser from "../component/clientUser";
 class Home extends React.Component{
     constructor(){
         super();
@@ -77,7 +79,7 @@ class Home extends React.Component{
                     </Panel>
                     <Panel header="用户管理" key="3">
                         <p style={{marginLeft:23,cursor:"pointer"}}>
-                            <NavLink onClick={this.changeListTitle.bind(this,"首页/用户管理/用户信息")} to="" style={{color:"rgb(89, 89, 89)"}} activeStyle={{color:"blue",fontWeight:"600"}}>用户信息</NavLink>
+                            <NavLink onClick={this.changeListTitle.bind(this,"首页/用户管理/用户信息")} to="/clientuser" style={{color:"rgb(89, 89, 89)"}} activeStyle={{color:"blue",fontWeight:"600"}}>用户信息</NavLink>
                         </p>
                         <p style={{marginLeft:23,cursor:"pointer"}}>
                             <NavLink onClick={this.changeListTitle.bind(this,"首页/用户管理/权限管理")} to="/manageuser" style={{color:"rgb(89, 89, 89)"}} activeStyle={{color:"blue",fontWeight:"600"}}>权限管理</NavLink>
@@ -114,7 +116,9 @@ class Home extends React.Component{
                             <Route path="/goodsmore/add" component={GoodsAdd} exact/>
                             <Route path="/goodstype" component={GoodsType} exact/>
                             <Route path="/manageuser" component={ManageUser} exact/>
+							<Route path="/manageuser/add" component={ManageUserAdd}/>
                             <Route path="/manageuser/edit" component={ManageUserEdit}/>
+							<Route path="/clientuser" component={ClientUser} exact/>
                             <Redirect from="/" to="/zixunmore" exact />
                         </Switch>
                     </Content>
