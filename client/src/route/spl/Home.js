@@ -22,6 +22,8 @@ class Home extends Component{
         }
         this.gotoNew=this.gotoNew.bind(this)
         this.gotoDetail=this.gotoDetail.bind(this)
+        this.gotonew=this.gotonew.bind(this)
+        this.gotogood=this.gotogood.bind(this)
     }
    async componentDidMount(){
     let {data}= await axios({
@@ -52,6 +54,12 @@ class Home extends Component{
     }
     gotoDetail(id){
       this.props.history.push(`/detail${id}`)
+    }
+    gotonew(){
+        this.props.history.push("/new")
+    }
+    gotogood(){
+        this.props.history.push("/saogoods")
     }
     render(){
      
@@ -91,7 +99,7 @@ class Home extends Component{
              }
             </Carousel>
             <div style={{marginTop:"0.2rem"}}>
-                <img src="http://www.dunkhome.com/images/h5/icon_home_news.svg" style={{width:"2rem",height:"1.24rem",display:"block",margin:"0 auto"}}/>
+                <img src="http://www.dunkhome.com/images/h5/icon_home_news.svg" style={{width:"2rem",height:"1.24rem",display:"block",margin:"0 auto"}} onClick={this.gotonew}/>
             </div>
             <List dataSource={listData}
             renderItem={item => (
@@ -120,7 +128,7 @@ class Home extends Component{
             </List.Item>
                     )}/>
             <div style={{marginTop:"0.2rem",borderTop:"0.02rem solid #ccc",paddingTop:"0.2rem"}}>
-                <img src="http://www.dunkhome.com/images/h5/icon_home_products.svg" style={{width:"2rem",height:"1.24rem",display:"block",margin:"0 auto"}}/>
+                <img src="http://www.dunkhome.com/images/h5/icon_home_products.svg" style={{width:"2rem",height:"1.24rem",display:"block",margin:"0 auto"}} onClick={this.gotogood}/>
             </div>
             <List
             grid={{ gutter: 16, column: 2 }}
