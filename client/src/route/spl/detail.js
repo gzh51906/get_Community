@@ -2,7 +2,7 @@ import React,{Component} from "react";
 import $ from "jquery"
 import axios from "axios"
 import css from "./css/Drawer.css"
-import { Carousel,Layout,Icon,Button, Drawer, InputNumber,Badge} from 'antd';
+import { Carousel,Layout,Icon,Button, Drawer, InputNumber,Badge,Modal} from 'antd';
 class Detail extends Component{
     constructor(){
         super()
@@ -150,8 +150,12 @@ class Detail extends Component{
                 cartlength:result.data.data.length
             })
             this.onClose()
-            if(this.state.select==true){
+            if(this.state.select==true&&username){
                 this.props.history.push("/cart")
+            }
+            else{
+                alert("您还未登陆哦！！")
+                this.props.history.push("/login")
             }
            
            

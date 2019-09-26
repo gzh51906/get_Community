@@ -22,6 +22,7 @@ import NewPage from "./route/spl/NewPage";
 import Detail from "./route/spl/detail"
 import Cart from "./route/spl/cart"
 import New from "./route/spl/New"
+import Order from "./route/spl/orderList"
 
 class App extends React.Component{
     rootSubmenuKeys = ['/home', '/new','/saogoods', 'sub4'];
@@ -191,11 +192,13 @@ class App extends React.Component{
                         <Route path='/allgoods' component={Allgoods}></Route>
                         <Route path="/personer" component={Personer}></Route>
                         {/* {Home路由-苏沛龙} */}
+
                         <Route path="/home" component={Home}></Route>
                         <Route path="/newPage:_id" component={NewPage}></Route>
                         <Route path="/detail:_id" component={Detail}></Route>
                         <Route path="/cart" component={Cart}></Route>
                         <Route path="/new" component={New}></Route>
+                        <Route path="/order" component={Order}></Route>
                         <Route path="/" component={Home}></Route>
                     </Switch>
                 </Content>
