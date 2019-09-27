@@ -72,11 +72,13 @@ class SaoGoods extends Component{
     goto(path,search){
         this.props.history.push({
             pathname:path,
-            search:search,
         });
     }
-    allgoodsGoto(path){
-        console.log(path);
+    allgoodsGoto(path,search){
+        this.props.history.push({
+            pathname: path,
+            search: search,
+        });
     }
 
     render(){
@@ -120,7 +122,7 @@ class SaoGoods extends Component{
                                 })
                             }
                            <div style={{width:100,height:110}}>
-                                <img onClick={this.goto.bind(this,'/allgoods','篮球鞋')} src='http://www.dunkhome.com/images/h5/product_item_more.png' style={{width:110,paddingTop:5}}/>
+                                <img onClick={this.allgoodsGoto.bind(this,'/allgoods','篮球鞋')} src='http://www.dunkhome.com/images/h5/product_item_more.png' style={{width:110,paddingTop:5}}/>
                            </div>
                         </ul>
                     </div>
@@ -142,7 +144,7 @@ class SaoGoods extends Component{
                                 })
                             }
                            <div style={{width:100,height:110}}>
-                                <img onClick={this.goto.bind(this,'/allgoods','上衣')} src='http://www.dunkhome.com/images/h5/product_item_more.png' style={{width:110,paddingTop:5}}/>
+                                <img onClick={this.allgoodsGoto.bind(this,'/allgoods','上衣')} src='http://www.dunkhome.com/images/h5/product_item_more.png' style={{width:110,paddingTop:5}}/>
                            </div>
                         </ul>
                     </div>
@@ -164,7 +166,7 @@ class SaoGoods extends Component{
                                 })
                             }
                            <div style={{width:100,height:110}}>
-                                <img onClick={this.goto.bind(this,'/allgoods','休闲鞋')} src='http://www.dunkhome.com/images/h5/product_item_more.png' style={{width:110,paddingTop:5}}/>
+                                <img onClick={this.allgoodsGoto.bind(this,'/allgoods','休闲鞋')} src='http://www.dunkhome.com/images/h5/product_item_more.png' style={{width:110,paddingTop:5}}/>
                            </div>
                         </ul>
                     </div>
