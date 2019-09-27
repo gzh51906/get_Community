@@ -1,7 +1,7 @@
 import React from "react";
 import withAjax from "../heightRouter/withAjax.js";
 import {connect} from "react-redux";
-import { Input,Table  } from 'antd';
+import { Input,Table,Button   } from 'antd';
 const { Search } = Input;
 
 
@@ -11,6 +11,21 @@ class OrderMore extends React.Component{
 		this.state = {
 			data:[]
 		}
+		this.search = this.search.bind(this);
+		this.remove = this.remove.bind(this);
+	}
+	async remove(result){
+		let parentId = result.parentId;
+		let childId = result._id;
+		let data = this.state.data;
+		data = data.filter(item=>!(item.allgoods.parentId===parentId && item.allgoods._id===childId));
+		this.setState({data});
+		let response = await this.props.delete("http://127.0.0.1:1902/crx/order_remove",{parentId,childId});
+	}
+	async search(val){
+		let result = await this.props.get("http://127.0.0.1:1902/crx/order_get",{username:val});
+		let data = getData(result);
+		this.setState({data});
 	}
 	async componentDidMount(){
 		let {get} = this.props;
@@ -71,11 +86,16 @@ class OrderMore extends React.Component{
 			title:"订单状态",
 			align:"center",
 			dataIndex:"allgoods.refund",
-			render:type=><p style={{margin:"0"}}>{type?"完成":"待退款"}</p>
+			render:type=><p style={{margin:"0"}}>{!type?"完成":"待退款"}</p>
+		},{
+			title:"操作",
+			align:"center",
+			dataIndex:"allgoods2",
+			render:allgoods2=>!allgoods2.refund?<Button onClick={this.remove.bind(this,allgoods2)} type="link">删除</Button>:""
 		}]
 		return <div>
 			<div style={{padding:"20px 200px"}}>
-				<Search placeholder="请输入买家用户名" onSearch={value => console.log(value)} enterButton />
+				<Search placeholder="请输入买家用户名" onSearch={value => this.search(value)} enterButton />
 			</div>
 			<Table columns={columns} dataSource={this.state.data} />
 		</div>
@@ -92,6 +112,7 @@ function getData(result){
 				obj.key = e._id+i+Math.random();
 				obj.allgoods = e;
 				obj.allgoods.parentId = item._id;
+				obj.allgoods2 = obj.allgoods;
 				arr2.push(obj);
 			})
 		})
@@ -103,9 +124,7 @@ function getData(result){
 
 let mapStateToProps = function(state){
     return {
-        insert:state.common.insert,
-        update:state.common.update,
-        remove:state.common.remove
+        
     }
 }
 let mapDispatchToProps = function(dispatch){
