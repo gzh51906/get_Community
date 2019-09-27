@@ -63,7 +63,7 @@ class ClientUser extends React.Component{
 		 },{
 				title: '最近登录时间',
 				align:"center",
-				dataIndex: 'logTime',
+				dataIndex: 'loginTime',
 				render:time=><p style={{margin:"0"}}>{this.props.formatDate(time,"-")}</p>
 		 },{
 				title:"今天是否已签到",
