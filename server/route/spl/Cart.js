@@ -54,12 +54,26 @@ Router.get("/type",async(req,res,next)=>{
     
     res.send(formatData({data}))
 })
-Router.get("/insertgoods",async(req,res,next)=>{
-    let {goodmsg} = req.query
-    console.log(goodmsg);
+Router.post("/insertgoods",async(req,res,next)=>{
+    let {allgoods} = req.body
+    let result = await insert("order",{allgoods})
+    if(result){
+        res.send(formatData({code:1}))
+    }
+    else{
+        res.send(formatData({code:0}))
+    }
     
-    res.send(formatData({code:1}))
     
+})
+Router.get("/order",async(req,res,next)=>{
+    let result = await find("order",{})
+    if(result){
+        res.send(formatData({data:result}))
+    }
+    else{
+        res.send(formatData({code:0}))
+    }
 })
 
 module.exports=Router

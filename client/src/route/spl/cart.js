@@ -52,16 +52,22 @@ class Cart extends Component{
       checkAll (e) {
           let{allPrice,goodslist}=this.state
           let price=0
+          let date=Date.now()
          
          if($(e.target).prop("checked")==true){
            
             $("li input").map((index,item)=>{
                 $(item).prop("checked",true)
             })
+            
             goodslist.forEach((item,index)=>{
                 allgoods[index]=item
             })
-
+           
+            
+            allgoods.map(item=>{
+                return item.time=date
+            })
             this.setState({
                 totalPrice:allPrice,
             })
@@ -79,7 +85,8 @@ class Cart extends Component{
       
       };
       checkOne (msg,e)  {
-          
+        let date=Date.now()
+        msg.time=date
           let{price}=msg
           let {totalPrice} = this.state
           let allPrice=totalPrice
@@ -114,24 +121,30 @@ class Cart extends Component{
    async  gotoOrder(){
          
          if($("li input:checked").length!=0){
+            
+          
+             
+             
+             let {data} = await axios({
+                 method:"post",
+                 url:"http://127.0.0.1:1902/spl/insertgoods",
+                 data:{allgoods:allgoods}
+             })
+             
              this.props.history.push("/order")
-            //  let {data} = await axios({
-            //      method:"get",
-            //      url:"http://127.0.0.1:1902/spl/order/insertgoods",
-                 
-            //  })
+             alert("付款成功")
          }
         
          else{
              
              alert("请选择商品")
          }
+         allgoods=[]
 
      }
     
     render(){
        
-       console.log(allgoods);
        
         let {goodslist,totalPrice} = this.state
         return <div>
