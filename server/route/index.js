@@ -31,6 +31,8 @@ const manage_goods = require("./crx/manageGoods");
 Router.use("/crx",manage_goods);
 const manage_user = require("./crx/manageUser");
 Router.use("/crx",manage_user);
+const manageOrder = require("./crx/manageOrder");
+Router.use("/crx",manageOrder);
 
 //苏沛龙引入的
 
