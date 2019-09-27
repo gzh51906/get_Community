@@ -49,6 +49,14 @@ Router.get("/appUser_get",async (req,res,next)=>{
 	next();
 })
 
+// 删除久未登录的用户
+Router.delete("/appUser_remove",async (req,res,next)=>{
+	let {_id} = req.query;
+	await remove("customer",{_id});
+	res.send(formatData());
+	next();
+})
+
 
 
 
