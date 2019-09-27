@@ -16,7 +16,6 @@ Router.patch('/sgin', async (req, res, next) => {
         sginTime,
         coin,
     } = req.body;
-    console.log(coin)
     let data = await update("customer", {
         'usename': usename,
     }, {

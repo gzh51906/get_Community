@@ -11,6 +11,7 @@ class Personer extends Component{
         username:'',
         num:'',
         day:'',
+        sginText:false,
         muen:[{
             text:'待付款',
             icon: 'car'
@@ -80,7 +81,7 @@ class Personer extends Component{
         let {patch,formatDate} = this.props;
         let usename = localStorage.getItem('username')
         let sginDate = formatDate(time,'-');
-        let {num,day} = this.state;
+        let {num,day,sginText} = this.state;
         if(day !== sginDate.slice(8,10)){
             num = num + 5;
             let {data} = await patch('http://127.0.0.1:1902/hrl/sgin',{
@@ -89,16 +90,17 @@ class Personer extends Component{
                     coin:num
         });
         this.componentDidMount();
+        
         }
         console.log(sginDate,num);
     }
     //点击跳转
     goto(path){
-        console.log(path);
+        
         this.props.history.push(path);
     }
     render(){
-        let {username,num,muen,Mygoods,Mystreen} = this.state;
+        let {username,num,muen,Mygoods,Mystreen,sginText} = this.state;
         return(
             <div>
                 <div className="hNavtop">

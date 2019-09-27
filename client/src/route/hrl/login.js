@@ -23,7 +23,6 @@ class Login extends Component{
     handleSubmit = e => {
          e.preventDefault();
          let time = Date.now();
-         console.log(time)
          let {get,form,post,patch} = this.props;
          form.validateFields(async (err, values) => {
              if (!err) {

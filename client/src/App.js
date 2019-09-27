@@ -32,7 +32,8 @@ class App extends React.Component{
      visible: false,
      openKeys: ['sub4'],
      isUse:false,
-     usename:''
+     usename:'',
+     hrlTrue:false,
     }
     //方法
      showDrawer = () => {
@@ -55,7 +56,9 @@ class App extends React.Component{
              usename:'',
          })
          this.onClose();
+         this.props.history.push('/home');
      }
+     
      //菜单的方法
      onOpenChange = openKeys => {
          const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1);
@@ -116,7 +119,7 @@ class App extends React.Component{
                                     ?
                                     <LoginType2 onClose={onClose}></LoginType2>
                                     :
-                                    <LoginType></LoginType>
+                                    <LoginType onClose={onClose}></LoginType>
                                 }                             
                             </Header>
                            
