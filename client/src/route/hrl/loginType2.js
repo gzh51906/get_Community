@@ -15,7 +15,7 @@ class LoginType2 extends Component{
             usename:usename
         });
         this.setState({
-            username:localStorage.getItem('username'),
+            username: usename,
             cartLength:cartlist.data.length,
         })
     }

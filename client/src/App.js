@@ -12,6 +12,8 @@ import Allgoods from './route/hrl/allgoods';
 import LoginType from './route/hrl/loginType';
 import LoginType2 from './route/hrl/loginType2';
 import Personer from './route/hrl/personer';
+import UsePhone from './route/hrl/usephone';
+import Evaluating from './route/hrl/evaluating';
 import './App.css';
 const { Header, Footer, Sider, Content } = Layout;
 const { SubMenu } = Menu;
@@ -172,7 +174,7 @@ class App extends React.Component{
                                     </span>
                                 }
                                 >
-                                <Menu.Item key="9">评测区</Menu.Item>
+                                <Menu.Item  onClick={this.hgoto.bind(this,'/evaluating')} key="/evaluating">评测区</Menu.Item>
                                 <Menu.Item key="10">晒图区</Menu.Item>
                                 <Menu.Item key="11">运动品牌鉴定区</Menu.Item>
                                 <Menu.Item key="12">潮牌鉴定区</Menu.Item>
@@ -194,6 +196,8 @@ class App extends React.Component{
                         <Route path='/app' component={APP}></Route>
                         <Route path='/allgoods' component={Allgoods}></Route>
                         <Route path="/personer" component={Personer}></Route>
+                        <Route path="/usephone" component={UsePhone}/>
+                        <Route path="/evaluating" component={Evaluating}/>
                         {/* {Home路由-苏沛龙} */}
 
                         <Route path="/home" component={Home}></Route>

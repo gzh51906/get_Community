@@ -14,16 +14,20 @@ class Personer extends Component{
         sginText:false,
         muen:[{
             text:'待付款',
-            icon: 'car'
+            icon: 'car',
+            path:'/cart'
         },{
             text:'待发货',
-            icon: 'dropbox'
+            icon: 'dropbox',
+            path:'/order'
         },{
             text:'待收货',
-            icon: 'credit-card'
+            icon: 'credit-card',
+            path:'/order'
         },{
             text:'退换货',
-            icon: 'retweet'
+            icon: 'retweet',
+            path:'/order'
         }],
         Mygoods:[{
             text:'我的购物车',
@@ -48,16 +52,20 @@ class Personer extends Component{
         }],
         Mystreen:[{
             text:'我的优惠劵',
-            icon: 'red-envelope'
+            icon: 'red-envelope',
+            path:'/redbag'
         },{
             text:'我的收货地址',
-            icon: 'environment'
+            icon: 'environment',
+            path: '/address'
         },{
             text:'手机绑定',
-            icon: 'mobile'
+            icon: 'mobile',
+            path:'/usephone'
         },{
             text:'身份证信息',
-            icon: 'idcard'
+            icon: 'idcard',
+            path:'/idcard'
         }]
     }
 
@@ -100,6 +108,7 @@ class Personer extends Component{
     }
     //点击跳转
     goto(path){
+        console.log(path)
         this.props.history.push(path);
     }
     render(){
@@ -121,14 +130,14 @@ class Personer extends Component{
                 </div>
                 <div className="hordera">
                     <div className="hordera_top">
-                        <span>我的订单</span><span style={{float:'right'}}>查看全部订单 ></span>
+                        <span>我的订单</span><span onClick={this.goto.bind(this,'/order')} style={{float:'right'}}>查看全部订单 ></span>
                     </div>
                     <div>
                          <Row style={{marginBottom:'10px'}}>
                              {
                                  muen.map(item=>{
                                      return <Col key={item.text} span={6} style={{textAlign:'center'}}>
-                                            <div style={{marginTop:'10px',marginBottom:'10px'}}><Icon type={item.icon} style={{fontSize:'26px'}}></Icon></div>
+                                            <div onClick={this.goto.bind(this,item.path)} style={{marginTop:'10px',marginBottom:'10px'}}><Icon type={item.icon} style={{fontSize:'26px'}}></Icon></div>
                                             {item.text}
                                          </Col>
                                  })
@@ -138,14 +147,14 @@ class Personer extends Component{
                 </div>
                 <div className="hordera">
                     <div className="hordera_top">
-                        <span>历史订单</span><span style={{float:'right'}}>查看全部订单 ></span>
+                        <span>历史订单</span><span onClick={this.goto.bind(this,'/order')} style={{float:'right'}}>查看全部订单 ></span>
                     </div>
                     <div>
                          <Row style={{marginBottom:'10px'}}>
                              {
                                  muen.map(item=>{
                                      return <Col key={item.text} span={6} style={{textAlign:'center'}}>
-                                            <div style={{marginTop:'10px',marginBottom:'10px'}}><Icon type={item.icon} style={{fontSize:'26px'}}></Icon></div>
+                                            <div onClick={this.goto.bind(this,item.path)} style={{marginTop:'10px',marginBottom:'10px'}}><Icon type={item.icon} style={{fontSize:'26px'}}></Icon></div>
                                             {item.text}
                                          </Col>
                                  })
@@ -169,7 +178,7 @@ class Personer extends Component{
                     {
                         Mystreen.map(item=>{
                             return <div className="hStreebox" key={item.text}>
-                                <Icon type={item.icon} style={{fontSize:'24px',marginLeft:'10px'}}/>
+                                <Icon onClick={this.goto.bind(this,item.path)} type={item.icon} style={{fontSize:'24px',marginLeft:'10px'}}/>
                                 <span style={{marginLeft:'8px'}}>{item.text}</span>
                             </div>
                         })

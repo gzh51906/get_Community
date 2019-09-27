@@ -19,7 +19,7 @@ Router.get('/goodsprice', async (req, res, next) => {
         'type2': eval(typecode),
     },{
         sort:'newPrice',
-        asc
+        asc:asc === 'true' ? true:false,
     });
     res.send(formatData({
         data: data

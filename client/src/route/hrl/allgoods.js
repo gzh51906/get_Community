@@ -16,10 +16,11 @@ class Allgoods extends Component{
         dataNum:[],
     };
     async componentDidMount(){
+        let typecode = decodeURI(this.props.location.search.slice(1));
         let {dataNum} = this.state;
         let {get} = this.props;
         let somelist = await get('http://127.0.0.1:1902/hrl/allgoods',{
-            type:'衣'
+            type: typecode
         });
         let datalist = await get('http://127.0.0.1:1902/hrl/goodsprice', {
             type: '鞋',
@@ -59,6 +60,9 @@ class Allgoods extends Component{
             type: '鞋',
             asc: false
         })
+         this.setState({
+             goodslist: somelist.data,
+         })
     }
     //跳转
     goto(path){
@@ -84,7 +88,7 @@ class Allgoods extends Component{
                         {
                             goodslist.map(item=>{
                                 return <div onClick={this.goto.bind(this,`/detail${item._id}`)} key={item._id} style={{marginRight:'10px',width:'165px'}}>
-                                    <img src={item.select.data[0].image} style={{width:'100%'}}/>
+                                    <img src={'http://127.0.0.1:1902/'+item.picture[0]} style={{width:'100%'}}/>
                                     <p className='hgoodsTitle'>{item.title}</p>
                                     <span style={{float:'left'}}>{'￥'+item.newPrice}</span><span style={{float:'right'}}>自营</span>
                                 </div>
@@ -97,7 +101,7 @@ class Allgoods extends Component{
                         {
                             goodslist.map(item=>{
                                 return <div onClick={this.goto.bind(this,`/detail${item._id}`)} key={item._id} style={{marginRight:'10px',width:'165px'}}>
-                                    <img src={item.select.data[0].image} style={{width:'100%'}}/>
+                                    <img src={'http://127.0.0.1:1902/'+item.picture[0]} style={{width:'100%'}}/>
                                     <p className='hgoodsTitle'>{item.title}</p>
                                     <span style={{float:'left'}}>{'￥'+item.newPrice}</span><span style={{float:'right'}}>自营</span>
                                 </div>
@@ -110,7 +114,7 @@ class Allgoods extends Component{
                         {
                             goodslist.map(item=>{
                                 return <div onClick={this.goto.bind(this,`/detail${item._id}`)} key={item._id} style={{marginRight:'10px',width:'165px'}}>
-                                    <img src={item.select.data[0].image} style={{width:'100%'}}/>
+                                    <img src={'http://127.0.0.1:1902/'+item.picture[0]} style={{width:'100%'}}/>
                                     <p className='hgoodsTitle'>{item.title}</p>
                                     <span style={{float:'left'}}>{'￥'+item.newPrice}</span><span style={{float:'right'}}>自营</span>
                                 </div>
@@ -129,7 +133,7 @@ class Allgoods extends Component{
                         {
                             goodslist.slice(0,10).map(item => {
                                 return <div onClick={this.goto.bind(this,`/detail${item._id}`)} key={item._id} style={{marginRight:'10px',width:'165px'}}>
-                                    <img src={item.select.data[0].image} style={{width:'100%'}}/>
+                                    <img src={'http://127.0.0.1:1902/'+item.picture[0]} style={{width:'100%'}}/>
                                     <p className='hgoodsTitle'>{item.title}</p>
                                     <span style={{float:'left'}}>{'￥'+item.newPrice}</span><span style={{float:'right'}}>自营</span>
                                 </div>
