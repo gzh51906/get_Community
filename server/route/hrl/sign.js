@@ -13,14 +13,15 @@ let {
 Router.patch('/sgin', async (req, res, next) => {
     let {
         usename,
-        sginTime
+        sginTime,
+        coin,
     } = req.body;
-    console.log(sginTime)
     let data = await update("customer", {
         'usename': usename,
     }, {
         $set: {
-            sginTime
+            sginTime,
+            coin
         }
     });
     res.send(formatData({
@@ -29,4 +30,16 @@ Router.patch('/sgin', async (req, res, next) => {
     next();
 })
 
+Router.get('/sgin', async (req, res, next) => {
+    let {
+        usename,
+    } = req.query;
+    let data = await find("customer", {
+        'usename': usename,
+    });
+    res.send(formatData({
+        data: data
+    }));
+    next();
+})
 module.exports = Router;

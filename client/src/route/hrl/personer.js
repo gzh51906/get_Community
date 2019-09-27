@@ -9,7 +9,9 @@ class Personer extends Component{
     //数据
     state={
         username:'',
-        num:100,
+        num:'',
+        day:'',
+        sginText:false,
         muen:[{
             text:'待付款',
             icon: 'car'
@@ -25,19 +27,24 @@ class Personer extends Component{
         }],
         Mygoods:[{
             text:'我的购物车',
-            icon: 'shopping-cart'
+            icon: 'shopping-cart',
+            path:'/cart'
         },{
             text:'我的晒图',
-            icon: 'picture'
+            icon: 'picture',
+            path:''
         },{
             text:'我的评测',
-            icon: 'solution'
+            icon: 'solution',
+            path:''
         },{
             text:'我的讨论',
-            icon: 'message'
+            icon: 'message',
+            path:''
         },{
             text:'我的鉴定',
-            icon: 'search'
+            icon: 'search',
+            path:''
         }],
         Mystreen:[{
             text:'我的优惠劵',
@@ -54,25 +61,46 @@ class Personer extends Component{
         }]
     }
 
-    componentDidMount(){
-        console.log(localStorage.getItem('username'))
+    async componentDidMount(){
+        let {get,formatDate} = this.props;
+        let usename = localStorage.getItem('username')
+        let {data} = await get('http://127.0.0.1:1902/hrl/sgin',{
+            usename:usename,
+        })
+        let dataTime = formatDate(data[0].sginTime,'-');
+        console.log(dataTime.slice(8,10));
         this.setState({
             username:localStorage.getItem('username'),
+            num: data[0].coin,
+            day:dataTime.slice(8,10),
         })
     }
     //点击签到
     async onSgin(){
         let time = Date.now();
-        let {patch} = this.props;
+        let {patch,formatDate} = this.props;
         let usename = localStorage.getItem('username')
-        let {data} = await patch('http://127.0.0.1:1902/hrl/sgin',{
+        let sginDate = formatDate(time,'-');
+        let {num,day,sginText} = this.state;
+        if(day !== sginDate.slice(8,10)){
+            num = num + 5;
+            let {data} = await patch('http://127.0.0.1:1902/hrl/sgin',{
                     usename: usename,
-                    sginTime: time
+                    sginTime: time,
+                    coin:num
         });
-        console.log(data);
+        this.componentDidMount();
+        
+        }
+        console.log(sginDate,num);
+    }
+    //点击跳转
+    goto(path){
+        
+        this.props.history.push(path);
     }
     render(){
-        let {username,num,muen,Mygoods,Mystreen} = this.state;
+        let {username,num,muen,Mygoods,Mystreen,sginText} = this.state;
         return(
             <div>
                 <div className="hNavtop">
@@ -126,7 +154,7 @@ class Personer extends Component{
                     {
                         Mygoods.map(item=>{
                             return <div key={item.text} className="hMybox">
-                                <div style={{marginTop:'35px'}}>
+                                <div onClick={this.goto.bind(this,item.path)} style={{marginTop:'35px'}}>
                                     <Icon type={item.icon} style={{fontSize:'26px'}}/>
                                 </div>
                                 <span>{item.text}</span>

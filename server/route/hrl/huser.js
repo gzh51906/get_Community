@@ -46,14 +46,14 @@ Router.post('/login',async(req,res,next)=>{
         password,
         phoneNum,
         date,
-        coin
+        coin,
     } = req.body;
     let data = await insert('customer',{
          usename,
          password,
          phoneNum,
          regTime:date,
-         coin
+         coin,
     });
     res.send(formatData({
         data: data

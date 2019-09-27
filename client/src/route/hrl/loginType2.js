@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
-import { Row, Col,Icon, Tooltip } from 'antd';
+import { Row, Col,Icon, Tooltip, Badge } from 'antd';
 import {withRouter} from 'react-router';
+import withAjax from '../../heightRouter/withAjax';
 class LoginType2 extends Component{
     //数据
     state={
         username:'',
+        cartLength:'',
     }
-    componentDidMount(){
+    async componentDidMount(){
+        let {get} = this.props;
+        let cartlist = await get('http://127.0.0.1:1902/hrl/hcart');
         this.setState({
             username:localStorage.getItem('username'),
+            cartLength:cartlist.data.length,
         })
     }
     hgoto=(path)=>{
@@ -16,7 +21,7 @@ class LoginType2 extends Component{
         this.props.onClose();
     }
     render(){
-        let {username} = this.state
+        let {username,cartLength} = this.state
         return(
             <div>
                 <Row>
@@ -38,7 +43,9 @@ class LoginType2 extends Component{
                         <div onClick={this.hgoto.bind(this,'/personer')} style={{backgroundColor:'#fff',height:'26px',lineHeight:'26px'}}>个人中心</div>
                     </Col>
                     <Col span={8} style={{textAlign:'center'}}>
+                        <Badge count={cartLength}>
                         <Icon onClick={this.hgoto.bind(this,'/cart')} type="shopping-cart" style={{fontSize:'24px',color:'#fff'}}></Icon>
+                        </Badge>
                     </Col>
                 </Row>
             </div>
@@ -46,4 +53,4 @@ class LoginType2 extends Component{
     }
 }
 
-export default withRouter(LoginType2);
+export default withRouter(withAjax(LoginType2));
