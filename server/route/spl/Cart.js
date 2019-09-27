@@ -4,7 +4,7 @@ let Router = express.Router();
 
 let {formatData} = require("../common/formatData")
 
-let {find,update,insert} = require("../common/mongo.js")
+let {find,update,insert,remove} = require("../common/mongo.js")
 
 Router.get("/cart",async(req,res,next)=>{
     let goods_msg=req.query
@@ -54,12 +54,36 @@ Router.get("/type",async(req,res,next)=>{
     
     res.send(formatData({data}))
 })
-Router.get("/insertgoods",async(req,res,next)=>{
-    let {goodmsg} = req.query
-    console.log(goodmsg);
+Router.post("/insertgoods",async(req,res,next)=>{
+    let {allgoods} = req.body
+    let result = await insert("order",{allgoods})
+    if(result){
+        res.send(formatData({code:1}))
+    }
+    else{
+        res.send(formatData({code:0}))
+    }
     
-    res.send(formatData({code:1}))
     
 })
-
+Router.get("/order",async(req,res,next)=>{
+    let result = await find("order",{})
+    if(result){
+        res.send(formatData({data:result}))
+    }
+    else{
+        res.send(formatData({code:0}))
+    }
+})
+Router.get("/remove",async(req,res,next)=>{
+    let {id}=req.query
+    let result = await remove("Cart",{_id:id})
+    let data = await find("Cart",{})
+    
+    if(result){
+        res.send(formatData({data:data}))
+    }else{
+        res.send(formatData({code:0}))
+    }
+})
 module.exports=Router

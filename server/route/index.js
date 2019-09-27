@@ -40,6 +40,8 @@ const New =require("./spl/New.js")
 Router.use("/spl",New)
 const Cart = require("./spl/Cart.js")
 Router.use("/spl",Cart)
+const Order = require("./spl/Order")
+Router.use("/spl",Order)
 
 
 //黄日隆引入的

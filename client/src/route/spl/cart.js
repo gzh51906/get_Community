@@ -1,6 +1,6 @@
 import React,{Component} from "react"
 import axios from "axios"
-import { Checkbox,Empty  } from 'antd'
+import { Button ,InputNumber } from 'antd'
 
 import $ from "jquery"
 
@@ -23,6 +23,7 @@ class Cart extends Component{
       this.checkOne=this.checkOne.bind(this)
       this.checkAll=this.checkAll.bind(this)
       this.gotoOrder=this.gotoOrder.bind(this)
+      this.removeGoods=this.removeGoods.bind(this)
     }
     
   async  componentDidMount(){
@@ -52,16 +53,22 @@ class Cart extends Component{
       checkAll (e) {
           let{allPrice,goodslist}=this.state
           let price=0
+          let date=Date.now()
          
          if($(e.target).prop("checked")==true){
            
             $("li input").map((index,item)=>{
                 $(item).prop("checked",true)
             })
+            
             goodslist.forEach((item,index)=>{
                 allgoods[index]=item
             })
-
+           
+            
+            allgoods.map(item=>{
+                return item.time=date
+            })
             this.setState({
                 totalPrice:allPrice,
             })
@@ -79,12 +86,13 @@ class Cart extends Component{
       
       };
       checkOne (msg,e)  {
-          
+        let date=Date.now()
+        msg.time=date
           let{price}=msg
           let {totalPrice} = this.state
           let allPrice=totalPrice
          if( $(e.target).prop("checked")==true){
-            allPrice+=price*1
+            allPrice+=price*msg.qty
             allgoods.push(msg)
             
             this.setState({
@@ -93,7 +101,7 @@ class Cart extends Component{
             })
             
          }else{   
-             allPrice-=price
+             allPrice-=price*msg.qty
              allgoods = allgoods.filter(item=>{
                  return item._id != msg._id
              })
@@ -114,24 +122,50 @@ class Cart extends Component{
    async  gotoOrder(){
          
          if($("li input:checked").length!=0){
+            allgoods.map(item=>{
+                return item.refund=false
+            })
+          
+             
+             
+             let {data} = await axios({
+                 method:"post",
+                 url:"http://127.0.0.1:1902/spl/insertgoods",
+                 data:{allgoods:allgoods}
+             })
+             
              this.props.history.push("/order")
-            //  let {data} = await axios({
-            //      method:"get",
-            //      url:"http://127.0.0.1:1902/spl/order/insertgoods",
-                 
-            //  })
+             alert("付款成功")
          }
         
          else{
              
              alert("请选择商品")
          }
+         allgoods=[]
 
      }
+   async  removeGoods(id){
+       
+        let {data} = await axios({
+            method:"get",
+            url:"http://127.0.0.1:1902/spl/remove",
+            params:{id}
+        })
+      this.setState({
+          goodslist:data.data
+      })
+        
+        
+     }
+    
+
+
+
+     
     
     render(){
        
-       console.log(allgoods);
        
         let {goodslist,totalPrice} = this.state
         return <div>
@@ -144,15 +178,18 @@ class Cart extends Component{
                          
                             <img src={"http://127.0.0.1:1902/"+item.picture} style={{width:"1.36rem",height:"1.36rem",marginLeft:"0.2rem",marginRight:"0.2rem"}}/>
                             <div  style={{display:"flex",flexDirection:"column",justifyContent:"center"}}>
-                            <h6 style={{width: "4.6rem",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{item.name}</h6>
-                            <p style={{color:"rgb(145, 139, 139)"}}>
+                            <h6 style={{width: "4.6rem",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis",margin:0}}>{item.name}</h6>
+                            <p style={{color:"rgb(145, 139, 139)",}}>
                                 <span style={{marginRight:"0.2rem"}}>尺码:{item.size}</span>
                                 <span>颜色:{item.color}</span>
+                                <span style={{float:"right",color:"red"}} onClick={this.removeGoods.bind(this,item._id)}>删除</span>
+
                             </p>
-                            <p>
+                            <div>
                                 <span className="price"><b>￥{item.price}.00</b></span>
                                 <span style={{float:"right"}}>×{item.qty}</span>
-                            </p>
+                            </div>
+                         
                             </div>
                         </li>
                     })
@@ -166,8 +203,7 @@ class Cart extends Component{
                     <span style={{color:"#000"}}>合计:<b style={{color:"#00AAEA"}}>￥{totalPrice.toFixed(2)}</b></span>
                     <span style={{width:"2rem",height:"100%",background:"#00AAEA",textAlign:"center",lineHeight:"1rem",color:"#fff"}} onClick={this.gotoOrder}>结算</span>
                 </div>
-
-
+              
 
 
 

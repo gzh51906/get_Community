@@ -46,6 +46,7 @@ class Login extends Component{
                          loginTime: time
                     })
                    this.goto('/home',values.Username)
+                    location.reload();
                 }
              }
             
@@ -60,7 +61,6 @@ class Login extends Component{
         localStorage.setItem('username',usename);
         // console.log(path,usename);
     }
-
     render(){
         const { getFieldDecorator } = this.props.form;
 
