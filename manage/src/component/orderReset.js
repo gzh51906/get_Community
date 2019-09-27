@@ -1,7 +1,7 @@
 import React from "react";
 import withAjax from "../heightRouter/withAjax.js";
 import {connect} from "react-redux";
-import { Input,Table,Button   } from 'antd';
+import { Input,Table,Button, message   } from 'antd';
 const { Search } = Input;
 
 
@@ -15,12 +15,16 @@ class OrderReset extends React.Component{
 		this.remove = this.remove.bind(this);
 	}
 	async remove(result){
-		let parentId = result.parentId;
-		let childId = result._id;
-		let data = this.state.data;
-		data = data.filter(item=>!(item.allgoods.parentId===parentId && item.allgoods._id===childId));
-		this.setState({data});
-		let response = await this.props.delete("http://127.0.0.1:1902/crx/order_remove",{parentId,childId});
+		if(this.props.manage){
+			let parentId = result.parentId;
+			let childId = result._id;
+			let data = this.state.data;
+			data = data.filter(item=>!(item.allgoods.parentId===parentId && item.allgoods._id===childId));
+			this.setState({data});
+			let response = await this.props.delete("http://127.0.0.1:1902/crx/order_remove",{parentId,childId});
+		}else{
+			message.warning("只有拥有管理权限才能操作哦！");
+		}
 	}
 	async search(val){
 		let result = await this.props.get("http://127.0.0.1:1902/crx/order_get",{username:val});
