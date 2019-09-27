@@ -139,6 +139,7 @@ class Cart extends Component{
              
              alert("请选择商品")
          }
+         allgoods=[]
 
      }
     
