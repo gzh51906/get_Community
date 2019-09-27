@@ -70,23 +70,27 @@ class Personer extends Component{
     }
 
     async componentDidMount(){
+        let usename = localStorage.getItem('username')
         let time = Date.now();
         let {get,formatDate} = this.props;
         let sginDate = formatDate(time, '-');
-        let usename = localStorage.getItem('username')
         let {data} = await get('http://127.0.0.1:1902/hrl/sgin',{
             usename:usename,
         })
-        let dataTime = formatDate(data[0].sginTime,'-');
-        this.setState({
-            username:localStorage.getItem('username'),
-            num: data[0].coin,
-            day:dataTime.slice(8,10),
-        })
-        if (dataTime.slice(8, 10) === sginDate.slice(8, 10)) {
+        if(data.length===0){
+            this.goto('/login');
+        }else{
+            let dataTime = formatDate(data[0].sginTime,'-');
             this.setState({
-                sginText:true
+                username:localStorage.getItem('username'),
+                num: data[0].coin,
+                day:dataTime.slice(8,10),
             })
+            if (dataTime.slice(8, 10) === sginDate.slice(8, 10)) {
+                this.setState({
+                    sginText:true
+                })
+            }
         }
     }
     //点击签到
@@ -108,7 +112,6 @@ class Personer extends Component{
     }
     //点击跳转
     goto(path){
-        console.log(path)
         this.props.history.push(path);
     }
     render(){
