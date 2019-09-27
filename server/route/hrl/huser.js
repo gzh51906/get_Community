@@ -6,15 +6,16 @@ let {
 } = require('../common/formatData');
 let {
     find,
-    insert
+    insert,
+    update
 } = require('../common/mongo');
 
 Router.get('/login', async (req, res, next) => {
     let {
-        usename
+        usename,
     } = req.query;
     let data = await find("customer", {
-        'usename':usename
+        'usename':usename,
     });
     res.send(formatData({
         data: data
@@ -22,6 +23,22 @@ Router.get('/login', async (req, res, next) => {
     next();
 })
 
+Router.patch('/login', async (req, res, next) => {
+    let {
+        usename,
+        loginTime
+    } = req.body;
+    console.log(loginTime)
+    let data = await update("customer", {
+        'usename': usename,
+    },{
+        $set:{loginTime}
+    });
+    res.send(formatData({
+        data: data
+    }));
+    next();
+})
 
 Router.post('/login',async(req,res,next)=>{
     let{
@@ -29,12 +46,14 @@ Router.post('/login',async(req,res,next)=>{
         password,
         phoneNum,
         date,
+        coin,
     } = req.body;
     let data = await insert('customer',{
          usename,
          password,
          phoneNum,
-         tiem:date,
+         regTime:date,
+         coin,
     });
     res.send(formatData({
         data: data

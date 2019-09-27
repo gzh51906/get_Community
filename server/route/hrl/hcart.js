@@ -8,13 +8,8 @@ let {
     find,
 } = require('../common/mongo');
 
-Router.get('/reg', async (req, res, next) => {
-    let {
-        phoneNum
-    } = req.query;
-    let data = await find("customer", {
-        'phoneNum': phoneNum
-    });
+Router.get('/hcart', async (req, res, next) => {
+    let data = await find("Cart");
     res.send(formatData({
         data: data
     }));

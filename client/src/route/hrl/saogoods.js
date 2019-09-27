@@ -64,8 +64,11 @@ class SaoGoods extends Component{
             goodsBox3:userlist3.data.slice(0,8),
         })
     }
-    //方法
-    goto=(path)=>{
+    //跳转方法
+    goto(path){
+        this.props.history.push(path);
+    }
+    allgoodsGoto(path){
         console.log(path);
     }
 
@@ -102,7 +105,7 @@ class SaoGoods extends Component{
                         <ul className="listBox">
                             {
                                 this.state.goodsBox1.map(item=>{
-                                    return <li key={item._id} style={{width:110,height:167}}>
+                                    return <li onClick={this.goto.bind(this,`/detail${item._id}`)} key={item._id} style={{width:110,height:167}}>
                                         <img src={item.select.data[0].image} style={{width:'100%'}}/>
                                         <p className="goodsTitle">{item.title}</p>
                                         <strong>{'￥' + item.newPrice}</strong><span style={{float:"right"}}>自营</span>
@@ -124,7 +127,7 @@ class SaoGoods extends Component{
                         <ul className="listBox">
                             {
                                 this.state.goodsBox3.map(item=>{
-                                    return <li key={item._id} style={{width:110,height:167}}>
+                                    return <li onClick={this.goto.bind(this,`/detail${item._id}`)} key={item._id} style={{width:110,height:167}}>
                                         <img src={item.select.data[0].image} style={{width:'100%'}}/>
                                         <p className="goodsTitle">{item.title}</p>
                                         <strong>{'￥' + item.newPrice}</strong><span style={{float:"right"}}>自营</span>
@@ -146,7 +149,7 @@ class SaoGoods extends Component{
                         <ul className="listBox">
                             {
                                 this.state.goodsBox2.map(item=>{
-                                    return <li key={item._id} style={{width:110,height:167}}>
+                                    return <li onClick={this.goto.bind(this,`/detail${item._id}`)} key={item._id} style={{width:110,height:167}}>
                                         <img src={item.select.data[0].image} style={{width:'100%'}}/>
                                         <p className="goodsTitle">{item.title}</p>
                                         <strong>{'￥' + item.newPrice}</strong><span style={{float:"right"}}>自营</span>

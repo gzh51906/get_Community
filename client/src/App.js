@@ -11,6 +11,7 @@ import APP from './route/hrl/app';
 import Allgoods from './route/hrl/allgoods';
 import LoginType from './route/hrl/loginType';
 import LoginType2 from './route/hrl/loginType2';
+import Personer from './route/hrl/personer';
 import './App.css';
 const { Header, Footer, Sider, Content } = Layout;
 const { SubMenu } = Menu;
@@ -21,6 +22,7 @@ import NewPage from "./route/spl/NewPage";
 import Detail from "./route/spl/detail"
 import Cart from "./route/spl/cart"
 import New from "./route/spl/New"
+import Order from "./route/spl/orderList"
 
 class App extends React.Component{
     rootSubmenuKeys = ['/home', '/new','/saogoods', 'sub4'];
@@ -30,7 +32,8 @@ class App extends React.Component{
      visible: false,
      openKeys: ['sub4'],
      isUse:false,
-     usename:''
+     usename:'',
+     hrlTrue:false,
     }
     //方法
      showDrawer = () => {
@@ -53,7 +56,9 @@ class App extends React.Component{
              usename:'',
          })
          this.onClose();
+         this.props.history.push('/home');
      }
+     
      //菜单的方法
      onOpenChange = openKeys => {
          const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1);
@@ -114,7 +119,7 @@ class App extends React.Component{
                                     ?
                                     <LoginType2 onClose={onClose}></LoginType2>
                                     :
-                                    <LoginType></LoginType>
+                                    <LoginType onClose={onClose}></LoginType>
                                 }                             
                             </Header>
                            
@@ -188,12 +193,15 @@ class App extends React.Component{
                         <Route path="/saogoods" component={SaoGoods}></Route>
                         <Route path='/app' component={APP}></Route>
                         <Route path='/allgoods' component={Allgoods}></Route>
+                        <Route path="/personer" component={Personer}></Route>
                         {/* {Home路由-苏沛龙} */}
+
                         <Route path="/home" component={Home}></Route>
                         <Route path="/newPage:_id" component={NewPage}></Route>
                         <Route path="/detail:_id" component={Detail}></Route>
                         <Route path="/cart" component={Cart}></Route>
                         <Route path="/new" component={New}></Route>
+                        <Route path="/order" component={Order}></Route>
                         <Route path="/" component={Home}></Route>
                     </Switch>
                 </Content>
