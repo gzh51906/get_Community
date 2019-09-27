@@ -9,7 +9,10 @@ let {
 } = require('../common/mongo');
 
 Router.get('/hcart', async (req, res, next) => {
-    let data = await find("Cart");
+    let {usename} = req.query;
+    let data = await find("Cart",{
+        'username':usename
+    });
     res.send(formatData({
         data: data
     }));

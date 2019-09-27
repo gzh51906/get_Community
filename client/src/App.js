@@ -57,8 +57,8 @@ class App extends React.Component{
          })
          this.onClose();
          this.props.history.push('/home');
+         location.reload();
      }
-     
      //菜单的方法
      onOpenChange = openKeys => {
          const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1);

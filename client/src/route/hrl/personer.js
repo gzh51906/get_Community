@@ -62,18 +62,24 @@ class Personer extends Component{
     }
 
     async componentDidMount(){
+        let time = Date.now();
         let {get,formatDate} = this.props;
+        let sginDate = formatDate(time, '-');
         let usename = localStorage.getItem('username')
         let {data} = await get('http://127.0.0.1:1902/hrl/sgin',{
             usename:usename,
         })
         let dataTime = formatDate(data[0].sginTime,'-');
-        console.log(dataTime.slice(8,10));
         this.setState({
             username:localStorage.getItem('username'),
             num: data[0].coin,
             day:dataTime.slice(8,10),
         })
+        if (dataTime.slice(8, 10) === sginDate.slice(8, 10)) {
+            this.setState({
+                sginText:true
+            })
+        }
     }
     //点击签到
     async onSgin(){
@@ -90,13 +96,10 @@ class Personer extends Component{
                     coin:num
         });
         this.componentDidMount();
-        
         }
-        console.log(sginDate,num);
     }
     //点击跳转
     goto(path){
-        
         this.props.history.push(path);
     }
     render(){
@@ -113,7 +116,7 @@ class Personer extends Component{
                     </div>
                     <div className="hNavtop_right" style={{float:'right'}}>
                         <div><img style={{width:'65px',margin:'15px'}} src="http://images.dunkhome.com/get/defaul_avator.png"/></div>
-                        <div onClick={this.onSgin.bind(this)} className="hSign">签到</div>
+                        <div onClick={this.onSgin.bind(this)} className="hSign">{sginText?'已签到':'签到'}</div>
                     </div>
                 </div>
                 <div className="hordera">

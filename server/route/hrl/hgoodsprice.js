@@ -14,7 +14,6 @@ Router.get('/goodsprice', async (req, res, next) => {
         type,
         asc
     } = req.query;
-    console.log(asc);
     let typecode = `/${type}/`
     let data = await find("goods", {
         'type2': eval(typecode),

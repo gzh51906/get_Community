@@ -10,7 +10,10 @@ class LoginType2 extends Component{
     }
     async componentDidMount(){
         let {get} = this.props;
-        let cartlist = await get('http://127.0.0.1:1902/hrl/hcart');
+        let usename = localStorage.getItem('username')
+        let cartlist = await get('http://127.0.0.1:1902/hrl/hcart',{
+            usename:usename
+        });
         this.setState({
             username:localStorage.getItem('username'),
             cartLength:cartlist.data.length,
