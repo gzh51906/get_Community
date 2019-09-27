@@ -74,6 +74,7 @@ class Detail extends Component{
     showDrawer() {
         this.setState({
           visible: true,
+          select: false
         });
         $(".goodpic").show()
       };
@@ -133,6 +134,7 @@ class Detail extends Component{
       }
     async add2Cart(){
         
+        let {select} = this.state
         
         if(typeof(this.state.newPrice)=="number"){
             let {data}=await axios({
@@ -152,9 +154,15 @@ class Detail extends Component{
             })
             this.onClose()
             if(username){
-                this.props.history.push("/cart")
+                if(select==true){
+                    this.props.history.push("/cart")
+                }
+                
             }
             else{
+                this.setState({
+                    select:false
+                })
                 alert("您还未登陆哦！！")
                 this.props.history.push("/login")
             }
