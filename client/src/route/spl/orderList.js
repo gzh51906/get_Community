@@ -31,11 +31,12 @@ class Order extends Component{
        this.setState({
            orderlist:list
        })
+       
         
     }
   async  refund(target,e){
        
-        if(target.refund){
+        if(target.refund || e.target.innerText=="待退款"){
             alert("您已经申请退款,请勿重复操作")
         }
         else{
@@ -45,6 +46,8 @@ class Order extends Component{
                 url:"http://127.0.0.1:1902/spl/changerefund",
                 data:{id:target._id,_id:target.id}
             })
+         
+   
            
             
             alert("申请成功，等待商家处理")
@@ -58,15 +61,17 @@ class Order extends Component{
        let username=localStorage.getItem("username")
        $(e.target).css("color","#00AAEA").siblings().css("color","#000")
        if(e.target.innerText=="已付款"){
+
                 let {data}=await axios({
                     method:"get",
                     url:"http://127.0.0.1:1902/spl/pay",
                     params:{username}
                     
                 })
-
+                
                 data.data.map((e)=>{
                     return e.map(item=>{
+                        // item.id=e._id
                             return list.push(item)
                     })
                 })
@@ -74,7 +79,8 @@ class Order extends Component{
                 this.setState({
                     orderlist:list
                 })
-              list=[]
+                
+                
        }
        
        if(e.target.innerText=="待退款"){
@@ -86,6 +92,7 @@ class Order extends Component{
         })
         data.data.map((e)=>{
             return e.map(item=>{
+                item.id=e._id
                   return list.push(item)
              })
          })
@@ -109,6 +116,27 @@ class Order extends Component{
          this.setState({
              orderlist:list
          })
+       }
+       if(e.target.innerText=="已发货"){
+           
+            let {data}=await axios({
+                method:"get",
+                url:"http://127.0.0.1:1902/spl/pay",
+                params:{username}
+                
+            })
+
+            data.data.map((e)=>{
+                
+                return e.map(item=>{
+                    item.id=e._id
+                        return list.push(item)
+                })
+            })
+            this.setState({
+                orderlist:list
+            })
+
        }
     }
     render(){
@@ -149,7 +177,7 @@ class Order extends Component{
                             </p>
                             <p style={{margin:0}}>
                             <span style={{margin:0}}>数量：{target.qty}</span>
-                            <Button type="primary" size="small" style={{float:"right"}} onClick={this.refund.bind(this,target)}>
+                            <Button type="primary" size="small" style={{float:"right"}} onClick={this.refund.bind(this,target)} className="status">
                                 {target.refund  ? "待退款" : "退款"}
                             </Button>
                             </p>
