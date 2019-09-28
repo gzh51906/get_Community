@@ -1,7 +1,7 @@
 import React from "react";
 import {Route,Redirect,NavLink,Switch} from "react-router-dom";
 import {withRouter} from 'react-router';
-import { Layout,Drawer, Button,Menu, Icon } from 'antd';
+import { Layout,Drawer, Button,Menu, Icon, Col,Row } from 'antd';
 
 
 //黄日隆
@@ -95,9 +95,14 @@ class App extends React.Component{
         return <div style={{height:"100%"}}>
             <Layout>
                 <Header style={{backgroundColor:"#fff",height:'1.08rem',padding:0}}>
+                    <Row>
+                        <Col span={8}>
                         <Icon onClick={this.showDrawer} type="menu" style={{fontSize:'24px',marginLeft:'20px'}}></Icon>
-                        <img src="./route/hrl/img/logo.png" width="50px" style={{marginLeft:'32%',marginBottom:'10px'}}/>
-                        
+                        </Col>
+                        <Col style={{textAlign:'center'}} span={8}>
+                        <img src="./route/hrl/img/logo.png" width="50px" style={{marginBottom:'10px'}}/>
+                        </Col>
+                        <Col span={8}>
                         {   
                             isUse
                             ? 
@@ -105,7 +110,8 @@ class App extends React.Component{
                             :
                             <Icon onClick={this.hgoto.bind(this,'/login')} type="user" style={{fontSize:'24px',float:'right',marginRight:'20px',lineHeight:'54px'}}></Icon>
                             
-                        }
+                        }</Col>
+                        </Row>
                         <Drawer
                         placement="left"
                         closable={false}
