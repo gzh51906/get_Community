@@ -46,6 +46,7 @@ Router.post('/login',async(req,res,next)=>{
         phoneNum,
         date,
         coin,
+        loginTime
     } = req.body;
     let data = await insert('customer',{
          usename,
@@ -53,6 +54,7 @@ Router.post('/login',async(req,res,next)=>{
          phoneNum,
          regTime:date,
          coin,
+         loginTime
     });
     res.send(formatData({
         data: data
