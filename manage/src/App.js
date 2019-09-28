@@ -2,12 +2,15 @@ import React from "react";
 import {connect} from "react-redux";
 import Login from "./route/login";
 import Home from "./route/home";
+import {message } from 'antd';
 
 class App extends React.Component{
     componentDidMount(){
         let localAuthor = localStorage.getItem("author");
         if (localAuthor){
             this.props.authorShow();
+        }else{
+            message.warning("测试账号:test,密码:123456");
         }
     }
     render(){
