@@ -31,6 +31,8 @@ const manage_goods = require("./crx/manageGoods");
 Router.use("/crx",manage_goods);
 const manage_user = require("./crx/manageUser");
 Router.use("/crx",manage_user);
+const manageOrder = require("./crx/manageOrder");
+Router.use("/crx",manageOrder);
 
 //苏沛龙引入的
 
@@ -50,6 +52,8 @@ const Allgoods = require('./hrl/hallgoods.js');
 const Goodsprice = require('./hrl/hgoodsprice.js');
 const Sgin = require('./hrl/sign.js');
 const HCart = require('./hrl/hcart.js');
+const Evaluating = require('./hrl/evaluating.js');
+Router.use('/hrl',Evaluating);
 Router.use('/hrl',HCart);
 Router.use('/hrl',Sgin);
 Router.use('/hrl',Goodsprice);

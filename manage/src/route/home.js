@@ -19,6 +19,9 @@ import ManageUser from "../component/manageUser";
 import ManageUserEdit from "../component/manageUserEdit";
 import ManageUserAdd from "../component/manageUserAdd";
 import ClientUser from "../component/clientUser";
+import OrderMore from "../component/orderMore";
+import OrderReset from "../component/orderReset";
+
 class Home extends React.Component{
     constructor(){
         super();
@@ -87,10 +90,10 @@ class Home extends React.Component{
                     </Panel>
                     <Panel header="订单管理" key="4">
                         <p style={{marginLeft:23,cursor:"pointer"}}>
-                            <NavLink onClick={this.changeListTitle.bind(this,"首页/订单管理/订单信息")} to="" style={{color:"rgb(89, 89, 89)"}} activeStyle={{color:"blue",fontWeight:"600"}}>订单信息</NavLink>
+                            <NavLink onClick={this.changeListTitle.bind(this,"首页/订单管理/订单信息")} to="/ordermore" style={{color:"rgb(89, 89, 89)"}} activeStyle={{color:"blue",fontWeight:"600"}}>订单信息</NavLink>
                         </p>
                         <p style={{marginLeft:23,cursor:"pointer"}}>
-                            <NavLink onClick={this.changeListTitle.bind(this,"首页/订单管理/订单退订")} to="" style={{color:"rgb(89, 89, 89)"}} activeStyle={{color:"blue",fontWeight:"600"}}>订单退订</NavLink>
+                            <NavLink onClick={this.changeListTitle.bind(this,"首页/订单管理/订单退订")} to="/orderreset" style={{color:"rgb(89, 89, 89)"}} activeStyle={{color:"blue",fontWeight:"600"}}>订单退订</NavLink>
                         </p>
                     </Panel>
                 </Collapse>
@@ -119,6 +122,8 @@ class Home extends React.Component{
 							<Route path="/manageuser/add" component={ManageUserAdd}/>
                             <Route path="/manageuser/edit" component={ManageUserEdit}/>
 							<Route path="/clientuser" component={ClientUser} exact/>
+							<Route path="/ordermore" component={OrderMore}/>
+							<Route path="/orderreset" component={OrderReset}/>
                             <Redirect from="/" to="/zixunmore" exact />
                         </Switch>
                     </Content>

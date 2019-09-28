@@ -28,7 +28,6 @@ Router.patch('/login', async (req, res, next) => {
         usename,
         loginTime
     } = req.body;
-    console.log(loginTime)
     let data = await update("customer", {
         'usename': usename,
     },{

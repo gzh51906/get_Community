@@ -8,15 +8,13 @@ let {
     find,
 } = require('../common/mongo');
 
-Router.get('/hcart', async (req, res, next) => {
-    let {usename} = req.query;
-    let data = await find("Cart",{
-        'username':usename
-    });
+
+Router.get('/evaluating', async (req, res, next) => {
+
+    let data = await find("pingcequ");
     res.send(formatData({
         data: data
     }));
     next();
 })
-
 module.exports = Router;

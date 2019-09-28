@@ -14,16 +14,20 @@ class Personer extends Component{
         sginText:false,
         muen:[{
             text:'待付款',
-            icon: 'car'
+            icon: 'car',
+            path:'/cart'
         },{
             text:'待发货',
-            icon: 'dropbox'
+            icon: 'dropbox',
+            path:'/order'
         },{
             text:'待收货',
-            icon: 'credit-card'
+            icon: 'credit-card',
+            path:'/order'
         },{
             text:'退换货',
-            icon: 'retweet'
+            icon: 'retweet',
+            path:'/order'
         }],
         Mygoods:[{
             text:'我的购物车',
@@ -48,32 +52,46 @@ class Personer extends Component{
         }],
         Mystreen:[{
             text:'我的优惠劵',
-            icon: 'red-envelope'
+            icon: 'red-envelope',
+            path:'/redbag'
         },{
             text:'我的收货地址',
-            icon: 'environment'
+            icon: 'environment',
+            path: '/address'
         },{
             text:'手机绑定',
-            icon: 'mobile'
+            icon: 'mobile',
+            path:'/usephone'
         },{
             text:'身份证信息',
-            icon: 'idcard'
+            icon: 'idcard',
+            path:'/idcard'
         }]
     }
 
     async componentDidMount(){
-        let {get,formatDate} = this.props;
         let usename = localStorage.getItem('username')
+        let time = Date.now();
+        let {get,formatDate} = this.props;
+        let sginDate = formatDate(time, '-');
         let {data} = await get('http://127.0.0.1:1902/hrl/sgin',{
             usename:usename,
         })
-        let dataTime = formatDate(data[0].sginTime,'-');
-        console.log(dataTime.slice(8,10));
-        this.setState({
-            username:localStorage.getItem('username'),
-            num: data[0].coin,
-            day:dataTime.slice(8,10),
-        })
+        if(data.length===0){
+            this.goto('/login');
+        }else{
+            let dataTime = formatDate(data[0].sginTime,'-');
+            this.setState({
+                username:localStorage.getItem('username'),
+                num: data[0].coin,
+                day:dataTime.slice(8,10),
+            })
+            if (dataTime.slice(8, 10) === sginDate.slice(8, 10)) {
+                this.setState({
+                    sginText:true
+                })
+            }
+        }
     }
     //点击签到
     async onSgin(){
@@ -90,13 +108,10 @@ class Personer extends Component{
                     coin:num
         });
         this.componentDidMount();
-        
         }
-        console.log(sginDate,num);
     }
     //点击跳转
     goto(path){
-        
         this.props.history.push(path);
     }
     render(){
@@ -113,19 +128,19 @@ class Personer extends Component{
                     </div>
                     <div className="hNavtop_right" style={{float:'right'}}>
                         <div><img style={{width:'65px',margin:'15px'}} src="http://images.dunkhome.com/get/defaul_avator.png"/></div>
-                        <div onClick={this.onSgin.bind(this)} className="hSign">签到</div>
+                        <div onClick={this.onSgin.bind(this)} className="hSign">{sginText?'已签到':'签到'}</div>
                     </div>
                 </div>
                 <div className="hordera">
                     <div className="hordera_top">
-                        <span>我的订单</span><span style={{float:'right'}}>查看全部订单 ></span>
+                        <span>我的订单</span><span onClick={this.goto.bind(this,'/order')} style={{float:'right'}}>查看全部订单 ></span>
                     </div>
                     <div>
                          <Row style={{marginBottom:'10px'}}>
                              {
                                  muen.map(item=>{
                                      return <Col key={item.text} span={6} style={{textAlign:'center'}}>
-                                            <div style={{marginTop:'10px',marginBottom:'10px'}}><Icon type={item.icon} style={{fontSize:'26px'}}></Icon></div>
+                                            <div onClick={this.goto.bind(this,item.path)} style={{marginTop:'10px',marginBottom:'10px'}}><Icon type={item.icon} style={{fontSize:'26px'}}></Icon></div>
                                             {item.text}
                                          </Col>
                                  })
@@ -135,14 +150,14 @@ class Personer extends Component{
                 </div>
                 <div className="hordera">
                     <div className="hordera_top">
-                        <span>历史订单</span><span style={{float:'right'}}>查看全部订单 ></span>
+                        <span>历史订单</span><span onClick={this.goto.bind(this,'/order')} style={{float:'right'}}>查看全部订单 ></span>
                     </div>
                     <div>
                          <Row style={{marginBottom:'10px'}}>
                              {
                                  muen.map(item=>{
                                      return <Col key={item.text} span={6} style={{textAlign:'center'}}>
-                                            <div style={{marginTop:'10px',marginBottom:'10px'}}><Icon type={item.icon} style={{fontSize:'26px'}}></Icon></div>
+                                            <div onClick={this.goto.bind(this,item.path)} style={{marginTop:'10px',marginBottom:'10px'}}><Icon type={item.icon} style={{fontSize:'26px'}}></Icon></div>
                                             {item.text}
                                          </Col>
                                  })
@@ -166,7 +181,7 @@ class Personer extends Component{
                     {
                         Mystreen.map(item=>{
                             return <div className="hStreebox" key={item.text}>
-                                <Icon type={item.icon} style={{fontSize:'24px',marginLeft:'10px'}}/>
+                                <Icon onClick={this.goto.bind(this,item.path)} type={item.icon} style={{fontSize:'24px',marginLeft:'10px'}}/>
                                 <span style={{marginLeft:'8px'}}>{item.text}</span>
                             </div>
                         })

@@ -27,19 +27,23 @@ class SaoGoods extends Component{
         muendata:[{
             text:'App签到',
             icon:'schedule',
-            path:'/app'
+            path:'/app',
+            search:''
         },{
             text:'全部商品',
             icon:'shop',
-            path:'/allgoods'
+            path:'/allgoods',
+            search:'衣'
         },{
             text:'App下载',
             icon:'gift',
-            path:'/app'
+            path:'/app',
+            search:''
         },{
             text:'网页首站',
             icon:'appstore',
-            path:'/home'
+            path:'/home',
+            search:''
         }],
         goodsBox1:[],
         goodsBox2:[],
@@ -65,11 +69,16 @@ class SaoGoods extends Component{
         })
     }
     //跳转方法
-    goto(path){
-        this.props.history.push(path);
+    goto(path,search){
+        this.props.history.push({
+            pathname:path,
+        });
     }
-    allgoodsGoto(path){
-        console.log(path);
+    allgoodsGoto(path,search){
+        this.props.history.push({
+            pathname: path,
+            search: search,
+        });
     }
 
     render(){
@@ -88,9 +97,9 @@ class SaoGoods extends Component{
                     {
                         this.state.muendata.map(item=>{
                             return  <div key={item.icon} className="menuList" style={{textAlign:"center"}}>
-                                <NavLink to={item.path}>
-                                    <div><Icon type={item.icon} theme="twoTone" twoToneColor="#eb2f96" style={{fontSize:30}}></Icon></div>
-                                </NavLink>
+                                    <div onClick={this.goto.bind(this,item.path,item.search)}>
+                                        <Icon type={item.icon} theme="twoTone" twoToneColor="#eb2f96" style={{fontSize:30}}></Icon>
+                                    </div>
                                 <span>{item.text}</span>
                             </div>
                         })
@@ -113,7 +122,7 @@ class SaoGoods extends Component{
                                 })
                             }
                            <div style={{width:100,height:110}}>
-                                <img src='http://www.dunkhome.com/images/h5/product_item_more.png' style={{width:110,paddingTop:5}}/>
+                                <img onClick={this.allgoodsGoto.bind(this,'/allgoods','篮球鞋')} src='http://www.dunkhome.com/images/h5/product_item_more.png' style={{width:110,paddingTop:5}}/>
                            </div>
                         </ul>
                     </div>
@@ -135,7 +144,7 @@ class SaoGoods extends Component{
                                 })
                             }
                            <div style={{width:100,height:110}}>
-                                <img src='http://www.dunkhome.com/images/h5/product_item_more.png' style={{width:110,paddingTop:5}}/>
+                                <img onClick={this.allgoodsGoto.bind(this,'/allgoods','上衣')} src='http://www.dunkhome.com/images/h5/product_item_more.png' style={{width:110,paddingTop:5}}/>
                            </div>
                         </ul>
                     </div>
@@ -157,7 +166,7 @@ class SaoGoods extends Component{
                                 })
                             }
                            <div style={{width:100,height:110}}>
-                                <img src='http://www.dunkhome.com/images/h5/product_item_more.png' style={{width:110,paddingTop:5}}/>
+                                <img onClick={this.allgoodsGoto.bind(this,'/allgoods','休闲鞋')} src='http://www.dunkhome.com/images/h5/product_item_more.png' style={{width:110,paddingTop:5}}/>
                            </div>
                         </ul>
                     </div>
