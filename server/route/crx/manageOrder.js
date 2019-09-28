@@ -21,8 +21,13 @@ Router.delete("/order_remove",async (req,res,next)=>{
 	let {parentId,childId} = req.query;
 	let result = await find("order",{_id:parentId});
 	let result2 = result[0].allgoods;
-	result2 = result2.filter(item=>item._id!==childId);
-	await update("order",{_id:parentId},{$set:{allgoods:result2}});
+	if(result2.length===1){
+		await remove("order",{_id:parentId});
+	}else{
+		result2 = result2.filter(item=>item._id!==childId);
+		await update("order",{_id:parentId},{$set:{allgoods:result2}});
+	}
+	
 	res.send(formatData());
 	next();
 })
