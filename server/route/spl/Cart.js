@@ -77,6 +77,7 @@ Router.get("/order",async(req,res,next)=>{
         res.send(formatData({code:0}))
     }
 })
+
 Router.get("/remove",async(req,res,next)=>{
     let {id}=req.query
     let result = await remove("Cart",{_id:id})
@@ -87,5 +88,14 @@ Router.get("/remove",async(req,res,next)=>{
     }else{
         res.send(formatData({code:0}))
     }
+})
+Router.post("/total",async(req,res,next)=>{
+    let {allgoods}=req.body
+   allgoods.forEach(e => {
+       let result =  remove("Cart",{_id:e._id})
+      
+   });
+   res.send(formatData({code:1}))
+   
 })
 module.exports=Router

@@ -82,11 +82,11 @@ class New extends Component{
             });
         })
         return <div>
-                <div className="type" style={{width:"100%",height:"1rem",display:"flex",justifyContent:"space-around",alignItems:"center",color:"#000",borderBottom:"0.02rem solid #ccc"}} onClick={this.changeStyle}>
-                    <span style={{color:"#00AAEA"}} onClick={this.changeType.bind(this,"全部")}>全部</span>
+                <div className="type" style={{width:"100%",height:"1rem",display:"flex",justifyContent:"flex-start",alignItems:"center",color:"#000",borderBottom:"0.02rem solid #ccc",overflow:"auto",flexWrap:"nowrap",}} onClick={this.changeStyle}>
+                    <span style={{color:"#00AAEA",flexShrink:0,width:"17%",display:"flex",justifyContent:"center"}} onClick={this.changeType.bind(this,"全部")}>全部</span>
                     {
                         type.map((item,index)=>{
-                           return <span key={index} onClick={this.changeType.bind(this,item.type)}>{item.type}</span>
+                           return <span style={{flexShrink:0,width:"17%",display:"flex",justifyContent:"center"}} key={index} onClick={this.changeType.bind(this,item.type)}>{item.type}</span>
                         })
                     }
                 </div>

@@ -122,9 +122,6 @@ class Cart extends Component{
    async  gotoOrder(){
          
          if($("li input:checked").length!=0){
-            allgoods.map(item=>{
-                return item.refund=false
-            })
           
              
              
@@ -133,6 +130,12 @@ class Cart extends Component{
                  url:"http://127.0.0.1:1902/spl/insertgoods",
                  data:{allgoods:allgoods}
              })
+             let result = await axios({
+                 method:"post",
+                 url:"http://127.0.0.1:1902/spl/total",
+                 data:{allgoods:allgoods}
+             })
+             
              
              this.props.history.push("/order")
              alert("付款成功")
