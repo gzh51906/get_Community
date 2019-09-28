@@ -67,7 +67,9 @@ Router.post("/insertgoods",async(req,res,next)=>{
     
 })
 Router.get("/order",async(req,res,next)=>{
-    let result = await find("order",{})
+    let {username} = req.query
+    let result = await find("order",{"allgoods.username":username})
+    
     if(result){
         res.send(formatData({data:result}))
     }

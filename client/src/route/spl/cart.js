@@ -195,7 +195,7 @@ class Cart extends Component{
                     })
                 }
                 </ul>
-                <div style={{width:"100%",height:"1rem",position:"fixed",bottom:"0rem",display:"flex",justifyContent:"space-between",alignItems:"center",paddingLeft:"0.5rem",borderTop:"0.02rem solid #ccc"}}>
+                <div style={{width:"100%",height:"1rem",position:"fixed",bottom:"0rem",display:"flex",justifyContent:"space-between",alignItems:"center",paddingLeft:"0.5rem",borderTop:"0.02rem solid #ccc",background:"#fff"}}>
                 <span style={{fontSize:"0.3rem",color:"#000"}}>
                 <input type="checkbox" style={{width:"0.5rem",height:"0.5rem",verticalAlign:"middle"}} onClick={this.checkAll} className="checkall"/>全选
                 </span>
