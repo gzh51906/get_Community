@@ -21,6 +21,9 @@ class Login extends React.Component{
             }
         });
     }
+    componentDidMount(){
+        message.warning("测试账号:test,密码:123456")
+    }
     render(){
         const { getFieldDecorator } = this.props.form;
         return <div>
