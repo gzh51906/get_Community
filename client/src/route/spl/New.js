@@ -82,7 +82,7 @@ class New extends Component{
             });
         })
         return <div>
-                <div className="type" style={{width:"100%",height:"1rem",display:"flex",justifyContent:"space-around",alignItems:"center",color:"#000",borderBottom:"0.02rem solid #ccc"}} onClick={this.changeStyle}>
+                <div className="type" style={{width:"100%",height:"1rem",display:"flex",justifyContent:"space-around",alignItems:"center",color:"#000",borderBottom:"0.02rem solid #ccc",overflow:"auto"}} onClick={this.changeStyle}>
                     <span style={{color:"#00AAEA"}} onClick={this.changeType.bind(this,"全部")}>全部</span>
                     {
                         type.map((item,index)=>{

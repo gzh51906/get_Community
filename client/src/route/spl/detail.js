@@ -39,6 +39,7 @@ class Detail extends Component{
         this.onChange=this.onChange.bind(this)
         this.add2Cart=this.add2Cart.bind(this)
         this.gotoCart=this.gotoCart.bind(this)
+        this.goToCart=this.goToCart.bind(this)
 
     }
    async componentDidMount(){
@@ -183,6 +184,9 @@ class Detail extends Component{
              select:true
          })
      }
+     goToCart(){
+         this.props.history.push("/cart")
+     }
      //防止内存泄漏
      componentWillUnmount() {
         this.setState = (state, callback) => {
@@ -285,7 +289,7 @@ class Detail extends Component{
                     <Footer style={{background:"#fff", position:"fixed",bottom:"0rem",width:"100%",height:"1rem",borderTop:"0.02rem solid #ccc",display:"flex",alignItems:"center",padding:"0px"}}>
                     <div style={{display:"flex",flex:"40%",justifyContent:"space-around"}}>
                     <Badge count={cartlength}>
-                    <Icon type="shopping-cart" style={{fontSize:"0.5rem",color:"rgb(145, 139, 139)",marginRight:"0.2rem"}}/>
+                    <Icon type="shopping-cart" style={{fontSize:"0.5rem",color:"rgb(145, 139, 139)",marginRight:"0.2rem"}} onClick={this.goToCart}/>
                     </Badge>
                    
                     <Icon type="customer-service" style={{fontSize:"0.5rem",color:"rgb(145, 139, 139)",marginRight:"0.2rem"}} />
