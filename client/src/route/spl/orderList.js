@@ -15,31 +15,101 @@ class Order extends Component{
         this.changeType=this.changeType.bind(this)
     }
   async  componentDidMount(){
+      let list=[]
+      let username=localStorage.getItem("username")
         let {data} = await axios({
             method:"get",
-            url:"http://127.0.0.1:1902/spl/order"
+            url:"http://127.0.0.1:1902/spl/order",
+            params:{username}
         })
-        
+       data.data.map(e=>{
+           e.allgoods.map(item=>{
+               item.id=e._id
+               list.push(item)
+           })
+       })
        this.setState({
-           orderlist:data.data
+           orderlist:list
        })
         
     }
-  async  refund(target,item,e){
-      console.log(target,item,e);
-      
-        e.target.innerText="待退款"
-        // let {data}=await axios({
-        //     method:"post",
-        //     url:"http://127.0.0.1:1902/spl/changerefund",
-        //     data:{id:target._id}
-        // })
-        // console.log(data);
+  async  refund(target,e){
+       
+        if(target.refund){
+            alert("您已经申请退款,请勿重复操作")
+        }
+        else{
+            e.target.innerText="待退款"
+            let {data}=await axios({
+                method:"post",
+                url:"http://127.0.0.1:1902/spl/changerefund",
+                data:{id:target._id,_id:target.id}
+            })
+           
+            
+            alert("申请成功，等待商家处理")
+        }
         
-        alert("申请成功，等待商家处理")
     }
-    changeType(e){
+   async changeType(e){
+       //调用e.persist()这会从事件池中移除该合成函数并允许对该合成事件的引用被保留下来。
+       e.persist()
+       let list=[]
+       let username=localStorage.getItem("username")
        $(e.target).css("color","#00AAEA").siblings().css("color","#000")
+       if(e.target.innerText=="已付款"){
+                let {data}=await axios({
+                    method:"get",
+                    url:"http://127.0.0.1:1902/spl/pay",
+                    params:{username}
+                    
+                })
+
+                data.data.map((e)=>{
+                    return e.map(item=>{
+                            return list.push(item)
+                    })
+                })
+                
+                this.setState({
+                    orderlist:list
+                })
+              list=[]
+       }
+       
+       if(e.target.innerText=="待退款"){
+           
+        let {data}=await axios({
+            method:"get",
+            url:"http://127.0.0.1:1902/spl/refund",
+            params:{username}
+        })
+        data.data.map((e)=>{
+            return e.map(item=>{
+                  return list.push(item)
+             })
+         })
+         this.setState({
+             orderlist:list
+         })
+       }
+       if(e.target.innerText=="全部订单"){
+           
+        let {data}=await axios({
+            method:"get",
+            url:"http://127.0.0.1:1902/spl/order",
+            params:{username}
+        })
+        data.data.map((e)=>{
+            return e.allgoods.map(item=>{
+                item.id=e._id
+                  return list.push(item)
+             })
+         })
+         this.setState({
+             orderlist:list
+         })
+       }
     }
     render(){
        let {orderlist,type}=this.state
@@ -62,8 +132,8 @@ class Order extends Component{
                 </ul>
                 <ul style={{padding:"0px"}}>
                 {
-                orderlist.map((item,index)=>{
-                      return item.allgoods.map((target,idx)=>{
+               
+               orderlist.map((target,idx)=>{
 
                        
                         
@@ -78,8 +148,10 @@ class Order extends Component{
                                 <span>颜色:{target.color}</span>
                             </p>
                             <p style={{margin:0}}>
-                            <span style={{margin:0}}>数量：{item.qty}</span>
-                            <Button type="primary" size="small" style={{float:"right"}} onClick={this.refund.bind(this,target,item)}>退款</Button>
+                            <span style={{margin:0}}>数量：{target.qty}</span>
+                            <Button type="primary" size="small" style={{float:"right"}} onClick={this.refund.bind(this,target)}>
+                                {target.refund  ? "待退款" : "退款"}
+                            </Button>
                             </p>
                             <p style={{margin:0}}>
                             <span><b>价格：￥{target.price}.00</b></span>
@@ -89,7 +161,7 @@ class Order extends Component{
                            
                             </div>
                         </li>
-                        })
+                        
                     })
                 }
                 </ul>
