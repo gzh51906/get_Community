@@ -97,7 +97,7 @@ class SaoGoods extends Component{
                     {
                         this.state.muendata.map(item=>{
                             return  <div key={item.icon} className="menuList" style={{textAlign:"center"}}>
-                                    <div onClick={this.goto.bind(this,item.path,item.search)}>
+                                <div onClick={this.allgoodsGoto.bind(this,item.path,item.search)}>
                                         <Icon type={item.icon} theme="twoTone" twoToneColor="#eb2f96" style={{fontSize:30}}></Icon>
                                     </div>
                                 <span>{item.text}</span>

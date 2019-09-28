@@ -84,7 +84,10 @@ class Reg extends Component{
          }
          callback();
      };
-
+     //验证码
+     onRanNum(){
+         
+     }
      render(){
          const { getFieldDecorator } = this.props.form;
           const formItemLayout = {
@@ -115,7 +118,7 @@ class Reg extends Component{
                                 })(<Input placeholder="随机验证码"/>)}
                                 </Col>
                                 <Col span={12}>
-                                <Button>获取验证码</Button>
+                                <Button className="rancode">获取验证码</Button>
                                 </Col>
                             </Row>
                         </Form.Item>
@@ -128,7 +131,7 @@ class Reg extends Component{
                                 })(<Input placeholder="短信验证码"/>)}
                                 </Col>
                                 <Col span={12}>
-                                <Button>获取短信验证码</Button>
+                                <Button className='ranphoneNum'>获取短信验证码</Button>
                                 </Col>
                             </Row>
                         </Form.Item>
