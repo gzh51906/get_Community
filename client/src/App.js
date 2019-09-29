@@ -26,6 +26,9 @@ import Cart from "./route/spl/cart"
 import New from "./route/spl/New"
 import Order from "./route/spl/orderList"
 
+//崔宇灏
+import Printing from "./route/cyh/printing"
+
 class App extends React.Component{
     rootSubmenuKeys = ['/home', '/new','/saogoods', 'sub4'];
 
@@ -181,7 +184,7 @@ class App extends React.Component{
                                 }
                                 >
                                 <Menu.Item  onClick={this.hgoto.bind(this,'/evaluating')} key="/evaluating">评测区</Menu.Item>
-                                <Menu.Item key="10">晒图区</Menu.Item>
+                                <Menu.Item  onClick={this.hgoto.bind(this,'/printing')} key="/printing">晒图区</Menu.Item>
                                 <Menu.Item key="11">运动品牌鉴定区</Menu.Item>
                                 <Menu.Item key="12">潮牌鉴定区</Menu.Item>
                                 </SubMenu>
@@ -212,6 +215,9 @@ class App extends React.Component{
                         <Route path="/cart" component={Cart}></Route>
                         <Route path="/new" component={New}></Route>
                         <Route path="/order" component={Order}></Route>
+
+                        {/* 使用路由-崔宇灏 */}
+                        <Route path="/printing" component={Printing}></Route>
                         <Route path="/" component={Home}></Route>
                     </Switch>
                 </Content>
