@@ -5,7 +5,12 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
     //入口文件
     entry: "./src/index.js",
-
+    // 出口：用于编译
+    output:{
+        path:__dirname + "/dist",
+        filename:"bundle.js"
+    },
+    mode:"production",
     //测试服务器
     devServer: {
         //服务器根目录
