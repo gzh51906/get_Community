@@ -20,7 +20,8 @@ class Allgoods extends Component{
         let {dataNum} = this.state;
         let {get} = this.props;
         let somelist = await get('http://127.0.0.1:1902/hrl/allgoods',{
-            type: typecode
+            type: typecode,
+            
         });
         let datalist = await get('http://127.0.0.1:1902/hrl/goodsprice', {
             type: '鞋',

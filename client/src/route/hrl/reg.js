@@ -16,6 +16,8 @@ class Reg extends Component{
     state = {
         confirmDirty: false,
         autoCompleteResult: [],
+        ranText:'',
+        hText:''
     };
 
      //方法
@@ -23,7 +25,10 @@ class Reg extends Component{
         let time = Date.now();
          e.preventDefault();
         let {post,form,get} = this.props;
+        let {ranText} = this.state;
         form.validateFields(async (err, values) => {
+            let Hbtn = document.getElementsByClassName('Hbtn')[0]
+
              if (!err) {
                 //先进行判断是否已经存在该用户
                 let userlist = await get('http://127.0.0.1:1902/hrl/reg', {
@@ -31,7 +36,9 @@ class Reg extends Component{
                 })
                 if(userlist.data.length === 1){
                     alert('已经存在该用户')
-                }else{
+                }else if(ranText.toLowerCase()!==Hbtn.value.toLowerCase()){
+                    alert('验证码不一致');
+                } else{
                     let {
                     data
                     } = await post("http://127.0.0.1:1902/hrl/login", {
@@ -39,7 +46,8 @@ class Reg extends Component{
                         password:values.psw,
                         phoneNum:values.phone,
                         date:time,
-                        coin:100
+                        coin:100,
+                        loginTime:time
                     });
                     this.goto('/home',values.nickname);
                     location.reload();
@@ -85,10 +93,25 @@ class Reg extends Component{
          callback();
      };
      //验证码
-     onRanNum(){
-         
+     onRanNum(textNum) {
+         var html = '0987654321zxcvbnmkjhgfdsaqwertyuioplZXCVBNMLKJHGFDSAQWERTYUIOP';
+         var num = ''; //存四位数的
+         for (var i = 0; i < textNum; i++) {
+             //随机数范围：0-html.length-1
+             var now = parseInt(Math.random() * html.length); //0-html.length-1
+             num += html[now];
+         }
+
+         return num; //返回
+     }
+     getRanNum=(textNum)=>{
+        let ok = this.onRanNum(textNum);
+        this.setState({
+            ranText:ok,
+        })
      }
      render(){
+         let {ranText} = this.state;
          const { getFieldDecorator } = this.props.form;
           const formItemLayout = {
             labelCol: {
@@ -115,26 +138,18 @@ class Reg extends Component{
                                 <Col span={12}>
                                 {getFieldDecorator('rannum', {
                                     rules: [{ required: true, message: '请输入验证码!' }],
-                                })(<Input placeholder="随机验证码"/>)}
+                                })(<Input className="Hbtn" placeholder="随机验证码"/>)}
                                 </Col>
                                 <Col span={12}>
-                                <Button className="rancode">获取验证码</Button>
+                                <Button onClick={this.getRanNum.bind(this,4)} className="rancode">
+                                    {
+                                        ranText?ranText:'获取验证码'
+                                    }
+                                </Button>
                                 </Col>
                             </Row>
                         </Form.Item>
-                        {/* 短信验证码 */}
-                        <Form.Item>
-                            <Row gutter={8}>
-                                <Col span={12}>
-                                {getFieldDecorator('captcha', {
-                                    rules: [{ required: true, message: '请输入短信验证码!' }],
-                                })(<Input placeholder="短信验证码"/>)}
-                                </Col>
-                                <Col span={12}>
-                                <Button className='ranphoneNum'>获取短信验证码</Button>
-                                </Col>
-                            </Row>
-                        </Form.Item>
+
                         {/* 用户名 */}
                         <Form.Item>
                             {getFieldDecorator('nickname', {
