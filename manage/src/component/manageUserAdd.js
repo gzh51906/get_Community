@@ -34,7 +34,7 @@ class ManageUserAdd extends React.Component{
 		}else if(this.state.data.remove === ""){
 			message.warning("请设置删除权限");
 		}else{
-			await this.props.post("http://127.0.0.1:1902/crx/manageUser_Add",{data:this.state.data});
+			await this.props.post("http://49.232.25.17:1902/crx/manageUser_Add",{data:this.state.data});
 			this.props.history.replace("/manageuser");
 		}
 	}
@@ -42,7 +42,7 @@ class ManageUserAdd extends React.Component{
 		let {get} = this.props;
 		let authorName = localStorage.getItem("author");
 		if (authorName){
-		    let result = await get("http://127.0.0.1:1902/crx/userMore",{username:authorName});
+		    let result = await get("http://49.232.25.17:1902/crx/userMore",{username:authorName});
 		    let {manage,insert,update,remove} = result.data[0];
 		    this.props.changeType({type:"changeType",author:authorName,manage,insert,update,remove});
 		}else{

@@ -21,14 +21,14 @@ class ZiXunMore extends React.Component{
         let {get} = this.props;
         let authorName = localStorage.getItem("author");
         if (authorName){
-            let result = await get("http://127.0.0.1:1902/crx/userMore",{username:authorName});
+            let result = await get("http://49.232.25.17:1902/crx/userMore",{username:authorName});
             let {manage,insert,update,remove} = result.data[0];
             this.props.changeType({type:"changeType",author:authorName,manage,insert,update,remove});
         }else{
             localStorage.removeItem("listTitle");
             this.props.removeUser();
         }
-        let {data} = await get("http://127.0.0.1:1902/crx/getZiXunMore");
+        let {data} = await get("http://49.232.25.17:1902/crx/getZiXunMore");
         data = data.map(item=>{
             item.key = item._id;
             return item;
@@ -42,7 +42,7 @@ class ZiXunMore extends React.Component{
             let data = this.state.data.filter(item=>item._id!==id);
             this.setState({data});
             message.success("删除成功");
-            await this.props.delete("http://127.0.0.1:1902/crx/removeZiXun",{id})
+            await this.props.delete("http://49.232.25.17:1902/crx/removeZiXun",{id})
         }else{
             message.warning("权限不足");
         }
@@ -52,13 +52,13 @@ class ZiXunMore extends React.Component{
             let data = this.state.data.filter(item => !this.state.select.includes(item._id));
             this.setState({data});
             message.success("删除成功");
-            await this.props.delete("http://127.0.0.1:1902/crx/removeZiXun",{id:this.state.select});
+            await this.props.delete("http://49.232.25.17:1902/crx/removeZiXun",{id:this.state.select});
         }else{
             message.warning("权限不足");
         }
     }
     async searchData(checkName){
-        let {data} = await this.props.get("http://127.0.0.1:1902/crx/getZiXunMore",{checkName});
+        let {data} = await this.props.get("http://49.232.25.17:1902/crx/getZiXunMore",{checkName});
         data = data.map(item => {
             item.key = item._id;
             return item;
@@ -89,7 +89,7 @@ class ZiXunMore extends React.Component{
             {
                 title: '图片',
                 dataIndex: 'imgUrl',
-                render: text => <img style={{width:"50px",height:"40px"}} src={"http://127.0.0.1:1902/" + text[0]}></img>,
+                render: text => <img style={{width:"50px",height:"40px"}} src={"http://49.232.25.17:1902/" + text[0]}></img>,
             },{
                 title:"标题",
                 dataIndex:"title1",

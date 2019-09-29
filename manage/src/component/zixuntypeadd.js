@@ -12,7 +12,7 @@ class ZiXunTypeAdd extends React.Component{
     async requestOK(){
         let val = this.refs.typeContent.state.value;
         if(val){
-            await this.props.post("http://127.0.0.1:1902/crx/ziXunTypeAdd",{value:val});
+            await this.props.post("http://49.232.25.17:1902/crx/ziXunTypeAdd",{value:val});
             message.success("添加成功");
             this.props.history.push("/zixuntype");
         }else{
@@ -23,7 +23,7 @@ class ZiXunTypeAdd extends React.Component{
         let {get} = this.props;
         let authorName = localStorage.getItem("author");
         if (authorName){
-            let result = await get("http://127.0.0.1:1902/crx/userMore",{username:authorName});
+            let result = await get("http://49.232.25.17:1902/crx/userMore",{username:authorName});
             let {manage,insert,update,remove} = result.data[0];
             this.props.changeType({type:"changeType",author:authorName,manage,insert,update,remove});
         }else{

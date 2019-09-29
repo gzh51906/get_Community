@@ -74,7 +74,7 @@ class Personer extends Component{
         let time = Date.now();
         let {get,formatDate} = this.props;
         let sginDate = formatDate(time, '-');
-        let {data} = await get('http://127.0.0.1:1902/hrl/sgin',{
+        let {data} = await get('http://49.232.25.17:1902/hrl/sgin',{
             usename:usename,
         })
         if(data.length===0){
@@ -102,7 +102,7 @@ class Personer extends Component{
         let {num,day,sginText} = this.state;
         if(day !== sginDate.slice(8,10)){
             num = num + 5;
-            let {data} = await patch('http://127.0.0.1:1902/hrl/sgin',{
+            let {data} = await patch('http://49.232.25.17:1902/hrl/sgin',{
                     usename: usename,
                     sginTime: time,
                     coin:num

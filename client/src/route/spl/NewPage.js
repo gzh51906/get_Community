@@ -17,7 +17,7 @@ class NewPage extends Component{
        
       let {data}= await axios({
           methods:"get",
-          url:"http://127.0.0.1:1902/spl/newpage",
+          url:"http://49.232.25.17:1902/spl/newpage",
           params:{_id:_id}
       })
       this.setState({
@@ -58,7 +58,7 @@ class NewPage extends Component{
                            
                         }
                          
-                        return <img src={"http://127.0.0.1:1902/"+imgUrl[idx]} key={index} style={{width:"100%",height:"100%",marginBottom:"0.4rem"}}/> 
+                        return <img src={"http://49.232.25.17:1902/"+imgUrl[idx]} key={index} style={{width:"100%",height:"100%",marginBottom:"0.4rem"}}/> 
                        }
                        
                        

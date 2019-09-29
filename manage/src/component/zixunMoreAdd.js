@@ -34,7 +34,7 @@ class ZiXunMoreAdd extends React.Component{
             let data = this.state.data;
             data.addTime = Date.now();
             this.setState({data});
-            await this.props.post("http://127.0.0.1:1902/crx/zixunadd2",{data:this.state.data});
+            await this.props.post("http://49.232.25.17:1902/crx/zixunadd2",{data:this.state.data});
             this.props.history.replace("/zixunmore");
         }else{
             message.warning("标题不能为空");
@@ -68,14 +68,14 @@ class ZiXunMoreAdd extends React.Component{
         let {get} = this.props;
         let authorName = localStorage.getItem("author");
         if (authorName){
-            let result = await get("http://127.0.0.1:1902/crx/userMore",{username:authorName});
+            let result = await get("http://49.232.25.17:1902/crx/userMore",{username:authorName});
             let {manage,insert,update,remove} = result.data[0];
             this.props.changeType({type:"changeType",author:authorName,manage,insert,update,remove});
         }else{
             localStorage.removeItem("listTitle");
             this.props.removeUser();
         }
-        let result2 = await get("http://127.0.0.1:1902/crx/ziXunType");
+        let result2 = await get("http://49.232.25.17:1902/crx/ziXunType");
         let type = result2.data;
         this.setState({type});
     }
@@ -134,7 +134,7 @@ class ZiXunMoreAdd extends React.Component{
                 <label style={{verticalAlign:"top",width:"100px",display:"inline-block",paddingRight:"10px",textAlign:"right"}}>描述图片：</label>
                 <div style={{overflow:"hidden",display:"inline-block",width:"500px"}}>
                     <Upload
-                    action="http://127.0.0.1:1902/crx/zixunadd"
+                    action="http://49.232.25.17:1902/crx/zixunadd"
                     listType="picture-card"
                     name="desc_picture"
                     fileList={fileList}

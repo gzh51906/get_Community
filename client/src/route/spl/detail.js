@@ -47,13 +47,13 @@ class Detail extends Component{
         let {_id} = this.props.match.params
         let {data} = await axios({
             method:"get",
-            url:"http://127.0.0.1:1902/spl/goodmsg",
+            url:"http://49.232.25.17:1902/spl/goodmsg",
             params:{_id:_id}
         })
         let username=localStorage.getItem("username")
             let result=await axios({
                 method:"get",
-                url:"http://127.0.0.1:1902/spl/cartlength",
+                url:"http://49.232.25.17:1902/spl/cartlength",
                 params:{username}
             })
         this.setState({
@@ -140,14 +140,14 @@ class Detail extends Component{
         if(typeof(this.state.newPrice)=="number"){
             let {data}=await axios({
                 method:"get",
-                url:"http://127.0.0.1:1902/spl/cart",
+                url:"http://49.232.25.17:1902/spl/cart",
                 params:this.state.buymsg
             })
             //获取购物车长度
             let username=localStorage.getItem("username")
             let result=await axios({
                 method:"get",
-                url:"http://127.0.0.1:1902/spl/cartlength",
+                url:"http://49.232.25.17:1902/spl/cartlength",
                 params:{username}
             })
             this.setState({
@@ -211,7 +211,7 @@ class Detail extends Component{
                        {
                            picture.map(item=>{
                              return  <div key={{item}}>
-                                   <img src={"http://127.0.0.1:1902/"+item} style={{width:"100%"}}/>
+                                   <img src={"http://49.232.25.17:1902/"+item} style={{width:"100%"}}/>
                                </div>
                            })
                        }
@@ -247,7 +247,7 @@ class Detail extends Component{
                             }
                             else{
                                 idx++   
-                                return <img src={"http://127.0.0.1:1902/"+imgUrl[idx]} style={{width:"100%",marginTop:"0.3rem"}} key={index} />
+                                return <img src={"http://49.232.25.17:1902/"+imgUrl[idx]} style={{width:"100%",marginTop:"0.3rem"}} key={index} />
                             }
                         })
                     }
@@ -261,7 +261,7 @@ class Detail extends Component{
                         closable="ture"
                         style={{paddingTop:"0.6rem"}}
                         >
-                            <img src={"http://127.0.0.1:1902/"+picture[0]} style={{width:"1.56rem",height:"1.56rem",position:"absolute",left:"0.4rem",top:"-0.6rem",border:"0.02rem solid #ccc"}} className="goodpic"/>
+                            <img src={"http://49.232.25.17:1902/"+picture[0]} style={{width:"1.56rem",height:"1.56rem",position:"absolute",left:"0.4rem",top:"-0.6rem",border:"0.02rem solid #ccc"}} className="goodpic"/>
                         <span style={{color:"#00AAEA",position:"absolute",left:"0.4rem",top:"2.2rem",fontSize:"0.4rem"}}><b>￥{newPrice}</b></span>
                         <p style={{padding:"0px 0px 0px 0.4rem",color:"#000",display:"flex",flexDirection:"column"}}><b>颜色</b>
                          <span style={{border:"0.01rem solid #ccc",width:"1.34rem",height:"0.56rem",marginTop:"0.3rem",display:"flex",justifyContent:"center",color:"#fff",alignItems:"center",background:"#00AAEA"}}>{color}</span>

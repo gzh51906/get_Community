@@ -11,7 +11,7 @@ class Login extends React.Component{
     handleSubmit(e) {
         e.preventDefault();
         this.props.form.validateFields(async (err, values) => {
-            let data = await this.props.get("http://127.0.0.1:1902/crx/login",values);
+            let data = await this.props.get("http://49.232.25.17:1902/crx/login",values);
             if(data.code === 1){
                 let {manage,insert,update,remove} = data.data[0];
                 localStorage.setItem("author", values.username);

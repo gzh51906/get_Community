@@ -15,12 +15,12 @@ class ClientUser extends React.Component{
 	async delete(id){
 		if(this.props.remove){
 			let data = this.state.data.filter(item=>item._id===id)[0];
-			let time = Math.floor((Date.now() - data.logTime)/(1000*60*60*24));
+			let time = Math.floor((Date.now() - data.loginTime)/(1000*60*60*24));
 			if(time>300){
 				let data = this.state.data.filter(item=>item._id!==id);
 				this.setState({data});
 				message.success("删除成功");
-				await this.props.delete("http://127.0.0.1:1902/crx/appUser_remove",{_id:id});
+				await this.props.delete("http://49.232.25.17:1902/crx/appUser_remove",{_id:id});
 			}else{
 				message.error("删除失败，用户最近登录时间还未超过300天");
 			}
@@ -32,14 +32,14 @@ class ClientUser extends React.Component{
 		let {get} = this.props;
 		let authorName = localStorage.getItem("author");
 		if (authorName){
-		    let result = await get("http://127.0.0.1:1902/crx/userMore",{username:authorName});
+		    let result = await get("http://49.232.25.17:1902/crx/userMore",{username:authorName});
 		    let {manage,insert,update,remove} = result.data[0];
 		    this.props.changeType({type:"changeType",author:authorName,manage,insert,update,remove});
 		}else{
 		    localStorage.removeItem("listTitle");
 		    this.props.removeUser();
 		}
-		let {data} = await get("http://127.0.0.1:1902/crx/appUser_get");
+		let {data} = await get("http://49.232.25.17:1902/crx/appUser_get");
 		data = data.map(item=>{
 			item.key = item._id;
 			return item

@@ -28,15 +28,15 @@ class Home extends Component{
    async componentDidMount(){
     let {data}= await axios({
         method:"get",
-        url:"http://127.0.0.1:1902/spl/news"
+        url:"http://49.232.25.17:1902/spl/news"
     })
     let result = await axios({
         method:"get",
-        url:"http://127.0.0.1:1902/spl/goods"
+        url:"http://49.232.25.17:1902/spl/goods"
     })
     let type=await axios({
         method:"get",
-        url:"http://127.0.0.1:1902/spl/check"
+        url:"http://49.232.25.17:1902/spl/check"
     })
    
 
@@ -70,7 +70,7 @@ class Home extends Component{
       
             New.map(item=>{
                 listData.push({
-                    Url: "http://127.0.0.1:1902/"+item.imgUrl[0],
+                    Url: "http://49.232.25.17:1902/"+item.imgUrl[0],
                     title: item.title1,
                     content:item.desc[1],
                     seeNum:item.seeNum,

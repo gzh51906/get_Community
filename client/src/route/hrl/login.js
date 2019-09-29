@@ -26,7 +26,7 @@ class Login extends Component{
          let {get,form,post,patch} = this.props;
          form.validateFields(async (err, values) => {
              if (!err) {
-                 let userlist = await get('http://127.0.0.1:1902/hrl/login', {
+                 let userlist = await get('http://49.232.25.17:1902/hrl/login', {
                      usename: values.Username
                  })
                 if(userlist.data.length === 1){
@@ -41,7 +41,7 @@ class Login extends Component{
                 if(this.state.comusename === values.Username && this.state.compsw !== values.password){
                     alert('存在该用户，但是密码不对')
                 }else if(this.state.comusename === values.Username && this.state.compsw === values.password){
-                    let {data} = await patch('http://127.0.0.1:1902/hrl/login',{
+                    let {data} = await patch('http://49.232.25.17:1902/hrl/login',{
                          usename: values.Username,
                          loginTime: time
                     })

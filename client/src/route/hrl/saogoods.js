@@ -53,13 +53,13 @@ class SaoGoods extends Component{
     //在生命周期获取数据进行渲染
     async componentDidMount(){
         let {get} = this.props;
-        let userlist1 = await get('http://127.0.0.1:1902/hrl/saogoods', {
+        let userlist1 = await get('http://49.232.25.17:1902/hrl/saogoods', {
             type:'篮球鞋'
         });
-        let userlist2 = await get('http://127.0.0.1:1902/hrl/saogoods',{
+        let userlist2 = await get('http://49.232.25.17:1902/hrl/saogoods',{
             type:'休闲鞋'
         })
-        let userlist3 = await get('http://127.0.0.1:1902/hrl/saogoods',{
+        let userlist3 = await get('http://49.232.25.17:1902/hrl/saogoods',{
             type:'上衣'
         })
         this.setState({

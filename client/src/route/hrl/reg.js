@@ -31,7 +31,7 @@ class Reg extends Component{
 
              if (!err) {
                 //先进行判断是否已经存在该用户
-                let userlist = await get('http://127.0.0.1:1902/hrl/reg', {
+                let userlist = await get('http://49.232.25.17:1902/hrl/reg', {
                     phoneNum: values.phone
                 })
                 if(userlist.data.length === 1){
@@ -41,7 +41,7 @@ class Reg extends Component{
                 } else{
                     let {
                     data
-                    } = await post("http://127.0.0.1:1902/hrl/login", {
+                    } = await post("http://49.232.25.17:1902/hrl/login", {
                         usename:values.nickname,
                         password:values.psw,
                         phoneNum:values.phone,

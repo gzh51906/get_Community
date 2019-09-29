@@ -19,7 +19,7 @@ class Order extends Component{
       let username=localStorage.getItem("username")
         let {data} = await axios({
             method:"get",
-            url:"http://127.0.0.1:1902/spl/order",
+            url:"http://49.232.25.17:1902/spl/order",
             params:{username}
         })
        data.data.map(e=>{
@@ -43,7 +43,7 @@ class Order extends Component{
             e.target.innerText="待退款"
             let {data}=await axios({
                 method:"post",
-                url:"http://127.0.0.1:1902/spl/changerefund",
+                url:"http://49.232.25.17:1902/spl/changerefund",
                 data:{id:target._id,_id:target.id}
             })
          
@@ -64,7 +64,7 @@ class Order extends Component{
 
                 let {data}=await axios({
                     method:"get",
-                    url:"http://127.0.0.1:1902/spl/pay",
+                    url:"http://49.232.25.17:1902/spl/pay",
                     params:{username}
                     
                 })
@@ -87,7 +87,7 @@ class Order extends Component{
            
         let {data}=await axios({
             method:"get",
-            url:"http://127.0.0.1:1902/spl/refund",
+            url:"http://49.232.25.17:1902/spl/refund",
             params:{username}
         })
         data.data.map((e)=>{
@@ -104,7 +104,7 @@ class Order extends Component{
            
         let {data}=await axios({
             method:"get",
-            url:"http://127.0.0.1:1902/spl/order",
+            url:"http://49.232.25.17:1902/spl/order",
             params:{username}
         })
         data.data.map((e)=>{
@@ -121,7 +121,7 @@ class Order extends Component{
            
             let {data}=await axios({
                 method:"get",
-                url:"http://127.0.0.1:1902/spl/pay",
+                url:"http://49.232.25.17:1902/spl/pay",
                 params:{username}
                 
             })
@@ -168,7 +168,7 @@ class Order extends Component{
                         return <li key={idx} style={{borderTop:"0.02rem solid #ccc",paddingTop:"0.2rem",display:"flex",justifyContent:"center",alignItems:"center",width:"100%"}} >
                           
                          
-                            <img src={"http://127.0.0.1:1902/"+target.picture} style={{width:"1.36rem",height:"1.36rem",marginLeft:"0.2rem",marginRight:"0.2rem"}}/>
+                            <img src={"http://49.232.25.17:1902/"+target.picture} style={{width:"1.36rem",height:"1.36rem",marginLeft:"0.2rem",marginRight:"0.2rem"}}/>
                             <div>
                             <h6 style={{width: "4.6rem",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis",margin:0}}>{target.name}</h6>
                             <p style={{color:"rgb(145, 139, 139)",margin:0}}>

@@ -20,10 +20,10 @@ class OrderMore extends React.Component{
 		let data = this.state.data;
 		data = data.filter(item=>!(item.allgoods.parentId===parentId && item.allgoods._id===childId));
 		this.setState({data});
-		let response = await this.props.delete("http://127.0.0.1:1902/crx/order_remove",{parentId,childId});
+		let response = await this.props.delete("http://49.232.25.17:1902/crx/order_remove",{parentId,childId});
 	}
 	async search(val){
-		let result = await this.props.get("http://127.0.0.1:1902/crx/order_get",{username:val});
+		let result = await this.props.get("http://49.232.25.17:1902/crx/order_get",{username:val});
 		let data = getData(result);
 		this.setState({data});
 	}
@@ -31,14 +31,14 @@ class OrderMore extends React.Component{
 		let {get} = this.props;
 		let authorName = localStorage.getItem("author");
 		if (authorName){
-		    let result = await get("http://127.0.0.1:1902/crx/userMore",{username:authorName});
+		    let result = await get("http://49.232.25.17:1902/crx/userMore",{username:authorName});
 		    let {manage,insert,update,remove} = result.data[0];
 		    this.props.changeType({type:"changeType",author:authorName,manage,insert,update,remove});
 		}else{
 		    localStorage.removeItem("listTitle");
 		    this.props.removeUser();
 		}
-		let result = await get("http://127.0.0.1:1902/crx/order_get");
+		let result = await get("http://49.232.25.17:1902/crx/order_get");
 		let data = getData(result);
 		this.setState({data});
 	}
@@ -51,7 +51,7 @@ class OrderMore extends React.Component{
 			title: '商品图片',
 			align:"center",
 			dataIndex: 'allgoods.picture',
-			render:img=><img style={{width:"40px",height:"30px"}} src={"http://127.0.0.1:1902/"+img} />
+			render:img=><img style={{width:"40px",height:"30px"}} src={"http://49.232.25.17:1902/"+img} />
 		},{
 			title: '商品标题',
 			dataIndex: 'allgoods.name',

@@ -15,7 +15,7 @@ class Evaluating extends Component{
     //方法
     async componentDidMount(){
         let {get} = this.props;
-        let {data} = await get('http://127.0.0.1:1902/hrl/evaluating')
+        let {data} = await get('http://49.232.25.17:1902/hrl/evaluating')
         this.setState({
             pingcelist:data.slice(4,16)
         })
@@ -30,7 +30,7 @@ class Evaluating extends Component{
 
     async hottype(){
         let {get} = this.props;
-        let {data} = await get('http://127.0.0.1:1902/hrl/evaluating')
+        let {data} = await get('http://49.232.25.17:1902/hrl/evaluating')
         this.setState({
             pingcelist:data.slice(16,33),
             isColor:false

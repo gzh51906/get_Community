@@ -16,14 +16,14 @@ class ManageUser extends React.Component{
 	async remove(id){
 		if(this.props.manage){
 			let author = localStorage.getItem("author");
-			let {data} = await this.props.get("http://127.0.0.1:1902/crx/manageUser_byId",{_id:id});
+			let {data} = await this.props.get("http://49.232.25.17:1902/crx/manageUser_byId",{_id:id});
 			if(author === data[0].username){
 				message.error("删除失败");
 			}else{
 				let data = this.state.data;
 				data = data.filter(item=>item._id!==id);
 				this.setState({data});
-				await this.props.delete("http://127.0.0.1:1902/crx/manageUser_Remove",{_id:id});
+				await this.props.delete("http://49.232.25.17:1902/crx/manageUser_Remove",{_id:id});
 				message.success("删除成功");
 			}
 			
@@ -54,14 +54,14 @@ class ManageUser extends React.Component{
 		let {get} = this.props;
 		let authorName = localStorage.getItem("author");
 		if (authorName){
-		    let result = await get("http://127.0.0.1:1902/crx/userMore",{username:authorName});
+		    let result = await get("http://49.232.25.17:1902/crx/userMore",{username:authorName});
 		    let {manage,insert,update,remove} = result.data[0];
 		    this.props.changeType({type:"changeType",author:authorName,manage,insert,update,remove});
 		}else{
 		    localStorage.removeItem("listTitle");
 		    this.props.removeUser();
 		}
-		let {data} = await get("http://127.0.0.1:1902/crx/manageUser_get");
+		let {data} = await get("http://49.232.25.17:1902/crx/manageUser_get");
 		data = data.map(item=>{
 			item.key = item._id;
 			return item;

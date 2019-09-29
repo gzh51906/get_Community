@@ -137,7 +137,7 @@ class GoodsAdd extends React.Component{
 			}else if(this.state.data.picture.length === 0){
 				message.warning("请上传商品图片");
 			}else{
-				await this.props.post("http://127.0.0.1:1902/crx/goodsadd2",{data:this.state.data});
+				await this.props.post("http://49.232.25.17:1902/crx/goodsadd2",{data:this.state.data});
 				this.props.history.replace("/goodsmore");
 			}
 		}else{
@@ -195,14 +195,14 @@ class GoodsAdd extends React.Component{
         let {get} = this.props;
         let authorName = localStorage.getItem("author");
         if (authorName){
-            let result = await get("http://127.0.0.1:1902/crx/userMore",{username:authorName});
+            let result = await get("http://49.232.25.17:1902/crx/userMore",{username:authorName});
             let {manage,insert,update,remove} = result.data[0];
             this.props.changeType({type:"changeType",author:authorName,manage,insert,update,remove});
         }else{
             localStorage.removeItem("listTitle");
             this.props.removeUser();
         }
-        let {data} = await get("http://127.0.0.1:1902/crx/getGoodsType");
+        let {data} = await get("http://49.232.25.17:1902/crx/getGoodsType");
         data = data.map(item=>item.type);
         this.setState({types:data});
     }
@@ -363,7 +363,7 @@ class GoodsAdd extends React.Component{
 			    <label style={{verticalAlign:"top",width:"100px",display:"inline-block",paddingRight:"10px",textAlign:"right"}}>商品图片：</label>
 			    <div style={{overflow:"hidden",display:"inline-block",width:"600px"}}>
 			        <Upload
-			        action="http://127.0.0.1:1902/crx/goodsadd"
+			        action="http://49.232.25.17:1902/crx/goodsadd"
 			        listType="picture-card"
 			        name="goods_picture"
 			        fileList={fileList}
@@ -382,7 +382,7 @@ class GoodsAdd extends React.Component{
 			    <label style={{verticalAlign:"top",width:"100px",display:"inline-block",paddingRight:"10px",textAlign:"right"}}>详情图片：</label>
 			    <div style={{overflow:"hidden",display:"inline-block",width:"600px"}}>
 			        <Upload
-			        action="http://127.0.0.1:1902/crx/goodsadd"
+			        action="http://49.232.25.17:1902/crx/goodsadd"
 			        listType="picture-card"
 			        name="goods_picture"
 			        fileList={fileList2}

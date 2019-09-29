@@ -14,8 +14,8 @@ class GoodsType extends React.Component{
         this.addType = this.addType.bind(this);
     }
     async addType(value){
-        await this.props.post("http://127.0.0.1:1902/crx/addGoodsType",{type:value,date:Date.now()});
-        let {data} = await this.props.get("http://127.0.0.1:1902/crx/getGoodsType");
+        await this.props.post("http://49.232.25.17:1902/crx/addGoodsType",{type:value,date:Date.now()});
+        let {data} = await this.props.get("http://49.232.25.17:1902/crx/getGoodsType");
         data = data.map(item => {
             item.key = item._id;
             return item;
@@ -26,14 +26,14 @@ class GoodsType extends React.Component{
         let {get} = this.props;
         let authorName = localStorage.getItem("author");
         if (authorName){
-            let result = await get("http://127.0.0.1:1902/crx/userMore",{username:authorName});
+            let result = await get("http://49.232.25.17:1902/crx/userMore",{username:authorName});
             let {manage,insert,update,remove} = result.data[0];
             this.props.changeType({type:"changeType",author:authorName,manage,insert,update,remove});
         }else{
             localStorage.removeItem("listTitle");
             this.props.removeUser();
         }
-        let {data} = await get("http://127.0.0.1:1902/crx/getGoodsType");
+        let {data} = await get("http://49.232.25.17:1902/crx/getGoodsType");
         data = data.map(item => {
             item.key = item._id;
             return item;

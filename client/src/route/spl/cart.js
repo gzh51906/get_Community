@@ -30,7 +30,7 @@ class Cart extends Component{
         let username=localStorage.getItem("username")
         let {data} = await axios({
             method:"get",
-            url:"http://127.0.0.1:1902/spl/cartlength",
+            url:"http://49.232.25.17:1902/spl/cartlength",
             params:{username}
         })
       
@@ -127,12 +127,12 @@ class Cart extends Component{
              
              let {data} = await axios({
                  method:"post",
-                 url:"http://127.0.0.1:1902/spl/insertgoods",
+                 url:"http://49.232.25.17:1902/spl/insertgoods",
                  data:{allgoods:allgoods}
              })
              let result = await axios({
                  method:"post",
-                 url:"http://127.0.0.1:1902/spl/total",
+                 url:"http://49.232.25.17:1902/spl/total",
                  data:{allgoods:allgoods}
              })
              
@@ -152,7 +152,7 @@ class Cart extends Component{
        
         let {data} = await axios({
             method:"get",
-            url:"http://127.0.0.1:1902/spl/remove",
+            url:"http://49.232.25.17:1902/spl/remove",
             params:{id}
         })
       this.setState({
@@ -179,7 +179,7 @@ class Cart extends Component{
                         return <li key={index} style={{borderTop:"0.02rem solid #ccc",paddingLeft:"0.3rem",marginBottom:"0.2rem",display:"flex",justifyContent:"center",alignItems:"center",width:"100%",height:"2rem"}} >
                           <input type="checkbox" style={{width:"0.5rem",height:"0.5rem"}} onClick={this.checkOne.bind(this,item)}/>
                          
-                            <img src={"http://127.0.0.1:1902/"+item.picture} style={{width:"1.36rem",height:"1.36rem",marginLeft:"0.2rem",marginRight:"0.2rem"}}/>
+                            <img src={"http://49.232.25.17:1902/"+item.picture} style={{width:"1.36rem",height:"1.36rem",marginLeft:"0.2rem",marginRight:"0.2rem"}}/>
                             <div  style={{display:"flex",flexDirection:"column",justifyContent:"center"}}>
                             <h6 style={{width: "4.6rem",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis",margin:0}}>{item.name}</h6>
                             <p style={{color:"rgb(145, 139, 139)",}}>

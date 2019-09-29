@@ -103,7 +103,7 @@ class App extends React.Component{
                         <Icon onClick={this.showDrawer} type="menu" style={{fontSize:'24px',marginLeft:'20px'}}></Icon>
                         </Col>
                         <Col style={{textAlign:'center'}} span={8}>
-                        <img src="./route/hrl/img/logo.png" width="50px" style={{marginBottom:'10px'}}/>
+                        <img src="http://49.232.25.17:1902/img/logo.png" width="50px" style={{marginBottom:'10px'}}/>
                         </Col>
                         <Col span={8}>
                         {   

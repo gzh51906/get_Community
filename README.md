@@ -44,9 +44,18 @@
             > 晒图区
 
 ### 项目页面截图
-![avatar](http://49.232.25.17:1901/img/zhuye1.png)![avatar](http://49.232.25.17:1901/img/liebiaoye1.png)
-![avatar](http://49.232.25.17:1901/img/liebiaoye2.png)![avatar](http://49.232.25.17:1901/img/gouwuche1.png)
-![avatar](http://49.232.25.17:1901/img/gouwuche2.png)![avatar](http://49.232.25.17:1901/img/gouwuche4.png)
+![avatar](http://49.232.25.17:1902/testImg/test1.png)
+
+![avatar](http://49.232.25.17:1902/testImg/test2.png)
+
+![avatar](http://49.232.25.17:1902/testImg/test3.png)
+
+![avatar](http://49.232.25.17:1902/testImg/test4.png)
+
+![avatar](http://49.232.25.17:1902/testImg/test5.png)
+
+![avatar](http://49.232.25.17:1902/testImg/test6.png)
+
 
 ### 项目目录说明
 ```

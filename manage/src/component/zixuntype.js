@@ -16,14 +16,14 @@ class ZiXunType extends React.Component{
         let {get} = this.props;
         let authorName = localStorage.getItem("author");
         if (authorName){
-            let result = await get("http://127.0.0.1:1902/crx/userMore",{username:authorName});
+            let result = await get("http://49.232.25.17:1902/crx/userMore",{username:authorName});
             let {manage,insert,update,remove} = result.data[0];
             this.props.changeType({type:"changeType",author:authorName,manage,insert,update,remove});
         }else{
             localStorage.removeItem("listTitle");
             this.props.removeUser();
         }
-        let {data} = await get("http://127.0.0.1:1902/crx/ziXunType");
+        let {data} = await get("http://49.232.25.17:1902/crx/ziXunType");
         data = data.map(item => {
             item.key = item._id;
             return item;

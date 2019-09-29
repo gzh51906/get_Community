@@ -16,14 +16,14 @@ class GoodsEdit extends React.Component{
     async didOK(){
         let _id = this.props.location.search.slice(1).split("=")[1];
         let data = this.state.data;
-        await this.props.post("http://127.0.0.1:1902/crx/goodsUpdate",{_id,data});
+        await this.props.post("http://49.232.25.17:1902/crx/goodsUpdate",{_id,data});
         this.props.history.replace("/goodsmore");
     }
     async componentDidMount(){
         let {get} = this.props;
         let authorName = localStorage.getItem("author");
         if (authorName){
-            let result = await get("http://127.0.0.1:1902/crx/userMore",{username:authorName});
+            let result = await get("http://49.232.25.17:1902/crx/userMore",{username:authorName});
             let {manage,insert,update,remove} = result.data[0];
             this.props.changeType({type:"changeType",author:authorName,manage,insert,update,remove});
         }else{
@@ -31,12 +31,12 @@ class GoodsEdit extends React.Component{
             this.props.removeUser();
         }
         let _id = this.props.location.search.slice(1).split("=")[1];
-        let {data} = await get("http://127.0.0.1:1902/crx/goodsIdGet",{_id});
+        let {data} = await get("http://49.232.25.17:1902/crx/goodsIdGet",{_id});
         let result = data[0];
         delete result._id;
         this.setState({data:result});
         // 获取商品类型
-        let type_result = await get("http://127.0.0.1:1902/crx/getGoodsType");
+        let type_result = await get("http://49.232.25.17:1902/crx/getGoodsType");
         let type = type_result.data.map(item=>item.type);
         this.setState({type});
     }

@@ -14,14 +14,14 @@ class ManageUserEdit extends React.Component{
 		this.update = this.update.bind(this);
 	}
 	async update(){
-		await this.props.patch("http://127.0.0.1:1902/crx/manageUser_update",this.state);
+		await this.props.patch("http://49.232.25.17:1902/crx/manageUser_update",this.state);
 		this.props.history.replace("/manageuser");
 	}
 	async componentDidMount(){
 		let {get} = this.props;
 		let authorName = localStorage.getItem("author");
 		if (authorName){
-		    let result = await get("http://127.0.0.1:1902/crx/userMore",{username:authorName});
+		    let result = await get("http://49.232.25.17:1902/crx/userMore",{username:authorName});
 		    let {manage,insert,update,remove} = result.data[0];
 		    this.props.changeType({type:"changeType",author:authorName,manage,insert,update,remove});
 		}else{
@@ -30,7 +30,7 @@ class ManageUserEdit extends React.Component{
 		}
 		let id = this.props.location.search.slice(1).split("=")[1];
 		this.setState({_id:id});
-		let {data} = await get("http://127.0.0.1:1902/crx/manageUser_byId",{_id:id});
+		let {data} = await get("http://49.232.25.17:1902/crx/manageUser_byId",{_id:id});
 		data = data[0];
 		delete data._id;
 		this.setState({data});

@@ -16,11 +16,11 @@ class New extends Component{
    async componentDidMount(){
     let result = await axios({
         method:"get",
-        url:"http://127.0.0.1:1902/spl/allnew"
+        url:"http://49.232.25.17:1902/spl/allnew"
     })
     let {data} = await axios({
         method:"get",
-        url:"http://127.0.0.1:1902/spl/new"
+        url:"http://49.232.25.17:1902/spl/new"
     })
   
     
@@ -43,7 +43,7 @@ class New extends Component{
     if(type=="全部"){
         let {data} = await axios({
             method:"get",
-            url:"http://127.0.0.1:1902/spl/new"
+            url:"http://49.232.25.17:1902/spl/new"
         })
         this.setState({
             allnew:data.data
@@ -51,7 +51,7 @@ class New extends Component{
     }else{
         let {data} = await axios({
             method:"get",
-            url:"http://127.0.0.1:1902/spl/type",
+            url:"http://49.232.25.17:1902/spl/type",
             params:{type}
         })
         this.setState({
@@ -72,7 +72,7 @@ class New extends Component{
           );
         allnew.map(item=>{
             listData.push({
-                Url: "http://127.0.0.1:1902/"+item.imgUrl[0],
+                Url: "http://49.232.25.17:1902/"+item.imgUrl[0],
                 title: item.title1,
                 content:item.desc[1],
                 seeNum:item.seeNum,
